@@ -17,7 +17,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-white/70 text-sm leading-relaxed mb-6 font-light">
-              Executive Institute of Public Speaking. Transforming professionals into influential communicators through world-class training and mentorship.
+              AkanDavid Executive Institute of Public Speaking. Transforming professionals into influential communicators through world-class training and mentorship.
             </p>
             <div className="flex gap-4">
               <a

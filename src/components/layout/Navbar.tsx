@@ -20,7 +20,6 @@ export default function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.pageYOffset;
-      
       setScrolled(currentScroll > 50);
       
       if (window.innerWidth <= 768) {
@@ -30,7 +29,6 @@ export default function Navbar() {
           setHideNav(false);
         }
       }
-      
       setLastScroll(currentScroll);
     };
 
@@ -38,42 +36,61 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScroll]);
 
-  if (!mounted) {
-    return null;
-  }
+  if (!mounted) return null;
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-500 ${
-        hideNav ? '-translate-y-full' : 'translate-y-0'
-      }`}
-    >
-      {/* Premium Liquid Glass Navbar - Same height as logo */}
-      <div className={`relative overflow-hidden py-3`}>
-        {/* Main glass background with blur */}
-        <div className="absolute inset-0 backdrop-blur-2xl"></div>
+    <nav className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-500 ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
+      {/* TRUE Premium Liquid Glass Navbar - Standard height */}
+      <div className="relative overflow-hidden h-[72px]">
+        {/* Base glass with blur and saturation */}
+        <div 
+          className="absolute inset-0 backdrop-blur-lg"
+          style={{
+            backgroundColor: 'color-mix(in srgb, #bbbbbc 12%, transparent)',
+            backdropFilter: 'blur(8px) saturate(150%)',
+            WebkitBackdropFilter: 'blur(8px) saturate(150%)',
+          }}
+        ></div>
         
-        {/* Frosted glass base */}
-        <div className="absolute inset-0 bg-white/20 dark:bg-[#0A1236]/40"></div>
+        {/* Complex glass shadows and highlights - NO WHITE EDGE */}
+        <div 
+          className="absolute inset-0 dark:hidden"
+          style={{
+            boxShadow: `
+              inset 1.8px 3px 0px -2px color-mix(in srgb, white 90%, transparent),
+              inset -2px -2px 0px -2px color-mix(in srgb, white 60%, transparent),
+              inset -0.3px -1px 4px 0px color-mix(in srgb, black 8%, transparent),
+              inset -1.5px 2.5px 0px -2px color-mix(in srgb, black 15%, transparent),
+              inset 0px 3px 4px -2px color-mix(in srgb, black 15%, transparent),
+              0px 1px 5px 0px color-mix(in srgb, black 10%, transparent),
+              0px 6px 16px 0px color-mix(in srgb, black 8%, transparent)
+            `,
+          }}
+        ></div>
         
-        {/* Premium glass layers */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/30 via-white/15 to-white/30 dark:from-white/10 dark:via-transparent dark:to-white/10"></div>
+        {/* Dark mode glass shadows - NO BORDER */}
+        <div 
+          className="hidden dark:block absolute inset-0"
+          style={{
+            backgroundColor: 'color-mix(in srgb, #bbbbbc 12%, transparent)',
+            boxShadow: `
+              inset 1.8px 3px 0px -2px color-mix(in srgb, white 27%, transparent),
+              inset -2px -2px 0px -2px color-mix(in srgb, white 24%, transparent),
+              inset -3px -8px 1px -6px color-mix(in srgb, white 18%, transparent),
+              inset -0.3px -1px 4px 0px color-mix(in srgb, black 24%, transparent),
+              inset -1.5px 2.5px 0px -2px color-mix(in srgb, black 40%, transparent),
+              inset 0px 3px 4px -2px color-mix(in srgb, black 40%, transparent),
+              inset 2px -6.5px 1px -4px color-mix(in srgb, black 20%, transparent),
+              0px 1px 5px 0px color-mix(in srgb, black 20%, transparent),
+              0px 6px 16px 0px color-mix(in srgb, black 16%, transparent)
+            `,
+          }}
+        ></div>
         
-        {/* Glass shine effect */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/25 via-transparent to-transparent opacity-60"></div>
-        
-        {/* Top glass highlight */}
-        <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/80 to-transparent"></div>
-        
-        {/* Inner glow */}
-        <div className="absolute inset-0 shadow-[inset_0_1px_2px_rgba(255,255,255,0.5),inset_0_-1px_2px_rgba(0,0,0,0.05)] dark:shadow-[inset_0_1px_2px_rgba(255,255,255,0.2)]"></div>
-        
-        {/* Bottom glass edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent dark:via-white/20"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
-          {/* Logo - Big, matches navbar height */}
-          <div className="relative h-30 w-70">
+        {/* Content Container */}
+        <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
+          {/* Logo - Slightly smaller than navbar for spacing */}
+          <div className="relative h-[60px] w-60">
             <Image
               src="/images/logo.png"
               alt="ADEIPS Logo"
@@ -86,42 +103,27 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-10">
             <li>
-              <a
-                href="#home"
-                className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full"
-              >
+              <a href="#home" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
                 Home
               </a>
             </li>
             <li>
-              <a
-                href="#courses"
-                className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full"
-              >
+              <a href="#courses" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
                 Courses
               </a>
             </li>
             <li>
-              <a
-                href="#facilitators"
-                className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full"
-              >
+              <a href="#facilitators" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
                 Facilitators
               </a>
             </li>
             <li>
-              <a
-                href="#gallery"
-                className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full"
-              >
+              <a href="#gallery" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
                 Gallery
               </a>
             </li>
             <li>
-              <a
-                href="#blog"
-                className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full"
-              >
+              <a href="#blog" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
                 Blog
               </a>
             </li>
@@ -158,58 +160,26 @@ export default function Navbar() {
               className="md:hidden flex flex-col gap-1 p-2"
               aria-label="Menu"
             >
-              <span
-                className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${
-                  isOpen ? 'rotate-45 translate-y-1.5' : ''
-                }`}
-              />
-              <span
-                className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${
-                  isOpen ? 'opacity-0' : ''
-                }`}
-              />
-              <span
-                className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${
-                  isOpen ? '-rotate-45 -translate-y-1.5' : ''
-                }`}
-              />
+              <span className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
+              <span className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
+              <span className={`w-5 h-0.5 bg-gray-800 dark:bg-white transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
             </button>
           </div>
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div className="relative z-10 md:hidden">
-            <ul className="flex flex-col gap-5 mt-6 px-6 pb-6">
-              <li>
-                <a href="#home" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="#courses" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
-                  Courses
-                </a>
-              </li>
-              <li>
-                <a href="#facilitators" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
-                  Facilitators
-                </a>
-              </li>
-              <li>
-                <a href="#gallery" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
-                  Gallery
-                </a>
-              </li>
-              <li>
-                <a href="#blog" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
-                  Blog
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu */}
+      {isOpen && (
+        <div className="relative md:hidden bg-white/90 dark:bg-[#0A1236]/90 backdrop-blur-xl">
+          <ul className="flex flex-col gap-5 px-6 py-6">
+            <li><a href="#home" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Home</a></li>
+            <li><a href="#courses" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Courses</a></li>
+            <li><a href="#facilitators" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Facilitators</a></li>
+            <li><a href="#gallery" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Gallery</a></li>
+            <li><a href="#blog" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Blog</a></li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }

@@ -48,6 +48,13 @@ export default function HeroSection() {
     }
   }, [currentWord, isTyping]);
 
+  const scrollToNext = () => {
+    window.scrollTo({
+      top: window.innerHeight,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <section id="home" className="relative h-screen w-full overflow-hidden">
       {/* Image Slideshow */}
@@ -70,7 +77,7 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Overlay */}
+      {/* Overlay - Increased */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/60 via-[#0A1236]/50 to-[#0A1236]/60" />
 
       {/* Content */}
@@ -81,23 +88,22 @@ export default function HeroSection() {
           </p>
 
           <h1 className="font-outfit text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
-            Master The Art Of Persuasive Communication
+            Redefining Excellence in Public Speaking
           </h1>
 
-          {/* Typing Effect - Cursor follows text */}
+          {/* Typing Effect with standard cursor blink */}
           <div className="font-outfit text-base sm:text-lg md:text-xl lg:text-2xl font-light italic text-white/95 mb-12 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
             ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-blink"></span></span>
           </div>
 
-          {/* CTA Buttons - Liquid Glass */}
+          {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center animate-[fadeInUp_1.2s_ease_1.2s_both]">
-            <a href="#enroll" className="group relative px-10 py-4 rounded-full text-sm font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#E62A2A]/70 via-[#E62A2A]/50 to-[#E62A2A]/70 backdrop-blur-md"></div>
-              <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
-              <div className="absolute inset-[1px] rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-50"></div>
-              <div className="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.4),0_8px_24px_rgba(230,42,42,0.3)] transition-shadow duration-400"></div>
-              <span className="relative z-10">Enroll for Next Cohort</span>
+            {/* Solid Red Button */}
+            <a href="#enroll" className="px-10 py-4 rounded-full text-sm font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30">
+              Enroll for Next Cohort
             </a>
+            
+            {/* Liquid Glass Button */}
             <a href="#courses" className="group relative px-10 py-4 rounded-full text-sm font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden">
               <div className="absolute inset-0 bg-white/10 backdrop-blur-md"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
@@ -108,6 +114,24 @@ export default function HeroSection() {
           </div>
         </div>
       </div>
+
+      {/* Simple thin arrow - line with arrowhead */}
+      <button 
+        onClick={scrollToNext}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 cursor-pointer group animate-[scrollPulse_2s_ease-in-out_infinite]"
+        aria-label="Scroll down"
+      >
+        <svg 
+          width="20" 
+          height="32" 
+          viewBox="0 0 20 32" 
+          fill="none" 
+          className="opacity-80 group-hover:opacity-100 transition-opacity"
+        >
+          <line x1="10" y1="0" x2="10" y2="24" stroke="white" strokeWidth="1.5"/>
+          <polyline points="5 19 10 24 15 19" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+        </svg>
+      </button>
 
       <style jsx>{`
         @keyframes fadeInUp {
@@ -121,8 +145,18 @@ export default function HeroSection() {
           }
         }
         @keyframes blink {
-          0%, 50% { opacity: 1; }
-          51%, 100% { opacity: 0; }
+          0%, 49% { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+        @keyframes scrollPulse {
+          0%, 100% { 
+            transform: translateY(0);
+            opacity: 0.8;
+          }
+          50% { 
+            transform: translateY(8px);
+            opacity: 1;
+          }
         }
       `}</style>
     </section>

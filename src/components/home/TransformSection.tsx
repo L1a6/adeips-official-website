@@ -39,7 +39,7 @@ export default function TransformSection() {
             Transform Your Voice, Transform Your Impact
           </h2>
           <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-4xl mx-auto font-light leading-relaxed">
-            ADEIPS is Nigeria's premier executive training institute dedicated to developing world-class communicators. Through our comprehensive 12-week program, we equip professionals with the confidence, techniques, and stage presence to command any room.
+            The AkanDavid Executive Institute of Public Speaking is Nigeria's premier executive training institute dedicated to developing world-class communicators. Through our comprehensive 10-week program, we equip professionals with the confidence, techniques, and stage presence to command any room.
           </p>
         </div>
 
@@ -77,7 +77,7 @@ export default function TransformSection() {
                 "Through personalized coaching, proven methodologies, and a supportive community, we've helped over 500 professionals discover their authentic speaking voice and achieve remarkable career breakthroughs."
               </p>
               <p className="text-[var(--adeips-navy)] dark:text-[var(--text-primary)] font-medium">
-                Dr. Akan David
+                Pharm. Akan David
               </p>
               <p className="text-sm text-[var(--text-secondary)]">Chancellor, ADEIPS</p>
             </div>

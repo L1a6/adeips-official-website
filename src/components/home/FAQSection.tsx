@@ -40,14 +40,14 @@ export default function FAQSection() {
           <div className="relative opacity-0 animate-slide-in-left">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80"
+                src="/images/testimonials/contact.jpg"
                 alt="Support"
                 fill
                 className="object-cover"
               />
               
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/85 to-transparent p-8">
-                <h3 className="text-white font-semibold text-xl mb-4">Get in Touch</h3>
+                <h3 className="text-white font-semibold text-xl mb-4">Contact Us</h3>
                 
                 <div className="space-y-3 text-white/90 text-sm">
                   <div className="flex items-center gap-3">
@@ -76,7 +76,7 @@ export default function FAQSection() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    <span>Port Harcourt, Nigeria</span>
+                    <span>Uyo, Nigeria</span>
                   </div>
                 </div>
               </div>

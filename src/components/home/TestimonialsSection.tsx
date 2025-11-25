@@ -5,34 +5,35 @@ import Image from 'next/image';
 
 const testimonials = [
   {
-    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=450&q=80',
-    name: 'Sarah Johnson',
-    role: 'CEO, TechVision Inc.',
+    image: '/images/testimonials/enroll-3.jpg',
+    name: 'Edidiong Atainyang',
+    role: 'BGS, 11th Cohort.',
     quote: 'ADEIPS transformed me from a nervous presenter into a confident keynote speaker. The techniques I learned here changed my entire career trajectory.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=450&q=80',
-    name: 'Michael Chen',
-    role: 'TEDx Speaker & Author',
+    image: '/images/testimonials/enroll-2.jpg',
+    name: 'Idy Xavier',
+    role: 'Public Speaker',
     quote: 'From stage fright to TEDx stages. The facilitators truly understand the psychology of impactful communication.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=450&q=80',
-    name: 'Aisha Okonkwo',
-    role: 'Political Strategist',
-    quote: 'The most transformative 12 weeks of my professional life. Every session pushed me beyond what I thought possible.',
+    image: '/images/testimonials/enroll-1.jpg',
+    name: 'Uduakabasi Etuk',
+    role: 'Computer Engineer and Public Speaker',
+    quote: 'The most transformative 10 weeks of my professional life. Every session pushed me beyond what I thought possible.',
+  },
+
+  {
+    image: '/images/testimonials/enroll-6.jpg',
+    name: 'Regina Edem',
+    role: 'Administrative Lead, ADEIPS',
+    quote: 'I went from avoiding presentations to actively seeking speaking opportunities. The supportive community made all the difference.',
   },
   {
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=450&q=80',
-    name: 'David Martinez',
+    image: '/images/testimonials/enroll-4.jpg',
+    name: 'Mary Edoho',
     role: 'Startup Founder',
     quote: 'ADEIPS gave me the confidence to pitch to Fortune 500 companies. The persuasion techniques were game-changing.',
-  },
-  {
-    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=450&q=80',
-    name: 'Emily Rodriguez',
-    role: 'Corporate Trainer',
-    quote: 'I went from avoiding presentations to actively seeking speaking opportunities. The supportive community made all the difference.',
   },
   {
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=450&q=80',
