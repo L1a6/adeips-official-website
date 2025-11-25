@@ -4,14 +4,19 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [aboutDropdown, setAboutDropdown] = useState(false);
+  const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
   const [lastScroll, setLastScroll] = useState(0);
   const [hideNav, setHideNav] = useState(false);
   const { theme, setTheme } = useTheme();
+  const pathname = usePathname();
 
   useEffect(() => {
     setMounted(true);
@@ -38,11 +43,13 @@ export default function Navbar() {
 
   if (!mounted) return null;
 
+  const isActive = (path: string) => pathname === path;
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-500 ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
-      {/* TRUE Premium Liquid Glass Navbar - Standard height */}
+      {/* Premium Liquid Glass Navbar */}
       <div className="relative overflow-hidden h-[72px]">
-        {/* Base glass with blur and saturation */}
+        {/* Glass base */}
         <div 
           className="absolute inset-0 backdrop-blur-lg"
           style={{
@@ -52,7 +59,7 @@ export default function Navbar() {
           }}
         ></div>
         
-        {/* Complex glass shadows and highlights - NO WHITE EDGE */}
+        {/* Light mode glass shadows */}
         <div 
           className="absolute inset-0 dark:hidden"
           style={{
@@ -61,14 +68,13 @@ export default function Navbar() {
               inset -2px -2px 0px -2px color-mix(in srgb, white 60%, transparent),
               inset -0.3px -1px 4px 0px color-mix(in srgb, black 8%, transparent),
               inset -1.5px 2.5px 0px -2px color-mix(in srgb, black 15%, transparent),
-              inset 0px 3px 4px -2px color-mix(in srgb, black 15%, transparent),
               0px 1px 5px 0px color-mix(in srgb, black 10%, transparent),
               0px 6px 16px 0px color-mix(in srgb, black 8%, transparent)
             `,
           }}
         ></div>
         
-        {/* Dark mode glass shadows - NO BORDER */}
+        {/* Dark mode glass shadows */}
         <div 
           className="hidden dark:block absolute inset-0"
           style={{
@@ -76,11 +82,8 @@ export default function Navbar() {
             boxShadow: `
               inset 1.8px 3px 0px -2px color-mix(in srgb, white 27%, transparent),
               inset -2px -2px 0px -2px color-mix(in srgb, white 24%, transparent),
-              inset -3px -8px 1px -6px color-mix(in srgb, white 18%, transparent),
               inset -0.3px -1px 4px 0px color-mix(in srgb, black 24%, transparent),
               inset -1.5px 2.5px 0px -2px color-mix(in srgb, black 40%, transparent),
-              inset 0px 3px 4px -2px color-mix(in srgb, black 40%, transparent),
-              inset 2px -6.5px 1px -4px color-mix(in srgb, black 20%, transparent),
               0px 1px 5px 0px color-mix(in srgb, black 20%, transparent),
               0px 6px 16px 0px color-mix(in srgb, black 16%, transparent)
             `,
@@ -89,43 +92,106 @@ export default function Navbar() {
         
         {/* Content Container */}
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
-          {/* Logo - Slightly smaller than navbar for spacing */}
-          <div className="relative h-[60px] w-60">
+          {/* Logo with conditional rendering */}
+          <Link href="/" className="relative h-[60px] w-60">
             <Image
-              src="/images/logo.png"
+              src={theme === 'dark' ? '/images/logo1.jpg' : '/images/logo.jpg'}
               alt="ADEIPS Logo"
               fill
               className="object-contain object-left"
               priority
             />
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-10">
             <li>
-              <a href="#home" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
+              <Link
+                href="/"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/') 
+                    ? 'text-[#E62A2A]' 
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                }`}
+              >
                 Home
-              </a>
+              </Link>
             </li>
+            
+            {/* About Us Dropdown */}
+            <li 
+              className="relative"
+              onMouseEnter={() => setAboutDropdown(true)}
+              onMouseLeave={() => setAboutDropdown(false)}
+            >
+              <button
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  pathname.startsWith('/about')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                }`}
+              >
+                About Us
+              </button>
+              
+              {/* Dropdown */}
+              <div className={`absolute top-full left-0 mt-2 w-56 transition-all duration-300 ${
+                aboutDropdown ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              }`}>
+                <div className="relative backdrop-blur-lg rounded-lg overflow-hidden" style={{
+                  backgroundColor: 'color-mix(in srgb, #bbbbbc 15%, transparent)',
+                  backdropFilter: 'blur(10px) saturate(150%)',
+                  WebkitBackdropFilter: 'blur(10px) saturate(150%)',
+                  boxShadow: '0px 8px 24px rgba(0,0,0,0.12)',
+                }}>
+                  <Link href="/about" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                    About ADEIPS
+                  </Link>
+                  <Link href="/about/leadership" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                    Leadership Team
+                  </Link>
+                  <Link href="/about/facilitators" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                    Facilitators
+                  </Link>
+                </div>
+              </div>
+            </li>
+
             <li>
-              <a href="#courses" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
+              <Link
+                href="/courses"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/courses')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                }`}
+              >
                 Courses
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#facilitators" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
-                Facilitators
-              </a>
-            </li>
-            <li>
-              <a href="#gallery" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
+              <Link
+                href="/gallery"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/gallery')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                }`}
+              >
                 Gallery
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#blog" className="text-sm font-normal text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A] transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full">
+              <Link
+                href="/blog"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/blog')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                }`}
+              >
                 Blog
-              </a>
+              </Link>
             </li>
           </ul>
 
@@ -171,12 +237,59 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isOpen && (
         <div className="relative md:hidden bg-white/90 dark:bg-[#0A1236]/90 backdrop-blur-xl">
-          <ul className="flex flex-col gap-5 px-6 py-6">
-            <li><a href="#home" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Home</a></li>
-            <li><a href="#courses" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Courses</a></li>
-            <li><a href="#facilitators" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Facilitators</a></li>
-            <li><a href="#gallery" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Gallery</a></li>
-            <li><a href="#blog" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>Blog</a></li>
+          <ul className="flex flex-col px-6 py-6">
+            <li className="py-3">
+              <Link href="/" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Home
+              </Link>
+            </li>
+            
+            {/* Mobile About Dropdown */}
+            <li className="py-3">
+              <button 
+                onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
+                className="text-sm font-normal text-gray-800 dark:text-white w-full text-left flex justify-between items-center"
+              >
+                About Us
+                <svg 
+                  className={`w-4 h-4 transition-transform ${mobileAboutOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileAboutOpen && (
+                <div className="pl-4 mt-2 space-y-2">
+                  <Link href="/about" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    About ADEIPS
+                  </Link>
+                  <Link href="/about/leadership" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    Leadership Team
+                  </Link>
+                  <Link href="/about/facilitators" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    Facilitators
+                  </Link>
+                </div>
+              )}
+            </li>
+
+            <li className="py-3">
+              <Link href="/courses" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Courses
+              </Link>
+            </li>
+            <li className="py-3">
+              <Link href="/gallery" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Gallery
+              </Link>
+            </li>
+            <li className="py-3">
+              <Link href="/blog" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Blog
+              </Link>
+            </li>
           </ul>
         </div>
       )}

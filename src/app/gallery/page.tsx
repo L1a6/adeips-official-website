@@ -163,7 +163,7 @@ export default function GalleryPage() {
                 <span className="px-4 py-2 bg-white/10 rounded-full text-sm">
                   {selectedImage.category}
                 </span>
-                {selectedImage.date && (
+                {selectedImage.date && ( 
                   <span className="px-4 py-2 bg-white/10 rounded-full text-sm">
                     {selectedImage.date}
                   </span>
@@ -172,7 +172,7 @@ export default function GalleryPage() {
             </div>
           </div>
         </div>
-      )}
+      )} 
 
       <Footer />
     </>

@@ -3,6 +3,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const slides = [
   '/images/hero/hero-1.jpg',
@@ -88,29 +89,29 @@ export default function HeroSection() {
           </p>
 
           <h1 className="font-outfit text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
-            Redefining Excellence in Public Speaking
+            Master The Art Of Persuasive Communication
           </h1>
 
-          {/* Typing Effect with standard cursor blink */}
+          {/* Typing Effect with visible cursor blink */}
           <div className="font-outfit text-base sm:text-lg md:text-xl lg:text-2xl font-light italic text-white/95 mb-12 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
-            ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-blink"></span></span>
+            ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-[blink_0.6s_step-end_infinite]"></span></span>
           </div>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Link to enrollment page */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center animate-[fadeInUp_1.2s_ease_1.2s_both]">
-            {/* Solid Red Button */}
-            <a href="#enroll" className="px-10 py-4 rounded-full text-sm font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30">
+            {/* Solid Red Button - Links to enrollment */}
+            <Link href="/enroll" className="px-10 py-4 rounded-full text-sm font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30 text-center">
               Enroll for Next Cohort
-            </a>
+            </Link>
             
             {/* Liquid Glass Button */}
-            <a href="#courses" className="group relative px-10 py-4 rounded-full text-sm font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden">
+            <Link href="/courses" className="group relative px-10 py-4 rounded-full text-sm font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden text-center">
               <div className="absolute inset-0 bg-white/10 backdrop-blur-md"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
               <div className="absolute inset-[1px] rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-40"></div>
               <div className="absolute inset-0 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)] border border-white/40 group-hover:border-white/60 group-hover:shadow-[inset_0_1px_2px_rgba(255,255,255,0.4),0_8px_24px_rgba(255,255,255,0.15)] transition-all duration-400"></div>
               <span className="relative z-10">Explore Programs</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

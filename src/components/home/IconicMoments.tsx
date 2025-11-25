@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -11,6 +11,10 @@ if (typeof window !== 'undefined') {
 
 export default function IconicMoments() {
   const [isMobile, setIsMobile] = useState(false);
+  const [currentBgColor, setCurrentBgColor] = useState('#1a2332');
+  const titleRef = useRef(null);
+  const subtitleRef = useRef(null);
+  const mobileContainerRef = useRef(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -23,11 +27,78 @@ export default function IconicMoments() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Set initial body background color
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      document.body.style.backgroundColor = '#1a2332';
+    }
+  }, []);
+
+  // Slow fade-in animation for title
+  useEffect(() => {
+    if (!titleRef.current || !subtitleRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            gsap.fromTo(
+              titleRef.current,
+              { opacity: 0, y: 30 },
+              { opacity: 1, y: 0, duration: 2.5, ease: 'power2.out' }
+            );
+            gsap.fromTo(
+              subtitleRef.current,
+              { opacity: 0, y: 20 },
+              { opacity: 1, y: 0, duration: 2.5, delay: 0.3, ease: 'power2.out' }
+            );
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    if (titleRef.current) observer.observe(titleRef.current);
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Mobile scroll-based color changes
+  useEffect(() => {
+    if (!isMobile || !mobileContainerRef.current) return;
+
+    const cards = document.querySelectorAll('.moment-card');
+    
+    const observers = Array.from(cards).map((card, index) => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+              setCurrentBgColor(moments[index].color);
+              document.body.style.backgroundColor = moments[index].color;
+            }
+          });
+        },
+        { threshold: [0.5] }
+      );
+      
+      observer.observe(card);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach(observer => observer.disconnect());
+    };
+  }, [isMobile]);
+
   useEffect(() => {
     if (typeof window === 'undefined' || isMobile) return;
 
+    // Set initial background
+    document.body.style.backgroundColor = '#1a2332';
+
     const ctx = gsap.context(() => {
-      // Desktop GSAP only
+      // Set z-index for image stacking
       document.querySelectorAll('.arch__right .img-wrapper').forEach((element) => {
         const order = (element as HTMLElement).getAttribute('data-index');
         if (order !== null) {
@@ -36,7 +107,9 @@ export default function IconicMoments() {
       });
 
       const imgs = gsap.utils.toArray<HTMLElement>('.img-wrapper img');
-      const bgColors = ['#E0E7FF', '#DBEAFE', '#FEE2E2', '#F1F5F9'];
+      
+      // All 4 colors - one for each section
+      const bgColors = ['#1a2332', '#2D3E50', '#2C5F52', '#4A5568'];
 
       const mainTimeline = gsap.timeline({
         scrollTrigger: {
@@ -53,19 +126,21 @@ export default function IconicMoments() {
         objectPosition: '0px 0%',
       });
 
+      // Create transitions for all 4 sections
       imgs.forEach((_, index) => {
         const currentImage = imgs[index];
-        const nextImage = imgs[index + 1] ? imgs[index + 1] : null;
+        const nextImage = imgs[index + 1];
 
         const sectionTimeline = gsap.timeline();
 
-        if (nextImage) {
+        if (index < imgs.length - 1 && nextImage) {
+          // Transition to next section
           sectionTimeline
             .to(
               'body',
               {
-                backgroundColor: bgColors[index],
-                duration: 1.5,
+                backgroundColor: bgColors[index + 1],
+                duration: 1,
                 ease: 'power2.inOut',
               },
               0
@@ -75,7 +150,7 @@ export default function IconicMoments() {
               {
                 clipPath: 'inset(0px 0px 100%)',
                 objectPosition: '0px 60%',
-                duration: 1.5,
+                duration: 1,
                 ease: 'none',
               },
               0
@@ -84,7 +159,7 @@ export default function IconicMoments() {
               nextImage,
               {
                 objectPosition: '0px 40%',
-                duration: 1.5,
+                duration: 1,
                 ease: 'none',
               },
               0
@@ -103,32 +178,41 @@ export default function IconicMoments() {
       title: 'Candlelight Session',
       description: 'An intimate evening where speakers share breakthrough moments, personal journeys, and transformative stories that shaped their public speaking mastery.',
       image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
-      color: '#E0E7FF'
+      color: '#1a2332'
     },
     {
       title: 'Cultural Day',
       description: 'Experience global perspectives through diverse storytelling traditions. Celebrate the universal language of powerful communication across cultures.',
       image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
-      color: '#DBEAFE'
+      color: '#2D3E50'
     },
     {
       title: 'Project Defense',
       description: 'Showcase your mastery through compelling presentations. Demonstrate command of persuasive techniques and stage presence before distinguished panels.',
       image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&q=80',
-      color: '#FEE2E2'
+      color: '#2C5F52'
     },
     {
       title: 'Graduation 🎓',
       description: 'Celebrate your transformation from hesitant speaker to confident communicator. Join our distinguished alumni network of influential voices.',
-      image: 'https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=800&q=80',
-      color: '#F1F5F9'
+      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80',
+      color: '#4A5568'
     }
   ];
 
-  // MOBILE: Simple stacked layout
+  // MOBILE: Smooth color transition layout
   if (isMobile) {
     return (
-      <section className="mobile-iconic-moments" style={{ backgroundColor: '#E0E7FF', padding: '40px 20px' }}>
+      <section 
+        ref={mobileContainerRef}
+        className="mobile-iconic-moments" 
+        style={{ 
+          backgroundColor: currentBgColor, 
+          padding: '40px 0',
+          transition: 'background-color 0.8s ease',
+          minHeight: '100vh'
+        }}
+      >
         <style jsx>{`
           .mobile-iconic-moments h2 {
             font-family: 'Outfit', sans-serif;
@@ -136,39 +220,46 @@ export default function IconicMoments() {
             font-weight: 300;
             text-align: center;
             margin-bottom: 12px;
-            color: #0A1F44;
+            color: #FFFFFF;
+            padding: 0 20px;
           }
           
           .mobile-iconic-moments .subtitle {
             text-align: center;
-            color: rgba(10, 31, 68, 0.7);
+            color: rgba(255, 255, 255, 0.85);
             margin-bottom: 48px;
             font-size: 14px;
+            padding: 0 20px;
           }
           
           .moment-card {
-            margin-bottom: 48px;
+            margin-bottom: 60px;
+            padding: 0;
           }
           
           .moment-image {
-            width: 100%;
-            height: 280px;
+            width: calc(100% - 32px);
+            margin: 0 auto 24px auto;
+            height: 240px;
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 20px;
             position: relative;
+          }
+          
+          .moment-content {
+            padding: 0 20px;
           }
           
           .moment-content h3 {
             font-family: 'Outfit', sans-serif;
             font-size: 28px;
             font-weight: 800;
-            color: #0A1F44;
+            color: #FFFFFF;
             margin-bottom: 12px;
           }
           
           .moment-content p {
-            color: rgba(10, 31, 68, 0.8);
+            color: rgba(255, 255, 255, 0.9);
             font-size: 16px;
             line-height: 1.6;
             margin-bottom: 20px;
@@ -178,41 +269,54 @@ export default function IconicMoments() {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.25);
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
             border-radius: 40px;
-            color: #0A1F44;
+            color: #FFFFFF;
             font-weight: 500;
             text-decoration: none;
-            box-shadow: 0 8px 32px 0 rgba(10, 31, 68, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+          }
+          
+          .moment-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
           }
           
           .gallery-button {
             text-align: center;
             margin-top: 40px;
+            padding: 0 20px 40px 20px;
           }
           
           .gallery-button a {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             padding: 16px 32px;
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            border: 1.5px solid rgba(255, 255, 255, 0.3);
             border-radius: 40px;
-            color: #0A1F44;
-            font-weight: 500;
+            color: #FFFFFF;
+            font-weight: 600;
             text-decoration: none;
+            transition: all 0.3s ease;
+          }
+          
+          .gallery-button a:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
           }
         `}</style>
 
-        <h2>Iconic Moments at the Institute</h2>
-        <p className="subtitle">Experience the transformative journey through our signature events</p>
+        <h2 ref={titleRef}>Iconic Moments at the Institute</h2>
+        <p ref={subtitleRef} className="subtitle">Experience the transformative journey through our signature events</p>
 
         {moments.map((moment, index) => (
           <div key={index} className="moment-card">
@@ -222,16 +326,17 @@ export default function IconicMoments() {
                 alt={moment.title}
                 fill
                 style={{ objectFit: 'cover' }}
+                priority={index === 0}
               />
             </div>
             <div className="moment-content">
               <h3>{moment.title}</h3>
               <p>{moment.description}</p>
               <a href="#" className="moment-button">
-                <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                  <path fill="currentColor" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                </svg>
                 <span>Learn More</span>
+                <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </a>
             </div>
           </div>
@@ -253,26 +358,28 @@ export default function IconicMoments() {
   return (
     <>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
         
         body {
-          background-color: #E0E7FF;
+          background-color: #1a2332;
           transition: background-color 0.5s ease;
         }
         
         .desktop-iconic-moments {
           overflow: visible;
+          background-color: transparent;
         }
         
         .container {
           max-width: 1440px;
           padding: 2rem;
           margin: 0 auto;
+          background-color: transparent;
         }
 
         .spacer {
           width: 100%;
-          height: 10vh;
+          height: 2vh;
         }
 
         .arch {
@@ -301,12 +408,12 @@ export default function IconicMoments() {
           font-size: 42px;
           font-weight: 800;
           letter-spacing: -0.84px;
-          color: #0A1F44;
+          color: #FFFFFF;
           margin-bottom: 6px;
         }
 
         .arch__left .arch__info p {
-          color: rgba(10, 31, 68, 0.8);
+          color: rgba(255, 255, 255, 0.9);
           font-size: 18px;
           letter-spacing: -0.54px;
           margin-bottom: 28px;
@@ -315,24 +422,25 @@ export default function IconicMoments() {
 
         .arch__left .arch__info a {
           text-decoration: none;
-          padding: 16px 18px;
-          color: #0A1F44;
+          padding: 16px 24px;
+          color: #FFFFFF;
           border-radius: 40px;
           display: flex;
-          gap: 4px;
+          gap: 8px;
           width: fit-content;
           align-items: center;
-          background: rgba(255, 255, 255, 0.25);
+          background: rgba(255, 255, 255, 0.15);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
-          border: 1.5px solid rgba(255, 255, 255, 0.5);
-          box-shadow: 0 8px 32px 0 rgba(10, 31, 68, 0.1),
-                      inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+          border: 1.5px solid rgba(255, 255, 255, 0.3);
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15),
+                      inset 0 1px 0 0 rgba(255, 255, 255, 0.2);
           transition: all 0.3s ease;
+          font-weight: 600;
         }
 
         .arch__left .arch__info a:hover {
-          background: rgba(255, 255, 255, 0.35);
+          background: rgba(255, 255, 255, 0.25);
           transform: translateY(-2px);
         }
 
@@ -351,28 +459,57 @@ export default function IconicMoments() {
           top: 50%;
           left: 0;
           transform: translateY(-50%);
-          height: 400px;
+          height: 450px;
           width: 100%;
           border-radius: 16px;
           overflow: hidden;
+        }
+        
+        .gallery-button-desktop {
+          text-align: center;
+          margin-top: 60px;
+          padding-bottom: 60px;
+        }
+        
+        .gallery-button-desktop a {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          padding: 18px 36px;
+          background: rgba(255, 255, 255, 0.15);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1.5px solid rgba(255, 255, 255, 0.3);
+          border-radius: 40px;
+          color: #FFFFFF;
+          font-weight: 600;
+          text-decoration: none;
+          box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+          transition: all 0.3s ease;
+          font-size: 16px;
+        }
+        
+        .gallery-button-desktop a:hover {
+          background: rgba(255, 255, 255, 0.25);
+          transform: translateY(-2px);
         }
       `}</style>
 
       <section className="desktop-iconic-moments">
         <div className="container">
-          <h2 style={{ 
+          <h2 ref={titleRef} style={{ 
             fontFamily: 'Outfit', 
             fontSize: '56px', 
             fontWeight: 300, 
             textAlign: 'center', 
             marginBottom: '12px',
-            color: '#0A1F44'
+            color: '#FFFFFF'
           }}>
             Iconic Moments at the Institute
           </h2>
-          <p style={{ 
+          <p ref={subtitleRef} style={{ 
             textAlign: 'center', 
-            color: 'rgba(10, 31, 68, 0.7)', 
+            color: 'rgba(255, 255, 255, 0.85)', 
             marginBottom: '24px', 
             maxWidth: '600px', 
             marginLeft: 'auto', 
@@ -392,10 +529,10 @@ export default function IconicMoments() {
                   <h2>{moment.title}</h2>
                   <p>{moment.description}</p>
                   <a href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="none">
-                      <path fill="currentColor" d="M5 2c0 1.105-1.895 2-3 2a2 2 0 1 1 0-4c1.105 0 3 .895 3 2ZM11 3.5c0 1.105-.895 3-2 3s-2-1.895-2-3a2 2 0 1 1 4 0ZM6 9a2 2 0 1 1-4 0c0-1.105.895-3 2-3s2 1.895 2 3Z" />
-                    </svg>
                     <span>Learn More</span>
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
                   </a>
                 </div>
               </div>
@@ -410,6 +547,7 @@ export default function IconicMoments() {
                   alt={moment.title}
                   fill
                   style={{ objectFit: 'cover' }}
+                  priority={index === 0}
                 />
               </div>
             ))}
@@ -417,6 +555,15 @@ export default function IconicMoments() {
         </div>
 
         <div className="spacer" />
+        
+        <div className="gallery-button-desktop">
+          <a href="#gallery">
+            <span>View Full Gallery</span>
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
       </section>
     </>
   );
