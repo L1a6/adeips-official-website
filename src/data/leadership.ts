@@ -18,7 +18,7 @@ export const leadershipTeam: LeadershipMember[] = [
     id: '2',
     name: 'Professor Effiong Johnson',
     title: 'Chairman, Board of Studies',
-    image: '/images/leadership/effiong-johnson.jpg',
+    image: '/images/leadership/effiong.png',
     bio: 'Guiding academic excellence and curriculum development.',
   },
   {

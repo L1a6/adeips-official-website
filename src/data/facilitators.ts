@@ -12,7 +12,7 @@ export const facilitators: Facilitator[] = [
     id: '1',
     name: 'Raphael Edem',
     title: 'Visitor to the Institute & Facilitator',
-    image: '/images/facilitators/raphael-edem.jpg',
+    image: '/images/facilitators/raphael.jpeg',
     specializations: ['Public Speaking', 'Communication Skills'],
   },
   {
@@ -40,7 +40,7 @@ export const facilitators: Facilitator[] = [
     id: '5',
     name: 'Aniekan Usoroh',
     title: 'Visitor to the Institute & Facilitator',
-    image: '/images/facilitators/aniekan-usoroh.jpg',
+    image: '/images/facilitators/aniekan-usoro.jpg',
     specializations: ['Persuasive Speaking', 'Business Communication'],
   },
 ];

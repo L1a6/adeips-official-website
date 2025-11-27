@@ -77,7 +77,6 @@ export default function HeroSection() {
         ))}
       </div>
 
-      {/* Overlay - Increased */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/60 via-[#0A1236]/50 to-[#0A1236]/60" />
 
       {/* Content */}
@@ -91,14 +90,13 @@ export default function HeroSection() {
             Master The Art Of Persuasive Communication
           </h1>
 
-          {/* Typing Effect with visible cursor blink */}
+          {/* Typing Effect */}
           <div className="font-outfit text-base sm:text-lg md:text-xl lg:text-2xl font-light italic text-white/95 mb-12 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
             ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-[blink_0.6s_step-end_infinite]"></span></span>
           </div>
 
-          {/* CTA Buttons - Link to enrollment page */}
           <div className="flex flex-col sm:flex-row gap-5 justify-center animate-[fadeInUp_1.2s_ease_1.2s_both]">
-            {/* Solid Red Button - Links to enrollment */}
+            {/* Links to enrollment */}
             <Link href="/enroll" className="px-10 py-4 rounded-full text-sm font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30 text-center">
               Enroll for Next Cohort
             </Link>
@@ -115,7 +113,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Simple thin arrow - line with arrowhead */}
+      {/* Simple thin arrow */}
       <button 
         onClick={scrollToNext}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 cursor-pointer group animate-[scrollPulse_2s_ease-in-out_infinite]"
