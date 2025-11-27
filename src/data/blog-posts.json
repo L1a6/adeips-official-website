@@ -1,0 +1,41 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "slug": "welcome-to-adeips-blog",
+      "title": "Welcome to the ADEIPS Blog",
+      "excerpt": "Stay updated with the latest news, tips, and insights from the Executive Institute of Public Speaking.",
+      "content": "Welcome to our blog! Here you'll find valuable resources, success stories, and expert tips to help you master public speaking...",
+      "author": "ADEIPS Team",
+      "date": "2024-11-24",
+      "category": "Announcements",
+      "image": "/images/blog/welcome.jpg",
+      "featured": true
+    },
+    {
+      "id": "2",
+      "slug": "5-tips-confident-public-speaking",
+      "title": "5 Tips for Confident Public Speaking",
+      "excerpt": "Master these essential techniques to speak with confidence and captivate any audience.",
+      "content": "Public speaking doesn't have to be intimidating. Here are five proven strategies...",
+      "author": "Raphael Edem",
+      "date": "2024-11-20",
+      "category": "Tips & Guides",
+      "image": "/images/blog/confident-speaking.jpg",
+      "featured": false
+    },
+    {
+      "id": "3",
+      "slug": "upcoming-workshop-december-2024",
+      "title": "Join Our December Workshop",
+      "excerpt": "Limited seats available for our intensive public speaking workshop this December.",
+      "content": "We're excited to announce our upcoming workshop...",
+      "author": "Regina Edem",
+      "date": "2024-11-18",
+      "category": "Events",
+      "image": "/images/blog/workshop.jpg",
+      "featured": true
+    }
+  ]
+}
+

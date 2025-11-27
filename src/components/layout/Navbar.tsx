@@ -1,4 +1,3 @@
-
 'use client';
 
 import { useState, useEffect } from 'react';
@@ -12,7 +11,9 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [aboutDropdown, setAboutDropdown] = useState(false);
+  const [blogDropdown, setBlogDropdown] = useState(false);
   const [mobileAboutOpen, setMobileAboutOpen] = useState(false);
+  const [mobileBlogOpen, setMobileBlogOpen] = useState(false);
   const [lastScroll, setLastScroll] = useState(0);
   const [hideNav, setHideNav] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -47,9 +48,7 @@ export default function Navbar() {
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-500 ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
-      {/* Premium Liquid Glass Navbar */}
-      <div className="relative overflow-hidden h-[72px]">
-        {/* Glass base */}
+      <div className="relative overflow-visible h-[72px]">
         <div 
           className="absolute inset-0 backdrop-blur-lg"
           style={{
@@ -59,7 +58,6 @@ export default function Navbar() {
           }}
         ></div>
         
-        {/* Light mode glass shadows */}
         <div 
           className="absolute inset-0 dark:hidden"
           style={{
@@ -74,7 +72,6 @@ export default function Navbar() {
           }}
         ></div>
         
-        {/* Dark mode glass shadows */}
         <div 
           className="hidden dark:block absolute inset-0"
           style={{
@@ -90,20 +87,18 @@ export default function Navbar() {
           }}
         ></div>
         
-        {/* Content Container */}
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
-          {/* Logo with conditional rendering */}
-          <Link href="/" className="relative h-[60px] w-60">
+          <Link href="/" className="relative h-[60px] w-60 flex-shrink-0">
             <Image
               src={theme === 'dark' ? '/images/logo1.jpg' : '/images/logo.jpg'}
               alt="ADEIPS Logo"
               fill
               className="object-contain object-left"
               priority
+              sizes="240px"
             />
           </Link>
 
-          {/* Desktop Menu */}
           <ul className="hidden md:flex items-center gap-10">
             <li>
               <Link
@@ -111,14 +106,13 @@ export default function Navbar() {
                 className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
                   isActive('/') 
                     ? 'text-[#E62A2A]' 
-                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
                 }`}
               >
                 Home
               </Link>
             </li>
             
-            {/* About Us Dropdown */}
             <li 
               className="relative"
               onMouseEnter={() => setAboutDropdown(true)}
@@ -128,29 +122,29 @@ export default function Navbar() {
                 className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
                   pathname.startsWith('/about')
                     ? 'text-[#E62A2A]'
-                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
                 }`}
               >
                 About Us
               </button>
               
-              {/* Dropdown */}
-              <div className={`absolute top-full left-0 mt-2 w-56 transition-all duration-300 ${
-                aboutDropdown ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
+              <div className={`absolute top-full left-0 pt-4 transition-all duration-300 ${
+                aboutDropdown ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'
               }`}>
-                <div className="relative backdrop-blur-lg rounded-lg overflow-hidden" style={{
-                  backgroundColor: 'color-mix(in srgb, #bbbbbc 15%, transparent)',
-                  backdropFilter: 'blur(10px) saturate(150%)',
-                  WebkitBackdropFilter: 'blur(10px) saturate(150%)',
-                  boxShadow: '0px 8px 24px rgba(0,0,0,0.12)',
+                <div className="relative backdrop-blur-lg rounded-lg overflow-hidden shadow-2xl" style={{
+                  backgroundColor: 'color-mix(in srgb, #ffffff 90%, transparent)',
+                  backdropFilter: 'blur(12px) saturate(150%)',
+                  WebkitBackdropFilter: 'blur(12px) saturate(150%)',
+                  boxShadow: '0px 8px 32px rgba(0,0,0,0.12)',
+                  minWidth: '220px'
                 }}>
-                  <Link href="/about" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                  <Link href="/about" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
                     About ADEIPS
                   </Link>
-                  <Link href="/about/leadership" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                  <Link href="/about/leadership" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
                     Leadership Team
                   </Link>
-                  <Link href="/about/facilitators" className="block px-4 py-3 text-sm text-gray-800 dark:text-white hover:bg-white/10 transition-colors">
+                  <Link href="/about/facilitators" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
                     Facilitators
                   </Link>
                 </div>
@@ -163,7 +157,7 @@ export default function Navbar() {
                 className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
                   isActive('/courses')
                     ? 'text-[#E62A2A]'
-                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
                 }`}
               >
                 Courses
@@ -175,27 +169,55 @@ export default function Navbar() {
                 className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
                   isActive('/gallery')
                     ? 'text-[#E62A2A]'
-                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
                 }`}
               >
                 Gallery
               </Link>
             </li>
-            <li>
-              <Link
-                href="/blog"
+            
+            <li 
+              className="relative"
+              onMouseEnter={() => setBlogDropdown(true)}
+              onMouseLeave={() => setBlogDropdown(false)}
+            >
+              <button
                 className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
-                  isActive('/blog')
+                  pathname.startsWith('/blog')
                     ? 'text-[#E62A2A]'
-                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A] dark:hover:text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
                 }`}
               >
                 Blog
-              </Link>
+              </button>
+              
+              <div className={`absolute top-full left-0 pt-4 transition-all duration-300 ${
+                blogDropdown ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2 pointer-events-none'
+              }`}>
+                <div className="relative backdrop-blur-lg rounded-lg overflow-hidden shadow-2xl" style={{
+                  backgroundColor: 'color-mix(in srgb, #ffffff 90%, transparent)',
+                  backdropFilter: 'blur(12px) saturate(150%)',
+                  WebkitBackdropFilter: 'blur(12px) saturate(150%)',
+                  boxShadow: '0px 8px 32px rgba(0,0,0,0.12)',
+                  minWidth: '200px'
+                }}>
+                  <Link href="/blog" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
+                    All Posts
+                  </Link>
+                  <Link href="/blog?category=announcements" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
+                    Announcements
+                  </Link>
+                  <Link href="/blog?category=tips" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
+                    Tips & Guides
+                  </Link>
+                  <Link href="/blog?category=events" className="block px-5 py-3 text-sm text-gray-800 dark:text-white hover:bg-[#E62A2A]/10 transition-colors">
+                    Events
+                  </Link>
+                </div>
+              </div>
             </li>
           </ul>
 
-          {/* Theme Toggle & Mobile Menu */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
@@ -234,9 +256,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       {isOpen && (
-        <div className="relative md:hidden bg-white/90 dark:bg-[#0A1236]/90 backdrop-blur-xl">
+        <div className="relative md:hidden bg-white/95 dark:bg-[#0A1236]/95 backdrop-blur-xl shadow-2xl">
           <ul className="flex flex-col px-6 py-6">
             <li className="py-3">
               <Link href="/" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
@@ -244,7 +265,6 @@ export default function Navbar() {
               </Link>
             </li>
             
-            {/* Mobile About Dropdown */}
             <li className="py-3">
               <button 
                 onClick={() => setMobileAboutOpen(!mobileAboutOpen)}
@@ -285,10 +305,38 @@ export default function Navbar() {
                 Gallery
               </Link>
             </li>
+            
             <li className="py-3">
-              <Link href="/blog" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+              <button 
+                onClick={() => setMobileBlogOpen(!mobileBlogOpen)}
+                className="text-sm font-normal text-gray-800 dark:text-white w-full text-left flex justify-between items-center"
+              >
                 Blog
-              </Link>
+                <svg 
+                  className={`w-4 h-4 transition-transform ${mobileBlogOpen ? 'rotate-180' : ''}`}
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileBlogOpen && (
+                <div className="pl-4 mt-2 space-y-2">
+                  <Link href="/blog" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    All Posts
+                  </Link>
+                  <Link href="/blog?category=announcements" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    Announcements
+                  </Link>
+                  <Link href="/blog?category=tips" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    Tips & Guides
+                  </Link>
+                  <Link href="/blog?category=events" className="block py-2 text-sm text-gray-600 dark:text-gray-300" onClick={() => setIsOpen(false)}>
+                    Events
+                  </Link>
+                </div>
+              )}
             </li>
           </ul>
         </div>
@@ -296,4 +344,3 @@ export default function Navbar() {
     </nav>
   );
 }
-

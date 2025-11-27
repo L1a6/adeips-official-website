@@ -177,25 +177,25 @@ export default function IconicMoments() {
     {
       title: 'Candlelight Session',
       description: 'An intimate evening where speakers share breakthrough moments, personal journeys, and transformative stories that shaped their public speaking mastery.',
-      image: 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80',
+      image: '/images/candlelight.jpg',
       color: '#1a2332'
     },
     {
       title: 'Cultural Day',
       description: 'Experience global perspectives through diverse storytelling traditions. Celebrate the universal language of powerful communication across cultures.',
-      image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80',
+      image: '/images/cultural.jpg',
       color: '#2D3E50'
     },
     {
       title: 'Project Defense',
       description: 'Showcase your mastery through compelling presentations. Demonstrate command of persuasive techniques and stage presence before distinguished panels.',
-      image: 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=800&q=80',
+      image: '/images/project1.jpg',
       color: '#2C5F52'
     },
     {
-      title: 'Graduation 🎓',
+      title: 'Graduation',
       description: 'Celebrate your transformation from hesitant speaker to confident communicator. Join our distinguished alumni network of influential voices.',
-      image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80',
+      image: '/images/grad.jpg',
       color: '#4A5568'
     }
   ];

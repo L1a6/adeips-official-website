@@ -1,180 +1,194 @@
 'use client';
 
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
-import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
 
-interface GalleryImage {
-  id: string;
-  src: string;
-  title: string;
-  category: string;
-  cohort?: string;
-  date?: string;
-  description?: string;
-}
+const galleryImages = [
+  { id: 1, src: '/images/gallery/1.jpg', category: 'iconic-moments', title: 'Candlelight Ceremony' },
+  { id: 2, src: '/images/gallery/2.jpg', category: 'cultural', title: 'Cultural Day Celebration' },
+  { id: 3, src: '/images/gallery/3.jpg', category: 'debates', title: 'Annual Debate Competition' },
+  { id: 4, src: '/images/gallery/4.jpg', category: 'project-defense', title: 'Student Project Defense' },
+  { id: 5, src: '/images/gallery/5.jpg', category: 'graduation', title: 'Graduation Ceremony 2024' },
+  { id: 6, src: '/images/gallery/6.jpg', category: 'dating', title: 'Dating & Social Skills Workshop' },
+  { id: 7, src: '/images/gallery/7.jpg', category: 'art-falls', title: 'Art Falls Exhibition' },
+  { id: 8, src: '/images/gallery/8.jpg', category: 'events', title: 'Guest Speaker Series' },
+  { id: 9, src: '/images/gallery/9.jpg', category: 'iconic-moments', title: 'Opening Ceremony' },
+];
 
-const CATEGORIES = ['All', 'Graduation', 'Workshops', 'Cultural Day', 'Project Defense', 'Candlelight', 'Events'];
-
-const GALLERY_IMAGES: GalleryImage[] = [
-  {
-    id: '1',
-    src: '/images/gallery/grad-1.jpg',
-    title: 'Cohort 12 Graduation Ceremony',
-    category: 'Graduation',
-    cohort: 'Cohort 12',
-    date: 'December 2024',
-  },
-  {
-    id: '2',
-    src: '/images/gallery/grad-2.jpg',
-    title: 'Certificate Presentation',
-    category: 'Graduation',
-    cohort: 'Cohort 12',
-    date: 'December 2024',
-  },
-  // Add more images...
+const categories = [
+  { value: 'all', label: 'All' },
+  { value: 'iconic-moments', label: 'Iconic Moments' },
+  { value: 'cultural', label: 'Cultural Day' },
+  { value: 'debates', label: 'Debates' },
+  { value: 'project-defense', label: 'Project Defense' },
+  { value: 'graduation', label: 'Graduation' },
+  { value: 'dating', label: 'Dating' },
+  { value: 'art-falls', label: 'Art Falls' },
+  { value: 'events', label: 'Events' },
 ];
 
 export default function GalleryPage() {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
 
-  const filteredImages = selectedCategory === 'All'
-    ? GALLERY_IMAGES
-    : GALLERY_IMAGES.filter(img => img.category === selectedCategory);
+  const filteredImages = selectedCategory === 'all' 
+    ? galleryImages 
+    : galleryImages.filter(img => img.category === selectedCategory);
 
   return (
-    <>
-      <Navbar />
-      
-      <main className="min-h-screen bg-white dark:bg-[#0A1F44] pt-24">
-        {/* Hero Section */}
-        <section className="relative py-20 bg-linear-to-br from-[#0A1F44] to-[#1E3A8A] overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-[#DC2626] rounded-full blur-3xl" />
-          </div>
-          
-          <div className="relative max-w-7xl mx-auto px-6 lg:px-8 text-center">
-            <span className="inline-block px-4 py-2 bg-[#DC2626]/20 text-[#EF4444] rounded-full text-sm font-semibold mb-6">
-              MOMENTS OF TRANSFORMATION
-            </span>
-            
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extralight text-white mb-6 tracking-tight">
-              Gallery of<br />Excellence
-            </h1>
-            
-            <p className="text-xl text-white/90 max-w-3xl mx-auto font-light leading-relaxed">
-              Witness the transformation journey through our collection of iconic moments
+    <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
+      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/hero-2.jpg"
+            alt="Gallery"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="relative z-20 text-center px-6">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
+          >
+            Gallery
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
+          >
+            Moments of Excellence
+          </motion.h1>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-wrap justify-center gap-3 mb-16"
+        >
+          {categories.map((category) => (
+            <button
+              key={category.value}
+              onClick={() => setSelectedCategory(category.value)}
+              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                selectedCategory === category.value
+                  ? 'bg-[#0A1236] dark:bg-white text-white dark:text-[#0A1236] shadow-lg scale-105'
+                  : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+              }`}
+            >
+              {category.label}
+            </button>
+          ))}
+        </motion.div>
+
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredImages.map((image, index) => (
+              <motion.div
+                key={image.id}
+                layout
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+                className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition-shadow duration-500"
+                onClick={() => setSelectedImage(image)}
+              >
+                <Image
+                  src={image.src}
+                  alt={image.title}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-500">
+                  <h3 className="font-outfit text-lg font-medium text-white mb-1">
+                    {image.title}
+                  </h3>
+                  <p className="text-sm text-white/80 capitalize">
+                    {categories.find(c => c.value === image.category)?.label}
+                  </p>
+                </div>
+
+                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
+        {filteredImages.length === 0 && (
+          <div className="text-center py-20">
+            <p className="text-gray-600 dark:text-gray-400 text-lg">
+              No images found in this category.
             </p>
           </div>
-        </section>
-
-        {/* Filter Categories */}
-        <section className="py-8 bg-white dark:bg-[#0A1F44] sticky top-20 z-40 border-b border-gray-200 dark:border-gray-700">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="flex flex-wrap justify-center gap-3">
-              {CATEGORIES.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-6 py-3 rounded-full font-semibold transition-all ${
-                    selectedCategory === category
-                      ? 'bg-[#DC2626] text-white shadow-lg scale-105'
-                      : 'bg-gray-100 dark:bg-[#1E3A8A] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#0D1B2A]'
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Gallery Grid */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredImages.map((image) => (
-                <div
-                  key={image.id}
-                  className="group relative aspect-square rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer"
-                  onClick={() => setSelectedImage(image)}
-                >
-                  <Image
-                    src={image.src}
-                    alt={image.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  
-                  <div className="absolute inset-0 bg-linear-to-t from-[#0A1F44] via-[#0A1F44]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <p className="text-white font-semibold text-lg mb-1">
-                        {image.title}
-                      </p>
-                      {image.date && (
-                        <p className="text-white/80 text-sm">
-                          {image.date}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="absolute top-4 right-4 px-3 py-1 bg-[#DC2626] text-white text-xs font-bold rounded-full">
-                    {image.category}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
+        )}
+      </section>
 
       {/* Lightbox Modal */}
-      {selectedImage && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4"
-          onClick={() => setSelectedImage(null)}
-        >
-          <button
+      <AnimatePresence>
+        {selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-6"
             onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 w-12 h-12 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-all"
           >
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+            <motion.button
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className="absolute top-6 right-6 w-12 h-12 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors z-10"
+              onClick={() => setSelectedImage(null)}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </motion.button>
 
-          <div className="max-w-6xl w-full" onClick={(e) => e.stopPropagation()}>
-            <div className="relative aspect-video rounded-2xl overflow-hidden mb-6">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25 }}
+              className="relative max-w-5xl w-full aspect-video"
+              onClick={(e) => e.stopPropagation()}
+            >
               <Image
                 src={selectedImage.src}
                 alt={selectedImage.title}
                 fill
-                className="object-contain"
+                className="object-contain rounded-2xl"
               />
-            </div>
-
-            <div className="text-center text-white space-y-2">
-              <h3 className="text-3xl font-semibold">{selectedImage.title}</h3>
-              <div className="flex items-center justify-center gap-4 text-white/80">
-                <span className="px-4 py-2 bg-white/10 rounded-full text-sm">
-                  {selectedImage.category}
-                </span>
-                {selectedImage.date && ( 
-                  <span className="px-4 py-2 bg-white/10 rounded-full text-sm">
-                    {selectedImage.date}
-                  </span>
-                )}
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent rounded-b-2xl">
+                <h3 className="font-outfit text-2xl font-medium text-white mb-2">
+                  {selectedImage.title}
+                </h3>
+                <p className="text-white/80">{categories.find(c => c.value === selectedImage.category)?.label}</p>
               </div>
-            </div>
-          </div>
-        </div>
-      )} 
-
-      <Footer />
-    </>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
   );
 }
