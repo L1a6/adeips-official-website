@@ -1,16 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import blogData from '@/data/blog-posts.json';
 
-// Force dynamic rendering to avoid prerendering issues with useSearchParams
-export const dynamic = 'force-dynamic';
-
-export default function BlogPage() {
+function BlogContent() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
   
@@ -30,38 +27,7 @@ export default function BlogPage() {
   };
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
-      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero/hero-3.jpg"
-            alt="Blog"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="relative z-20 text-center px-6">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
-          >
-            Blog & Updates
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
-          >
-            Latest Insights
-          </motion.h1>
-        </div>
-      </section>
-
+    <>
       <section className="max-w-7xl mx-auto px-6 py-20">
         {!category && featuredPosts.length > 0 && (
           <motion.div
@@ -209,6 +175,53 @@ export default function BlogPage() {
           </div>
         )}
       </section>
+    </>
+  );
+}
+
+export default function BlogPage() {
+  return (
+    <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
+      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/hero-3.jpg"
+            alt="Blog"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="relative z-20 text-center px-6">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
+          >
+            Blog & Updates
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
+          >
+            Latest Insights
+          </motion.h1>
+        </div>
+      </section>
+
+      <Suspense fallback={
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="flex items-center justify-center h-64">
+            <div className="text-gray-600 dark:text-gray-400">Loading...</div>
+          </div>
+        </div>
+      }>
+        <BlogContent />
+      </Suspense>
     </main>
   );
 }

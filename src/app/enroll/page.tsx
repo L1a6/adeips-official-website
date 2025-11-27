@@ -9,24 +9,35 @@ export default function EnrollPage() {
     fullName: '',
     email: '',
     phone: '',
-    program: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-    setFormData({ fullName: '', email: '', phone: '', program: '', message: '' });
-    
-    setTimeout(() => setSubmitSuccess(false), 5000);
+    try {
+      const response = await fetch('/api/enroll', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error('Submission failed');
+      
+      setSubmitSuccess(true);
+      setFormData({ fullName: '', email: '', phone: '', message: '' });
+      
+      setTimeout(() => setSubmitSuccess(false), 5000);
+    } catch (error) {
+      setSubmitError('Something went wrong. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -177,25 +188,7 @@ export default function EnrollPage() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                  Program of Interest *
-                </label>
-                <select
-                  required
-                  value={formData.program}
-                  onChange={(e) => setFormData({ ...formData, program: e.target.value })}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#0A1236] dark:focus:ring-white transition-all"
-                >
-                  <option value="">Select a program</option>
-                  <option value="beginner">Beginner Public Speaking</option>
-                  <option value="intermediate">Intermediate Communication</option>
-                  <option value="advanced">Advanced Executive Speaking</option>
-                  <option value="corporate">Corporate Training</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-900 dark:text-white mb-2">
-                  Additional Information
+                  Your Message
                 </label>
                 <textarea
                   value={formData.message}
@@ -221,7 +214,19 @@ export default function EnrollPage() {
                   className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"
                 >
                   <p className="text-green-800 dark:text-green-200 text-sm">
-                    ✓ Application submitted successfully! We'll contact you soon.
+                    ✓ Application submitted successfully! Check your email for confirmation.
+                  </p>
+                </motion.div>
+              )}
+
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 rounded-lg bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800"
+                >
+                  <p className="text-red-800 dark:text-red-200 text-sm">
+                    {submitError}
                   </p>
                 </motion.div>
               )}

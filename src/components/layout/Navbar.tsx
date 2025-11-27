@@ -90,7 +90,7 @@ export default function Navbar() {
         <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center">
           <Link href="/" className="relative h-[60px] w-60 flex-shrink-0">
             <Image
-              src={theme === 'dark' ? '/images/logo1.jpg' : '/images/logo.jpg'}
+              src={theme === 'dark' ? '/images/logo1.jpg' : '/images/logo.png'}
               alt="ADEIPS Logo"
               fill
               className="object-contain object-left"
@@ -215,6 +215,19 @@ export default function Navbar() {
                   </Link>
                 </div>
               </div>
+            </li>
+
+            <li>
+              <Link
+                href="/enroll"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/enroll')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
+                }`}
+              >
+                Enroll
+              </Link>
             </li>
           </ul>
 
