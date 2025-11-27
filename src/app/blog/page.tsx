@@ -7,6 +7,9 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import blogData from '@/data/blog-posts.json';
 
+// Force dynamic rendering to avoid prerendering issues with useSearchParams
+export const dynamic = 'force-dynamic';
+
 export default function BlogPage() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
