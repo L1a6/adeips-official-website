@@ -95,19 +95,19 @@ export default function NewBlogPostPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 px-4 py-6 sm:p-8">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="font-outfit text-4xl font-light text-gray-900 dark:text-white mb-8">
+          <h1 className="font-outfit text-2xl sm:text-4xl font-light text-gray-900 dark:text-white mb-6 sm:mb-8">
             Create New Blog Post
           </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 sm:p-8 space-y-4 sm:space-y-6">
               {/* Title */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
@@ -281,7 +281,7 @@ export default function NewBlogPostPage() {
               </div>
 
               {/* Checkboxes */}
-              <div className="flex gap-6">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
                 <label className="flex items-center gap-2">
                   <input
                     type="checkbox"
@@ -305,20 +305,20 @@ export default function NewBlogPostPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex gap-4">
-              <button
-                type="submit"
-                disabled={loading || !formData.image_url}
-                className="flex-1 px-8 py-4 rounded-full text-sm font-medium text-white bg-[#0A1236] dark:bg-white dark:text-[#0A1236] hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                {loading ? 'Creating...' : 'Create Post'}
-              </button>
+            <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={() => router.back()}
-                className="px-8 py-4 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
+                className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-all"
               >
                 Cancel
+              </button>
+              <button
+                type="submit"
+                disabled={loading || !formData.image_url}
+                className="w-full sm:flex-1 px-6 sm:px-8 py-3 sm:py-4 rounded-full text-sm font-medium text-white bg-[#0A1236] dark:bg-white dark:text-[#0A1236] hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {loading ? 'Creating...' : 'Create Post'}
               </button>
             </div>
           </form>

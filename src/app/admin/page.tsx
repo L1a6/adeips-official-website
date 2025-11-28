@@ -145,24 +145,25 @@ export default function AdminDashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="flex flex-col items-center gap-8">
           {/* Modern Loader */}
           <div className="relative">
             {/* Outer glowing ring */}
-            <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-r from-[#E62A2A] to-[#0A1236] opacity-20 blur-xl animate-pulse"></div>
+            <div className="absolute inset-0 w-24 h-24 rounded-full bg-gradient-to-r from-[#E62A2A]/30 to-[#E62A2A]/10 blur-2xl animate-pulse"></div>
             
             {/* Main loader */}
             <div className="relative w-20 h-20">
               {/* Background circle */}
-              <div className="absolute inset-0 rounded-full border-4 border-gray-200 dark:border-gray-700"></div>
+              <div className="absolute inset-0 rounded-full border-4 border-gray-100 dark:border-gray-800"></div>
               
               {/* Animated gradient arc */}
               <svg className="w-20 h-20 animate-spin" viewBox="0 0 80 80">
                 <defs>
-                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <linearGradient id="loaderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#E62A2A" />
-                    <stop offset="100%" stopColor="#0A1236" />
+                    <stop offset="50%" stopColor="#E62A2A" stopOpacity="0.5" />
+                    <stop offset="100%" stopColor="#E62A2A" stopOpacity="0" />
                   </linearGradient>
                 </defs>
                 <circle
@@ -170,17 +171,17 @@ export default function AdminDashboard() {
                   cy="40"
                   r="36"
                   fill="none"
-                  stroke="url(#gradient)"
+                  stroke="url(#loaderGradient)"
                   strokeWidth="4"
                   strokeLinecap="round"
-                  strokeDasharray="170"
-                  strokeDashoffset="50"
+                  strokeDasharray="180"
+                  strokeDashoffset="30"
                 />
               </svg>
               
               {/* Center icon */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62A2A] to-[#C91F1F] flex items-center justify-center shadow-lg">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62A2A] to-[#C91F1F] flex items-center justify-center shadow-lg shadow-[#E62A2A]/20">
                   <span className="text-white font-bold text-lg font-outfit">A</span>
                 </div>
               </div>
@@ -189,11 +190,11 @@ export default function AdminDashboard() {
           
           {/* Loading text */}
           <div className="text-center">
-            <p className="text-lg font-outfit font-light text-gray-700 dark:text-gray-300 mb-2">Loading Dashboard</p>
-            <div className="flex items-center justify-center gap-1">
+            <p className="text-lg font-outfit font-light text-gray-600 dark:text-gray-400 mb-3">Loading Dashboard</p>
+            <div className="flex items-center justify-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '0ms' }}></span>
-              <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '150ms' }}></span>
-              <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '300ms' }}></span>
+              <span className="w-2 h-2 rounded-full bg-[#E62A2A]/70 animate-bounce" style={{ animationDelay: '150ms' }}></span>
+              <span className="w-2 h-2 rounded-full bg-[#E62A2A]/40 animate-bounce" style={{ animationDelay: '300ms' }}></span>
             </div>
           </div>
         </div>

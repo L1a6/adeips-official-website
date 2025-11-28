@@ -116,25 +116,16 @@ export default function CoursesPage() {
             transition={{ duration: 0.6 }}
             className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
           >
-            Elite Training Program
+            What We Offer
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight mb-6"
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
           >
-            Enhanced Professional Course Modules
+            Our Courses
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light"
-          >
-            A structured, step-by-step system designed to transform beginners into compelling, 
-            confident public speakers through advanced methodologies
-          </motion.p>
         </div>
       </section>
 

@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'placehold.co',
       },
+      {
+        protocol: 'https',
+        hostname: '*.supabase.co',
+      },
     ],
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
