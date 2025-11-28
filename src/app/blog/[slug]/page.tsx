@@ -1,23 +1,79 @@
 'use client';
 
-import { use } from 'react';
+import { use, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import blogData from '@/data/blog-posts.json';
+
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  category: string;
+  image_url: string;
+  featured: boolean;
+  published: boolean;
+  created_at: string;
+}
 
 export default function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
-  const post = blogData.posts.find(p => p.slug === slug);
+  const [post, setPost] = useState<BlogPost | null>(null);
+  const [relatedPosts, setRelatedPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPost();
+  }, [slug]);
+
+  const fetchPost = async () => {
+    try {
+      // Fetch all posts
+      const response = await fetch('/api/admin/blog');
+      if (response.ok) {
+        const data = await response.json();
+        const publishedPosts = data.posts.filter((p: BlogPost) => p.published);
+        
+        // Find the current post
+        const currentPost = publishedPosts.find((p: BlogPost) => p.slug === slug);
+        
+        if (!currentPost) {
+          notFound();
+          return;
+        }
+        
+        setPost(currentPost);
+        
+        // Find related posts (same category, max 3)
+        const related = publishedPosts
+          .filter((p: BlogPost) => p.id !== currentPost.id && p.category === currentPost.category)
+          .slice(0, 3);
+        
+        setRelatedPosts(related);
+      }
+    } catch (error) {
+      console.error('Error fetching post:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
   
-  if (!post) {
-    notFound();
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white"></div>
+      </main>
+    );
   }
 
-  const relatedPosts = blogData.posts
-    .filter(p => p.id !== post.id && p.category === post.category)
-    .slice(0, 3);
+  if (!post) {
+    notFound();
+    return null;
+  }
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
@@ -50,7 +106,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
           <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400 mb-8 pb-8 border-b border-gray-200 dark:border-gray-700">
             <span className="font-medium">{post.author}</span>
             <span>•</span>
-            <time>{new Date(post.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+            <time>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
           </div>
         </motion.div>
 
@@ -61,7 +117,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
           className="relative h-[500px] rounded-3xl overflow-hidden mb-12"
         >
           <Image
-            src={post.image}
+            src={post.image_url}
             alt={post.title}
             fill
             className="object-cover"
@@ -103,7 +159,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                 >
                   <div className="relative h-48 rounded-xl overflow-hidden mb-4">
                     <Image
-                      src={relatedPost.image}
+                      src={relatedPost.image_url}
                       alt={relatedPost.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -113,7 +169,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                     {relatedPost.title}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                    {new Date(relatedPost.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    {new Date(relatedPost.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                   </p>
                 </Link>
               ))}

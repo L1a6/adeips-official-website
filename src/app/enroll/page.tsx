@@ -12,7 +12,7 @@ export default function EnrollPage() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState<boolean | 'no-email'>(false);
   const [submitError, setSubmitError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -27,14 +27,31 @@ export default function EnrollPage() {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error('Submission failed');
+      const data = await response.json();
       
-      setSubmitSuccess(true);
+      if (!response.ok) {
+        // Show detailed error in development
+        const errorMsg = data.details || data.error || 'Submission failed';
+        throw new Error(errorMsg);
+      }
+      
+      // Show success with email status
+      setSubmitSuccess(data.emailsSent ? true : 'no-email');
       setFormData({ fullName: '', email: '', phone: '', message: '' });
       
-      setTimeout(() => setSubmitSuccess(false), 5000);
+      // Log if emails failed
+      if (!data.emailsSent && data.emailError) {
+        console.warn('Email notification failed:', data.emailError);
+      }
+      
+      setTimeout(() => setSubmitSuccess(false), 8000);
     } catch (error) {
-      setSubmitError('Something went wrong. Please try again.');
+      console.error('Enrollment error:', error);
+      setSubmitError(
+        error instanceof Error 
+          ? error.message 
+          : 'Failed to submit application. Please check your connection and try again.'
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -211,11 +228,23 @@ export default function EnrollPage() {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="p-4 rounded-lg bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800"
+                  className="p-6 rounded-lg bg-emerald-50 dark:bg-emerald-900/20 border-2 border-emerald-500 dark:border-emerald-600 shadow-lg"
                 >
-                  <p className="text-green-800 dark:text-green-200 text-sm">
-                    ✓ Application submitted successfully! Check your email for confirmation.
-                  </p>
+                  <div className="flex items-start gap-3">
+                    <svg className="w-6 h-6 text-emerald-600 dark:text-emerald-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div>
+                      <p className="text-emerald-800 dark:text-emerald-200 font-medium mb-1">
+                        Application submitted successfully!
+                      </p>
+                      <p className="text-emerald-700 dark:text-emerald-300 text-sm">
+                        {submitSuccess === 'no-email' 
+                          ? 'We have received your application. Our team will contact you soon.'
+                          : 'Check your email for confirmation. Our team will contact you within 24 hours.'}
+                      </p>
+                    </div>
+                  </div>
                 </motion.div>
               )}
 

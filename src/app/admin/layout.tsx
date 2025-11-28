@@ -1,0 +1,251 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const [loading, setLoading] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    // Skip auth check for login page
+    if (pathname === '/admin/login') {
+      setLoading(false);
+      return;
+    }
+
+    // Check authentication
+    const isAuthenticated = localStorage.getItem('admin_authenticated') === 'true';
+    const authTime = localStorage.getItem('admin_auth_time');
+    
+    // Session expires after 24 hours
+    const SESSION_DURATION = 24 * 60 * 60 * 1000;
+    
+    if (!isAuthenticated || !authTime || (Date.now() - parseInt(authTime)) > SESSION_DURATION) {
+      localStorage.removeItem('admin_authenticated');
+      localStorage.removeItem('admin_auth_time');
+      router.push('/admin/login');
+    } else {
+      setLoading(false);
+    }
+  }, [pathname, router]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('admin_authenticated');
+    localStorage.removeItem('admin_auth_time');
+    router.push('/admin/login');
+  };
+
+  // Show login page without nav
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950 flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600"></div>
+          <p className="text-gray-600 dark:text-gray-400 font-medium">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const navItems = [
+    {
+      name: 'Dashboard',
+      href: '/admin',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+      ),
+      exact: true,
+    },
+    {
+      name: 'Enrollments',
+      href: '/admin/enrollments',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+    },
+    {
+      name: 'Blog Posts',
+      href: '/admin/blog',
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
+      ),
+    },
+  ];
+
+  const isActive = (item: typeof navItems[0]) => {
+    if (item.exact) {
+      return pathname === item.href;
+    }
+    return pathname.startsWith(item.href);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-950">
+      {/* Mobile menu button */}
+      <div className="lg:hidden fixed top-4 left-4 z-50">
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          className="p-2 rounded-xl bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700"
+        >
+          <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <AnimatePresence>
+        {(sidebarOpen || mobileMenuOpen) && (
+          <>
+            {/* Mobile overlay */}
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+                className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+              />
+            )}
+
+            {/* Sidebar content */}
+            <motion.aside
+              initial={{ x: -300 }}
+              animate={{ x: 0 }}
+              exit={{ x: -300 }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+              className={`fixed top-0 left-0 h-full ${
+                sidebarOpen ? 'w-72' : 'w-20'
+              } bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl z-40 lg:z-30 transition-all duration-300`}
+            >
+              <div className="flex flex-col h-full">
+                {/* Logo/Brand */}
+                <div className="p-6 border-b border-gray-200 dark:border-gray-700">
+                  <div className="flex items-center justify-between">
+                    {sidebarOpen ? (
+                      <Link href="/admin" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 rounded-lg bg-[#E62A2A] flex items-center justify-center">
+                          <span className="text-white font-bold text-lg font-outfit">A</span>
+                        </div>
+                        <div>
+                          <h2 className="font-outfit text-lg font-semibold text-gray-900 dark:text-white">
+                            ADEIPS
+                          </h2>
+                          <p className="text-xs text-gray-500 dark:text-gray-400 font-light">Admin Panel</p>
+                        </div>
+                      </Link>
+                    ) : (
+                      <div className="w-10 h-10 mx-auto rounded-lg bg-[#E62A2A] flex items-center justify-center">
+                        <span className="text-white font-bold text-lg font-outfit">A</span>
+                      </div>
+                    )}
+                    <button
+                      onClick={() => setSidebarOpen(!sidebarOpen)}
+                      className="hidden lg:block p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                    >
+                      <svg
+                        className={`w-5 h-5 text-gray-600 dark:text-gray-400 transition-transform ${
+                          !sidebarOpen ? 'rotate-180' : ''
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Navigation */}
+                <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+                  {navItems.map((item) => {
+                    const active = isActive(item);
+                    return (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all group ${
+                          active
+                            ? 'bg-[#E62A2A] text-white shadow-md'
+                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+                        }`}
+                      >
+                        <span className={active ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200'}>
+                          {item.icon}
+                        </span>
+                        {sidebarOpen && (
+                          <span className="font-medium">{item.name}</span>
+                        )}
+                        {active && sidebarOpen && (
+                          <motion.div
+                            layoutId="activeTab"
+                            className="ml-auto w-2 h-2 rounded-full bg-white"
+                          />
+                        )}
+                      </Link>
+                    );
+                  })}
+                </nav>
+
+                {/* Bottom section */}
+                <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
+                  <Link
+                    href="/"
+                    target="_blank"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all group"
+                  >
+                    <svg className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    {sidebarOpen && <span className="font-medium">View Website</span>}
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all group"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    {sidebarOpen && <span className="font-medium">Logout</span>}
+                  </button>
+                </div>
+              </div>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Main content */}
+      <main
+        className={`transition-all duration-300 ${
+          sidebarOpen ? 'lg:ml-72' : 'lg:ml-20'
+        }`}
+      >
+        {children}
+      </main>
+    </div>
+  );
+}

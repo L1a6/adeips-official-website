@@ -1,22 +1,68 @@
 'use client';
 
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import blogData from '@/data/blog-posts.json';
+
+interface BlogPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  category: string;
+  image_url: string;
+  featured: boolean;
+  published: boolean;
+  created_at: string;
+}
 
 function BlogContent() {
   const searchParams = useSearchParams();
   const category = searchParams.get('category');
   
-  const filteredPosts = category
-    ? blogData.posts.filter(post => post.category.toLowerCase().replace(/\s+&\s+/g, '').replace(/\s+/g, '') === category)
-    : blogData.posts;
-
-  const featuredPosts = blogData.posts.filter(post => post.featured);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentFeatured, setCurrentFeatured] = useState(0);
+
+  // Fetch posts from Supabase
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const response = await fetch('/api/admin/blog');
+      if (response.ok) {
+        const data = await response.json();
+        setPosts(data.posts.filter((post: BlogPost) => post.published));
+      }
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Auto-slideshow for featured posts (every 5 seconds)
+  const featuredPosts = posts.filter(post => post.featured);
+  
+  useEffect(() => {
+    if (featuredPosts.length > 1) {
+      const interval = setInterval(() => {
+        setCurrentFeatured((prev) => (prev + 1) % featuredPosts.length);
+      }, 5000); // Change slide every 5 seconds
+      
+      return () => clearInterval(interval);
+    }
+  }, [featuredPosts.length]);
+
+  const filteredPosts = category
+    ? posts.filter(post => post.category.toLowerCase().replace(/\s+/g, '-') === category)
+    : posts;
 
   const nextFeatured = () => {
     setCurrentFeatured((prev) => (prev + 1) % featuredPosts.length);
@@ -25,6 +71,16 @@ function BlogContent() {
   const prevFeatured = () => {
     setCurrentFeatured((prev) => (prev - 1 + featuredPosts.length) % featuredPosts.length);
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-7xl mx-auto px-6 py-20">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -48,7 +104,7 @@ function BlogContent() {
                 >
                   <Link href={`/blog/${featuredPosts[currentFeatured].slug}`} className="group block h-full">
                     <Image
-                      src={featuredPosts[currentFeatured].image}
+                      src={featuredPosts[currentFeatured].image_url}
                       alt={featuredPosts[currentFeatured].title}
                       fill
                       className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -68,7 +124,7 @@ function BlogContent() {
                       <div className="flex items-center gap-4 text-white/80 text-sm">
                         <span>{featuredPosts[currentFeatured].author}</span>
                         <span>•</span>
-                        <span>{new Date(featuredPosts[currentFeatured].date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
+                        <span>{new Date(featuredPosts[currentFeatured].created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
                       </div>
                     </div>
                   </Link>
@@ -137,7 +193,7 @@ function BlogContent() {
               <Link href={`/blog/${post.slug}`} className="group block">
                 <div className="relative h-64 rounded-2xl overflow-hidden mb-4">
                   <Image
-                    src={post.image}
+                    src={post.image_url}
                     alt={post.title}
                     fill
                     className="object-cover group-hover:scale-110 transition-transform duration-700"
@@ -159,7 +215,7 @@ function BlogContent() {
                   <div className="flex items-center gap-3 text-gray-500 dark:text-gray-500 text-sm">
                     <span>{post.author}</span>
                     <span>•</span>
-                    <span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                    <span>{new Date(post.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                   </div>
                 </div>
               </Link>
