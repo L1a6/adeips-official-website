@@ -17,11 +17,15 @@ export default function AdminLayout({
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false); // Changed to false by default
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    // Auto-open sidebar on desktop
+    if (typeof window !== 'undefined' && window.innerWidth >= 1024) {
+      setSidebarOpen(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -132,7 +136,7 @@ export default function AdminLayout({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={() => setMobileMenuOpen(false)}
-                className="lg:hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
               />
             )}
 
@@ -143,14 +147,14 @@ export default function AdminLayout({
               exit={{ x: -300 }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               className={`fixed top-0 left-0 h-full ${
-                sidebarOpen ? 'w-72' : 'w-20'
-              } bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl z-40 lg:z-30 transition-all duration-300`}
+                sidebarOpen && !mobileMenuOpen ? 'w-72' : 'w-72 lg:w-20'
+              } bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 shadow-xl z-50 transition-all duration-300`}
             >
               <div className="flex flex-col h-full">
                 {/* Logo/Brand */}
                 <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between">
-                    {sidebarOpen ? (
+                    {(sidebarOpen || mobileMenuOpen) ? (
                       <Link href="/admin" className="flex items-center gap-3 group">
                         <div className="w-10 h-10 rounded-lg bg-[#E62A2A] flex items-center justify-center">
                           <span className="text-white font-bold text-lg font-outfit">A</span>
@@ -168,7 +172,10 @@ export default function AdminLayout({
                       </div>
                     )}
                     <button
-                      onClick={() => setSidebarOpen(!sidebarOpen)}
+                      onClick={() => {
+                        setSidebarOpen(!sidebarOpen);
+                        setMobileMenuOpen(false);
+                      }}
                       className="hidden lg:block p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <svg
@@ -203,10 +210,10 @@ export default function AdminLayout({
                         <span className={active ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200'}>
                           {item.icon}
                         </span>
-                        {sidebarOpen && (
+                        {(sidebarOpen || mobileMenuOpen) && (
                           <span className="font-medium">{item.name}</span>
                         )}
-                        {active && sidebarOpen && (
+                        {active && (sidebarOpen || mobileMenuOpen) && (
                           <motion.div
                             layoutId="activeTab"
                             className="ml-auto w-2 h-2 rounded-full bg-white"
@@ -237,14 +244,14 @@ export default function AdminLayout({
                             <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                           </svg>
-                          {sidebarOpen && <span className="font-medium">Light Mode</span>}
+                          {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Light Mode</span>}
                         </>
                       ) : (
                         <>
                           <svg className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                           </svg>
-                          {sidebarOpen && <span className="font-medium">Dark Mode</span>}
+                          {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Dark Mode</span>}
                         </>
                       )}
                     </button>
@@ -257,7 +264,7 @@ export default function AdminLayout({
                     <svg className="w-5 h-5 text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
-                    {sidebarOpen && <span className="font-medium">View Website</span>}
+                    {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">View Website</span>}
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -266,7 +273,7 @@ export default function AdminLayout({
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                     </svg>
-                    {sidebarOpen && <span className="font-medium">Logout</span>}
+                    {(sidebarOpen || mobileMenuOpen) && <span className="font-medium">Logout</span>}
                   </button>
                 </div>
               </div>
@@ -278,8 +285,8 @@ export default function AdminLayout({
       {/* Main content */}
       <main
         className={`transition-all duration-300 min-h-screen ${
-          sidebarOpen ? 'lg:ml-72' : 'lg:ml-20'
-        } pt-20 lg:pt-0`}
+          sidebarOpen ? 'lg:ml-72' : 'lg:ml-0'
+        }`}
       >
         <div className="p-4 md:p-6 lg:p-8">
           {children}

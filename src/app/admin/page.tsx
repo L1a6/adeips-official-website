@@ -319,6 +319,5 @@ export default function AdminDashboard() {
           </motion.div>
         </div>
       </div>
-    </div>
   );
 }
