@@ -1,15 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
 // Environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables!');
-}
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
 // Client for browser (uses anon key - public operations)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export const supabase = supabaseUrl && supabaseAnonKey 
+  ? createClient(supabaseUrl, supabaseAnonKey)
+  : null as any;
 
 // Admin client for server-side operations (uses service role key)
 // Only create if service role key is available (server-side)
@@ -17,7 +15,7 @@ const serviceRoleKey = typeof window === 'undefined'
   ? process.env.SUPABASE_SERVICE_ROLE_KEY 
   : '';
 
-export const supabaseAdmin = serviceRoleKey
+export const supabaseAdmin = (supabaseUrl && serviceRoleKey)
   ? createClient(
       supabaseUrl,
       serviceRoleKey,
@@ -28,7 +26,7 @@ export const supabaseAdmin = serviceRoleKey
         }
       }
     )
-  : supabase; // Fallback to regular client on browser
+  : (supabase || null as any); // Fallback to regular client on browser
 
 // ============================================
 // TYPE DEFINITIONS
@@ -70,6 +68,10 @@ export async function createEnrollment(data: {
   phone: string;
   message?: string;
 }) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   // Use supabaseAdmin for server-side operations to bypass RLS
   const { data: enrollment, error } = await supabaseAdmin
     .from('enrollments')
@@ -85,6 +87,10 @@ export async function createEnrollment(data: {
 }
 
 export async function getEnrollments() {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabaseAdmin
     .from('enrollments')
     .select('*')
@@ -99,6 +105,10 @@ export async function updateEnrollmentStatus(
   status: Enrollment['status'],
   notes?: string
 ) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { error } = await supabaseAdmin
     .from('enrollments')
     .update({ status, notes })
@@ -108,6 +118,10 @@ export async function updateEnrollmentStatus(
 }
 
 export async function deleteEnrollment(id: string) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { error } = await supabaseAdmin
     .from('enrollments')
     .delete()
@@ -121,6 +135,10 @@ export async function deleteEnrollment(id: string) {
 // ============================================
 
 export async function getPublishedBlogPosts() {
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -132,6 +150,10 @@ export async function getPublishedBlogPosts() {
 }
 
 export async function getAllBlogPosts() {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabaseAdmin
     .from('blog_posts')
     .select('*')
@@ -142,6 +164,10 @@ export async function getAllBlogPosts() {
 }
 
 export async function getBlogPostBySlug(slug: string) {
+  if (!supabase) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabase
     .from('blog_posts')
     .select('*')
@@ -154,6 +180,10 @@ export async function getBlogPostBySlug(slug: string) {
 }
 
 export async function createBlogPost(post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabaseAdmin
     .from('blog_posts')
     .insert([post])
@@ -165,6 +195,10 @@ export async function createBlogPost(post: Omit<BlogPost, 'id' | 'created_at' | 
 }
 
 export async function updateBlogPost(id: string, updates: Partial<BlogPost>) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { data, error } = await supabaseAdmin
     .from('blog_posts')
     .update(updates)
@@ -177,6 +211,10 @@ export async function updateBlogPost(id: string, updates: Partial<BlogPost>) {
 }
 
 export async function deleteBlogPost(id: string) {
+  if (!supabaseAdmin) {
+    throw new Error('Supabase is not configured. Please check environment variables.');
+  }
+  
   const { error } = await supabaseAdmin
     .from('blog_posts')
     .delete()
