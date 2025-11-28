@@ -17,8 +17,16 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      // Simple password check (stored in env variable)
-      if (password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
+      // Verify password via API route (server-side check)
+      const response = await fetch('/api/admin/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.authenticated) {
         // Store auth in localStorage
         localStorage.setItem('admin_authenticated', 'true');
         localStorage.setItem('admin_auth_time', Date.now().toString());
@@ -27,6 +35,7 @@ export default function AdminLoginPage() {
         setError('Invalid password. Please try again.');
       }
     } catch (err) {
+      console.error('Login error:', err);
       setError('An error occurred. Please try again.');
     } finally {
       setLoading(false);

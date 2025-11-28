@@ -25,7 +25,7 @@ export default function WelcomeEmail({
   phone, 
   message 
 }: WelcomeEmailProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adeips-official-website-e8nu70fzu.vercel.app';
   
   return (
     <Html>
