@@ -12,8 +12,8 @@ export default function TransformSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
       }
     }
   };
@@ -24,7 +24,7 @@ export default function TransformSection() {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.8,
+        duration: 1.2,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
       }
     }
@@ -37,7 +37,7 @@ export default function TransformSection() {
       y: 0,
       scale: 1,
       transition: {
-        duration: 0.9,
+        duration: 1.2,
         ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
       }
     }
@@ -126,10 +126,14 @@ export default function TransformSection() {
           className="bg-[var(--bg-secondary)] rounded-3xl p-8 md:p-12 lg:p-16"
           initial={{ opacity: 0, y: 60 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 0.6 }}
+          transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 1.2 }}
         >
           <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 1.5 }}
+            >
               <h3 className="font-outfit text-3xl md:text-4xl font-light text-[var(--adeips-navy)] dark:text-[var(--text-primary)] mb-6 tracking-tight">
                 A Message from the Chancellor
               </h3>
@@ -143,9 +147,14 @@ export default function TransformSection() {
                 Pharm. Akan David
               </p>
               <p className="text-sm text-[var(--text-secondary)]">Chancellor, ADEIPS</p>
-            </div>
+            </motion.div>
 
-            <div className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl">
+            <motion.div 
+              className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl"
+              initial={{ opacity: 0, x: 40 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
+              transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 1.5 }}
+            >
               <video
                 className="w-full h-full object-cover"
                 controls
@@ -154,7 +163,7 @@ export default function TransformSection() {
                 <source src="/images/chancellor-video.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
