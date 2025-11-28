@@ -36,7 +36,7 @@ export default function FAQSection() {
   return (
     <section className="section-spacing bg-[var(--bg-secondary)]">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16 items-start">
           <div className="relative opacity-0 animate-slide-in-left">
             <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
               <Image

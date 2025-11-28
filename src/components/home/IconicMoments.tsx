@@ -402,6 +402,13 @@ export default function IconicMoments() {
           width: 100%;
           height: 2vh;
         }
+        
+        /* Reduce spacer on tablets */
+        @media (max-width: 1024px) {
+          .spacer {
+            height: 1vh;
+          }
+        }
 
         .arch {
           display: flex;
@@ -410,11 +417,26 @@ export default function IconicMoments() {
           max-width: 1100px;
           margin-inline: auto;
         }
+        
+        /* Tablet adjustments */
+        @media (max-width: 1024px) {
+          .arch {
+            gap: 30px;
+            max-width: 95%;
+            padding: 0 20px;
+          }
+        }
 
         .arch__left {
           display: flex;
           flex-direction: column;
           min-width: 300px;
+        }
+        
+        @media (max-width: 1024px) {
+          .arch__left {
+            min-width: 250px;
+          }
         }
 
         .arch__left .arch__info {
@@ -422,6 +444,13 @@ export default function IconicMoments() {
           height: 100vh;
           display: grid;
           place-items: center;
+        }
+        
+        @media (max-width: 1024px) {
+          .arch__left .arch__info {
+            max-width: 300px;
+            height: 80vh;
+          }
         }
 
         .arch__left .arch__info h2 {
@@ -432,6 +461,12 @@ export default function IconicMoments() {
           color: #FFFFFF;
           margin-bottom: 6px;
         }
+        
+        @media (max-width: 1024px) {
+          .arch__left .arch__info h2 {
+            font-size: 32px;
+          }
+        }
 
         .arch__left .arch__info p {
           color: rgba(255, 255, 255, 0.9);
@@ -439,6 +474,13 @@ export default function IconicMoments() {
           letter-spacing: -0.54px;
           margin-bottom: 28px;
           line-height: 1.6;
+        }
+        
+        @media (max-width: 1024px) {
+          .arch__left .arch__info p {
+            font-size: 15px;
+            margin-bottom: 20px;
+          }
         }
 
         .arch__left .arch__info a {
@@ -459,6 +501,13 @@ export default function IconicMoments() {
           transition: all 0.3s ease;
           font-weight: 600;
         }
+        
+        @media (max-width: 1024px) {
+          .arch__left .arch__info a {
+            padding: 12px 20px;
+            font-size: 14px;
+          }
+        }
 
         .arch__left .arch__info a:hover {
           background: rgba(255, 255, 255, 0.25);
@@ -474,6 +523,13 @@ export default function IconicMoments() {
           display: flex;
           flex-direction: column;
         }
+        
+        @media (max-width: 1024px) {
+          .arch__right {
+            height: 80vh;
+            max-width: 400px;
+          }
+        }
 
         .arch__right .img-wrapper {
           position: absolute;
@@ -486,10 +542,23 @@ export default function IconicMoments() {
           overflow: hidden;
         }
         
+        @media (max-width: 1024px) {
+          .arch__right .img-wrapper {
+            height: 350px;
+          }
+        }
+        
         .gallery-button-desktop {
           text-align: center;
           margin-top: 60px;
           padding-bottom: 60px;
+        }
+        
+        @media (max-width: 1024px) {
+          .gallery-button-desktop {
+            margin-top: 30px;
+            padding-bottom: 40px;
+          }
         }
         
         .gallery-button-desktop a {
@@ -514,11 +583,24 @@ export default function IconicMoments() {
           background: rgba(255, 255, 255, 0.25);
           transform: translateY(-2px);
         }
+        
+        /* Tablet title adjustments */
+        @media (max-width: 1024px) {
+          .iconic-title {
+            font-size: 40px !important;
+            margin-bottom: 8px !important;
+          }
+          
+          .iconic-subtitle {
+            font-size: 15px !important;
+            margin-bottom: 16px !important;
+          }
+        }
       `}</style>
 
       <section className="desktop-iconic-moments">
         <div className="container">
-          <h2 ref={titleRef} style={{ 
+          <h2 ref={titleRef} className="iconic-title" style={{ 
             fontFamily: 'Outfit', 
             fontSize: '56px', 
             fontWeight: 300, 
@@ -528,7 +610,7 @@ export default function IconicMoments() {
           }}>
             Iconic Moments at the Institute
           </h2>
-          <p ref={subtitleRef} style={{ 
+          <p ref={subtitleRef} className="iconic-subtitle" style={{ 
             textAlign: 'center', 
             color: 'rgba(255, 255, 255, 0.85)', 
             marginBottom: '24px', 
