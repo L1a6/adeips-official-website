@@ -11,10 +11,12 @@ if (typeof window !== 'undefined') {
 
 export default function IconicMoments() {
   const [isMobile, setIsMobile] = useState(false);
+  const [isReady, setIsReady] = useState(false);
   const [currentBgColor, setCurrentBgColor] = useState('#1a2332');
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
-  const mobileContainerRef = useRef(null);
+  const mobileContainerRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -24,14 +26,33 @@ export default function IconicMoments() {
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    // Mark as ready after a brief delay to ensure layout is stable
+    const timer = setTimeout(() => setIsReady(true), 100);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      clearTimeout(timer);
+    };
   }, []);
 
-  // Set initial body background color
+  // Only set body background when section is in view
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      document.body.style.backgroundColor = '#1a2332';
-    }
+    if (typeof window === 'undefined' || !sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            document.body.style.backgroundColor = '#1a2332';
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(sectionRef.current);
+
+    return () => observer.disconnect();
   }, []);
 
   // Slow fade-in animation for title
@@ -204,13 +225,18 @@ export default function IconicMoments() {
   if (isMobile) {
     return (
       <section 
-        ref={mobileContainerRef}
+        ref={(el) => {
+          mobileContainerRef.current = el;
+          if (el) sectionRef.current = el;
+        }}
         className="mobile-iconic-moments" 
         style={{ 
           backgroundColor: currentBgColor, 
           padding: '40px 0',
           transition: 'background-color 0.8s ease',
-          minHeight: '100vh'
+          minHeight: '100vh',
+          opacity: isReady ? 1 : 0,
+          visibility: isReady ? 'visible' : 'hidden',
         }}
       >
         <style jsx>{`
@@ -356,14 +382,9 @@ export default function IconicMoments() {
 
   // DESKTOP: GSAP layout
   return (
-    <>
+    <section ref={sectionRef} style={{ opacity: isReady ? 1 : 0, transition: 'opacity 0.3s ease' }}>
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
-        
-        body {
-          background-color: #1a2332;
-          transition: background-color 0.5s ease;
-        }
         
         .desktop-iconic-moments {
           overflow: visible;
@@ -565,6 +586,6 @@ export default function IconicMoments() {
           </a>
         </div>
       </section>
-    </>
+    </section>
   );
 }
