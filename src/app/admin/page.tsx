@@ -403,7 +403,7 @@ export default function AdminDashboard() {
               </div>
               <div>
                 <h3 className="font-outfit text-2xl font-light text-white">
-                  Pro Tip
+                   Pro Tip
                 </h3>
                 <p className="text-sm text-white/60 font-light">Boost your engagement</p>
               </div>
