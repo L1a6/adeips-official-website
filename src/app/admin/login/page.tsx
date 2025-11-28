@@ -25,6 +25,9 @@ export default function AdminLoginPage() {
       });
 
       const data = await response.json();
+      
+      console.log('Login response status:', response.status);
+      console.log('Login response data:', data);
 
       if (response.ok && data.authenticated) {
         // Store auth in localStorage
@@ -32,7 +35,7 @@ export default function AdminLoginPage() {
         localStorage.setItem('admin_auth_time', Date.now().toString());
         router.push('/admin');
       } else {
-        setError('Invalid password. Please try again.');
+        setError(data.error || 'Invalid password. Please try again.');
       }
     } catch (err) {
       console.error('Login error:', err);

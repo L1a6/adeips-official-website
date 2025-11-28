@@ -7,16 +7,23 @@ export async function POST(request: NextRequest) {
     // Check password against server-side env variable
     const correctPassword = process.env.ADMIN_PASSWORD;
     
+    console.log('Verify attempt - password provided:', !!password);
+    console.log('Verify attempt - env var exists:', !!correctPassword);
+    console.log('Verify attempt - env var length:', correctPassword?.length);
+    
     if (!correctPassword) {
+      console.error('ADMIN_PASSWORD environment variable not set!');
       return NextResponse.json(
-        { error: 'Admin password not configured' },
+        { error: 'Admin password not configured. Check environment variables.' },
         { status: 500 }
       );
     }
     
     if (password === correctPassword) {
+      console.log('Password matched successfully');
       return NextResponse.json({ authenticated: true });
     } else {
+      console.log('Password mismatch');
       return NextResponse.json(
         { error: 'Invalid password' },
         { status: 401 }
