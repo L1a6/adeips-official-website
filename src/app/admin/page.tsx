@@ -146,31 +146,30 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen p-6 md:p-10">
-      <div className="max-w-7xl mx-auto space-y-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="flex items-center justify-between"
-        >
-          <div>
-            <h1 className="font-outfit text-4xl md:text-5xl font-light text-gray-900 dark:text-white mb-2">
-              Dashboard
-            </h1>
-            <p className="text-gray-600 dark:text-gray-400 font-light">
-              Welcome to ADEIPS Admin Panel
+    <div className="max-w-7xl mx-auto space-y-8">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+      >
+        <div>
+          <h1 className="font-outfit text-3xl md:text-4xl lg:text-5xl font-light text-gray-900 dark:text-white mb-2">
+            Dashboard
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 font-light">
+            Welcome to ADEIPS Admin Panel
+          </p>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
+            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400 font-light">
+              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </p>
           </div>
-          <div className="hidden md:flex items-center gap-3">
-            <div className="px-4 py-2 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm">
-              <p className="text-sm text-gray-600 dark:text-gray-400 font-light">
-                {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-              </p>
-            </div>
-          </div>
-        </motion.div>
+        </div>
+      </motion.div>
 
         {/* Stats Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

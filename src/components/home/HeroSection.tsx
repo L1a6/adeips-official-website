@@ -86,12 +86,12 @@ export default function HeroSection() {
             Welcome to ADEIPS
           </p>
 
-          <h1 className="font-outfit text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
+          <h1 className="font-outfit text-4xl sm:text-5xl md:text-7xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 md:mb-12 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
             Master The Art Of Persuasive Communication
           </h1>
 
           {/* Typing Effect */}
-          <div className="font-outfit text-base sm:text-lg md:text-xl lg:text-2xl font-light italic text-white/95 mb-12 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
+          <div className="font-outfit text-lg sm:text-xl md:text-3xl lg:text-2xl xl:text-2xl font-light italic text-white/95 mb-12 md:mb-16 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
             ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-[blink_0.6s_step-end_infinite]"></span></span>
           </div>
 
