@@ -1,6 +1,47 @@
 'use client';
 
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+
 export default function TransformSection() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
+      }
+    }
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 60, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.9,
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
+      }
+    }
+  };
   const highlights = [
     {
       icon: (
@@ -32,21 +73,38 @@ export default function TransformSection() {
   ];
 
   return (
-    <section className="section-spacing bg-[var(--bg-primary)]">
+    <section ref={ref} className="section-spacing bg-[var(--bg-primary)]">
       <div className="container-custom">
-        <div className="text-center mb-16">
-          <h2 className="font-outfit text-4xl md:text-5xl lg:text-6xl font-extralight text-[var(--adeips-navy)] dark:text-[var(--text-primary)] mb-6 tracking-tight">
+        <motion.div 
+          className="text-center mb-16"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
+          <motion.h2 
+            variants={itemVariants}
+            className="font-outfit text-4xl md:text-5xl lg:text-6xl font-extralight text-[var(--adeips-navy)] dark:text-[var(--text-primary)] mb-6 tracking-tight"
+          >
             Transform Your Voice, Transform Your Impact
-          </h2>
-          <p className="text-lg md:text-xl text-[var(--text-secondary)] max-w-4xl mx-auto font-light leading-relaxed">
+          </motion.h2>
+          <motion.p 
+            variants={itemVariants}
+            className="text-lg md:text-xl text-[var(--text-secondary)] max-w-4xl mx-auto font-light leading-relaxed"
+          >
             The AkanDavid Executive Institute of Public Speaking is Nigeria's premier executive training institute dedicated to developing world-class communicators. Through our comprehensive 10-week program, we equip professionals with the confidence, techniques, and stage presence to command any room.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
+          variants={containerVariants}
+        >
           {highlights.map((item, index) => (
-            <div
+            <motion.div
               key={index}
+              variants={cardVariants}
               className="group relative p-8 bg-gradient-to-br from-[var(--adeips-navy)] to-[var(--adeips-blue)] rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--adeips-navy)]/20 hover:-translate-y-1"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--adeips-red)]/0 to-[var(--adeips-red)]/0 group-hover:from-[var(--adeips-red)]/10 group-hover:to-[var(--adeips-red)]/5 transition-all duration-500" />
@@ -60,11 +118,16 @@ export default function TransformSection() {
               </div>
 
               <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="bg-[var(--bg-secondary)] rounded-3xl p-8 md:p-12 lg:p-16">
+        <motion.div 
+          className="bg-[var(--bg-secondary)] rounded-3xl p-8 md:p-12 lg:p-16"
+          initial={{ opacity: 0, y: 60 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number], delay: 0.6 }}
+        >
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
               <h3 className="font-outfit text-3xl md:text-4xl font-light text-[var(--adeips-navy)] dark:text-[var(--text-primary)] mb-6 tracking-tight">
@@ -93,7 +156,7 @@ export default function TransformSection() {
               </video>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

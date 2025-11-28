@@ -81,28 +81,28 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 h-full flex items-center justify-center">
-        <div className="text-center max-w-5xl px-6">
-          <p className="text-xs md:text-sm font-normal tracking-[0.3em] uppercase text-white/90 mb-6 animate-[fadeInUp_1.2s_ease_0.3s_both]">
+        <div className="text-center max-w-5xl px-6 md:px-12">
+          <p className="text-xs md:text-sm lg:text-base font-normal tracking-[0.3em] uppercase text-white/90 mb-6 md:mb-8 animate-[fadeInUp_1.2s_ease_0.3s_both]">
             Welcome to ADEIPS
           </p>
 
-          <h1 className="font-outfit text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
+          <h1 className="font-outfit text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-white mb-8 md:mb-12 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
             Master The Art Of Persuasive Communication
           </h1>
 
           {/* Typing Effect */}
-          <div className="font-outfit text-base sm:text-lg md:text-xl lg:text-2xl font-light italic text-white/95 mb-12 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
+          <div className="font-outfit text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-light italic text-white/95 mb-12 md:mb-16 whitespace-nowrap animate-[fadeInUp_1.8s_ease_1.2s_both]">
             ...from expression to <span className="font-medium">{displayedWord}<span className="inline-block w-0.5 h-[1em] bg-white ml-0.5 align-middle animate-[blink_0.6s_step-end_infinite]"></span></span>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-5 justify-center animate-[fadeInUp_1.2s_ease_1.2s_both]">
             {/* Links to enrollment */}
-            <Link href="/enroll" className="px-10 py-4 rounded-full text-sm font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30 text-center">
+            <Link href="/enroll" className="px-10 py-4 rounded-full text-sm md:text-base font-medium text-white bg-[#E62A2A] hover:bg-[#D12020] transition-all duration-400 hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30 text-center">
               Enroll for Next Cohort
             </Link>
             
             {/* Liquid Glass Button */}
-            <Link href="/courses" className="group relative px-10 py-4 rounded-full text-sm font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden text-center">
+            <Link href="/courses" className="group relative px-10 py-4 rounded-full text-sm md:text-base font-medium text-white transition-all duration-400 hover:-translate-y-0.5 overflow-hidden text-center">
               <div className="absolute inset-0 bg-white/10 backdrop-blur-md"></div>
               <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
               <div className="absolute inset-[1px] rounded-full bg-gradient-to-br from-white/20 via-transparent to-transparent opacity-40"></div>

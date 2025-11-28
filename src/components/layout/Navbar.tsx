@@ -320,6 +320,12 @@ export default function Navbar() {
             </li>
             
             <li className="py-3">
+              <Link href="/enroll" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Enroll
+              </Link>
+            </li>
+            
+            <li className="py-3">\
               <button 
                 onClick={() => setMobileBlogOpen(!mobileBlogOpen)}
                 className="text-sm font-normal text-gray-800 dark:text-white w-full text-left flex justify-between items-center"
