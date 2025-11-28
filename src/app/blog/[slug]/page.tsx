@@ -153,7 +153,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
 
   return (
     <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
-      <article className="max-w-4xl mx-auto px-6 py-16">
+      <article className="max-w-4xl mx-auto px-6 py-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

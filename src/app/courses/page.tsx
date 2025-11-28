@@ -12,7 +12,7 @@ const courseModules = [
     description: 'An advanced exploration of how memory sequencing, psychological anchoring, and impression hierarchies shape audience retention and persuasion.',
     image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80',
     category: 'Psychology',
-    duration: '6 Weeks',
+    duration: 'Comprehensive Module',
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const courseModules = [
     description: 'Mastery of stage psychology, kinaesthetic communication, posture engineering, and audience synchronization strategies for commanding any room.',
     image: 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&q=80',
     category: 'Leadership',
-    duration: '8 Weeks',
+    duration: 'Advanced Training',
   },
   {
     id: 3,
@@ -28,7 +28,7 @@ const courseModules = [
     description: 'Intensive training in phonological accuracy, syntactic refinement, strategic diction, and professional articulation for elite communicators.',
     image: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?w=800&q=80',
     category: 'Language',
-    duration: '10 Weeks',
+    duration: 'Intensive Program',
   },
   {
     id: 4,
@@ -36,7 +36,7 @@ const courseModules = [
     description: 'Cutting edge memory enhancement systems, retrieval pathways, and content internalization frameworks tailored for high pressure speaking environments.',
     image: 'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80',
     category: 'Neuroscience',
-    duration: '6 Weeks',
+    duration: 'Comprehensive Module',
   },
   {
     id: 5,
@@ -44,7 +44,7 @@ const courseModules = [
     description: 'Techniques for engineering seamless narrative progression, conceptual linkage, and logical coherence in extended presentations.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
     category: 'Structure',
-    duration: '7 Weeks',
+    duration: 'Full Program',
   },
   {
     id: 6,
@@ -52,7 +52,7 @@ const courseModules = [
     description: 'A scientific, stepwise methodology for deconstructing performance anxiety using behavioral conditioning, cognitive reframing, and somatic control.',
     image: 'https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80',
     category: 'Psychology',
-    duration: '5 Weeks',
+    duration: 'Core Module',
   },
   {
     id: 7,
@@ -60,7 +60,7 @@ const courseModules = [
     description: 'Development of tonal modulation, breath economy, resonance control, pacing intelligence, and expressive vocal architecture.',
     image: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80',
     category: 'Voice',
-    duration: '8 Weeks',
+    duration: 'Advanced Training',
   },
   {
     id: 8,
@@ -68,7 +68,7 @@ const courseModules = [
     description: 'Examination of internationally recognized principles, cross cultural speaking protocols, and the ethics of global public discourse.',
     image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80',
     category: 'Global',
-    duration: '6 Weeks',
+    duration: 'Comprehensive Module',
   },
   {
     id: 9,
@@ -76,7 +76,7 @@ const courseModules = [
     description: 'Frameworks for conceptual mapping, narrative construction, intellectual layering, and persuasive message engineering.',
     image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800&q=80',
     category: 'Strategy',
-    duration: '9 Weeks',
+    duration: 'Full Program',
   },
   {
     id: 10,
@@ -84,7 +84,7 @@ const courseModules = [
     description: 'Practical development of professional speech formats including ceremonial texts, leadership addresses, technical presentations, persuasive pitches, valedictory frameworks, eulogic constructs, and formal institutional communications.',
     image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&q=80',
     category: 'Practice',
-    duration: '12 Weeks',
+    duration: 'Intensive Program',
   },
 ];
 
@@ -96,9 +96,10 @@ export default function CoursesPage() {
   });
 
   return (
-    <main ref={containerRef} className="min-h-screen bg-white dark:bg-[#0A1236]">
-      {/* Cinematic Hero */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <main ref={containerRef} className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
+      {/* Hero Section - Matching Gallery/About Style */}
+      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/90 via-[#0A1236]/80 to-[#0A1236]/90 z-10"></div>
         <div className="absolute inset-0">
           <Image
             src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1920&q=90"
@@ -107,44 +108,34 @@ export default function CoursesPage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1236]/95 via-[#0A1236]/80 to-white dark:to-[#0A1236]" />
         </div>
-        
-        <div className="relative z-10 text-center px-6 max-w-6xl">
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
+        <div className="relative z-20 text-center px-6">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
           >
-            <div className="inline-block mb-6 px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <span className="text-sm tracking-[0.3em] uppercase text-white/90">
-                Elite Training Program
-              </span>
-            </div>
-            <h1 className="font-outfit text-5xl md:text-7xl lg:text-8xl font-extralight text-white mb-8 tracking-tight leading-[1.1]">
-              Enhanced Professional<br />Course Modules
-            </h1>
-            <p className="text-xl md:text-2xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light">
-              A structured, step-by-step system designed to transform beginners into compelling, 
-              confident public speakers through advanced methodologies and elite training protocols
-            </p>
-          </motion.div>
+            Elite Training Program
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight mb-6"
+          >
+            Enhanced Professional Course Modules
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="text-lg md:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light"
+          >
+            A structured, step-by-step system designed to transform beginners into compelling, 
+            confident public speakers through advanced methodologies
+          </motion.p>
         </div>
-
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2"
-        >
-          <div className="flex flex-col items-center gap-2 text-white/60">
-            <span className="text-sm tracking-wider">Scroll to explore</span>
-            <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </div>
-        </motion.div>
       </section>
 
       {/* Modules Grid - Cinematic Layout */}

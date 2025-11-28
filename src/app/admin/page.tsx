@@ -146,16 +146,55 @@ export default function AdminDashboard() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-8">
+          {/* Modern Loader */}
           <div className="relative">
-            {/* Outer rotating ring */}
-            <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-[#E62A2A] border-r-[#E62A2A]/50 animate-spin"></div>
-            {/* Inner pulsing circle */}
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#E62A2A] to-[#C91F1F] opacity-20 animate-pulse"></div>
+            {/* Outer glowing ring */}
+            <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-r from-[#E62A2A] to-[#0A1236] opacity-20 blur-xl animate-pulse"></div>
+            
+            {/* Main loader */}
+            <div className="relative w-20 h-20">
+              {/* Background circle */}
+              <div className="absolute inset-0 rounded-full border-4 border-gray-200 dark:border-gray-700"></div>
+              
+              {/* Animated gradient arc */}
+              <svg className="w-20 h-20 animate-spin" viewBox="0 0 80 80">
+                <defs>
+                  <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#E62A2A" />
+                    <stop offset="100%" stopColor="#0A1236" />
+                  </linearGradient>
+                </defs>
+                <circle
+                  cx="40"
+                  cy="40"
+                  r="36"
+                  fill="none"
+                  stroke="url(#gradient)"
+                  strokeWidth="4"
+                  strokeLinecap="round"
+                  strokeDasharray="170"
+                  strokeDashoffset="50"
+                />
+              </svg>
+              
+              {/* Center icon */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#E62A2A] to-[#C91F1F] flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-lg font-outfit">A</span>
+                </div>
+              </div>
+            </div>
           </div>
+          
+          {/* Loading text */}
           <div className="text-center">
-            <p className="text-lg font-light text-gray-700 dark:text-gray-300 mb-1">Loading Dashboard</p>
-            <p className="text-sm text-gray-500 dark:text-gray-500 font-light">Please wait...</p>
+            <p className="text-lg font-outfit font-light text-gray-700 dark:text-gray-300 mb-2">Loading Dashboard</p>
+            <div className="flex items-center justify-center gap-1">
+              <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '0ms' }}></span>
+              <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '150ms' }}></span>
+              <span className="w-2 h-2 rounded-full bg-[#E62A2A] animate-bounce" style={{ animationDelay: '300ms' }}></span>
+            </div>
           </div>
         </div>
       </div>
@@ -429,7 +468,7 @@ export default function AdminDashboard() {
                     transition={{ delay: 1.2 + i * 0.1 }}
                     className="flex items-center gap-3 text-white/70"
                   >
-                    <svg className="w-5 h-5 text-[#E62A2A] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className="text-sm font-light">{tip}</span>

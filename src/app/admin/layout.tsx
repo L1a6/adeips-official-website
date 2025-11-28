@@ -148,7 +148,7 @@ export default function AdminLayout({
 
       {/* Desktop sidebar toggle - when sidebar is closed */}
       {!sidebarOpen && (
-        <div className="hidden lg:block fixed top-4 left-4 z-50">
+        <div className="hidden lg:block fixed top-20 left-4 z-50">
           <button
             onClick={() => setSidebarOpen(true)}
             className="p-2.5 rounded-xl bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm shadow-lg border border-gray-200 dark:border-gray-700"
@@ -312,7 +312,7 @@ export default function AdminLayout({
           sidebarOpen ? 'lg:ml-72' : 'lg:ml-0'
         }`}
       >
-        <div className="p-4 pt-28 md:p-6 md:pt-28 lg:p-8 lg:pt-8">
+        <div className="p-4 pt-28 md:p-6 md:pt-28 lg:p-8 lg:pt-24">
           {children}
         </div>
       </main>

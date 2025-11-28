@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { writeFile, mkdir } from 'fs/promises';
-import path from 'path';
+import { supabaseAdmin } from '@/lib/supabase';
 import crypto from 'crypto';
 
 export async function POST(request: NextRequest) {
@@ -33,24 +32,45 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if Supabase is configured
+    if (!supabaseAdmin) {
+      return NextResponse.json(
+        { error: 'Storage is not configured. Please check Supabase setup.' },
+        { status: 500 }
+      );
+    }
+
     // Generate unique filename using crypto
     const ext = file.name.split('.').pop() || 'jpg';
-    const uniqueName = `${crypto.randomUUID()}.${ext}`;
+    const uniqueName = `blog/${crypto.randomUUID()}.${ext}`;
 
-    // Ensure uploads directory exists
-    const uploadsDir = path.join(process.cwd(), 'public', 'uploads', 'blog');
-    await mkdir(uploadsDir, { recursive: true });
-
-    // Save file
+    // Convert file to buffer for upload
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const filePath = path.join(uploadsDir, uniqueName);
-    await writeFile(filePath, buffer);
 
-    // Return the public URL
-    const publicUrl = `/uploads/blog/${uniqueName}`;
+    // Upload to Supabase Storage
+    const { data, error } = await supabaseAdmin.storage
+      .from('images')
+      .upload(uniqueName, buffer, {
+        contentType: file.type,
+        cacheControl: '3600',
+        upsert: false
+      });
 
-    return NextResponse.json({ url: publicUrl }, { status: 201 });
+    if (error) {
+      console.error('Supabase storage error:', error);
+      return NextResponse.json(
+        { error: `Failed to upload: ${error.message}` },
+        { status: 500 }
+      );
+    }
+
+    // Get the public URL
+    const { data: urlData } = supabaseAdmin.storage
+      .from('images')
+      .getPublicUrl(data.path);
+
+    return NextResponse.json({ url: urlData.publicUrl }, { status: 201 });
   } catch (error) {
     console.error('Error uploading file:', error);
     return NextResponse.json(
