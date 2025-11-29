@@ -30,21 +30,10 @@ export default function TransformSection() {
     }
   };
 
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 1.2,
-        ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
-      }
-    }
-  };
   const highlights = [
     {
       icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-6 h-6 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
       ),
@@ -53,7 +42,7 @@ export default function TransformSection() {
     },
     {
       icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-6 h-6 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
         </svg>
       ),
@@ -62,7 +51,7 @@ export default function TransformSection() {
     },
     {
       icon: (
-        <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <svg className="w-6 h-6 md:w-8 md:h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
           <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
         </svg>
       ),
@@ -94,32 +83,27 @@ export default function TransformSection() {
           </motion.p>
         </motion.div>
 
-        <motion.div 
-          className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-20"
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={containerVariants}
-        >
+        {/* Static cards - no animation, responsive sizing */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mb-20">
           {highlights.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              variants={cardVariants}
-              className="group relative p-8 bg-gradient-to-br from-[var(--adeips-navy)] to-[var(--adeips-blue)] rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--adeips-navy)]/20 hover:-translate-y-1"
+              className="group relative p-5 md:p-8 bg-gradient-to-br from-[var(--adeips-navy)] to-[var(--adeips-blue)] rounded-xl md:rounded-2xl overflow-hidden transition-all duration-500 hover:shadow-2xl hover:shadow-[var(--adeips-navy)]/20 hover:-translate-y-1"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-[var(--adeips-red)]/0 to-[var(--adeips-red)]/0 group-hover:from-[var(--adeips-red)]/10 group-hover:to-[var(--adeips-red)]/5 transition-all duration-500" />
               
               <div className="relative z-10">
-                <div className="w-16 h-16 mb-6 rounded-xl bg-white/10 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500">
+                <div className="w-12 h-12 md:w-16 md:h-16 mb-4 md:mb-6 rounded-lg md:rounded-xl bg-white/10 flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white/20 transition-all duration-500">
                   {item.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-                <p className="text-white/80 font-light leading-relaxed">{item.description}</p>
+                <h3 className="text-lg md:text-xl font-semibold text-white mb-2 md:mb-3">{item.title}</h3>
+                <p className="text-sm md:text-base text-white/80 font-light leading-relaxed">{item.description}</p>
               </div>
 
-              <div className="absolute -bottom-2 -right-2 w-24 h-24 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
-            </motion.div>
+              <div className="absolute -bottom-2 -right-2 w-16 md:w-24 h-16 md:h-24 bg-white/5 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+            </div>
           ))}
-        </motion.div>
+        </div>
 
         <motion.div 
           className="bg-[var(--bg-secondary)] rounded-3xl p-8 md:p-12 lg:p-16"

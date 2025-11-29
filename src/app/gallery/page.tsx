@@ -1,74 +1,52 @@
 'use client';
 
-import { useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 const galleryImages = [
-  { id: 1, src: '/images/gallery/1.jpg', category: 'iconic-moments', title: 'Candlelight Ceremony' },
+  { id: 1, src: '/images/gallery/1.jpg', category: 'candlelight', title: 'Candlelight Ceremony' },
   { id: 2, src: '/images/gallery/2.jpg', category: 'cultural', title: 'Cultural Day Celebration' },
-  { id: 3, src: '/images/gallery/3.jpg', category: 'debates', title: 'Annual Debate Competition' },
-  { id: 4, src: '/images/gallery/4.jpg', category: 'project-defense', title: 'Student Project Defense' },
+  { id: 3, src: '/images/gallery/3.jpg', category: 'defence', title: 'Project Defence Session' },
+  { id: 4, src: '/images/gallery/4.jpg', category: 'defence', title: 'Student Project Defence' },
   { id: 5, src: '/images/gallery/5.jpg', category: 'graduation', title: 'Graduation Ceremony 2024' },
-  { id: 6, src: '/images/gallery/6.jpg', category: 'dating', title: 'Dating & Social Skills Workshop' },
-  { id: 7, src: '/images/gallery/7.jpg', category: 'art-falls', title: 'Art Falls Exhibition' },
-  { id: 8, src: '/images/gallery/8.jpg', category: 'events', title: 'Guest Speaker Series' },
-  { id: 9, src: '/images/gallery/9.jpg', category: 'iconic-moments', title: 'Opening Ceremony' },
+  { id: 6, src: '/images/gallery/6.jpg', category: 'field', title: 'Field Trip Experience' },
+  { id: 7, src: '/images/gallery/7.jpg', category: 'dinner', title: 'Gala Dinner Event' },
+  { id: 8, src: '/images/gallery/8.jpg', category: 'candlelight', title: 'Candlelight Session' },
+  { id: 9, src: '/images/gallery/9.jpg', category: 'cultural', title: 'Cultural Day Performances' },
 ];
 
 const categories = [
   { value: 'all', label: 'All' },
-  { value: 'iconic-moments', label: 'Iconic Moments' },
-  { value: 'cultural', label: 'Cultural Day' },
-  { value: 'debates', label: 'Debates' },
-  { value: 'project-defense', label: 'Project Defense' },
+  { value: 'candlelight', label: 'Candlelight' },
+  { value: 'cultural', label: 'Cultural' },
+  { value: 'defence', label: 'Defence' },
+  { value: 'field', label: 'Field' },
   { value: 'graduation', label: 'Graduation' },
-  { value: 'dating', label: 'Dating' },
-  { value: 'art-falls', label: 'Art Falls' },
-  { value: 'events', label: 'Events' },
+  { value: 'dinner', label: 'Dinner' },
 ];
 
-export default function GalleryPage() {
+function GalleryContent() {
+  const searchParams = useSearchParams();
+  const filterParam = searchParams.get('filter');
+  
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+
+  // Set category from URL parameter on mount
+  useEffect(() => {
+    if (filterParam && categories.some(c => c.value === filterParam)) {
+      setSelectedCategory(filterParam);
+    }
+  }, [filterParam]);
 
   const filteredImages = selectedCategory === 'all' 
     ? galleryImages 
     : galleryImages.filter(img => img.category === selectedCategory);
 
   return (
-    <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
-      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
-        <div className="absolute inset-0">
-          <Image
-            src="/images/hero/hero-2.jpg"
-            alt="Gallery"
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="relative z-20 text-center px-6">
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
-          >
-            Gallery
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
-          >
-            Moments of Excellence
-          </motion.h1>
-        </div>
-      </section>
-
+    <>
       <section className="max-w-7xl mx-auto px-6 py-20">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -189,6 +167,53 @@ export default function GalleryPage() {
           </motion.div>
         )}
       </AnimatePresence>
+    </>
+  );
+}
+
+export default function GalleryPage() {
+  return (
+    <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24">
+      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
+        <div className="absolute inset-0">
+          <Image
+            src="/images/hero/hero-2.jpg"
+            alt="Gallery"
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+        <div className="relative z-20 text-center px-6">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
+          >
+            Gallery
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
+          >
+            Moments of Excellence
+          </motion.h1>
+        </div>
+      </section>
+
+      <Suspense fallback={
+        <div className="max-w-7xl mx-auto px-6 py-20">
+          <div className="flex items-center justify-center h-64">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white"></div>
+          </div>
+        </div>
+      }>
+        <GalleryContent />
+      </Suspense>
     </main>
   );
 }

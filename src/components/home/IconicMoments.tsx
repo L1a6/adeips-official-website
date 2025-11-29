@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
 export default function IconicMoments() {
   const [isMobile, setIsMobile] = useState(false);
   const [isReady, setIsReady] = useState(false);
-  const [currentBgColor, setCurrentBgColor] = useState('#1a2332');
+  const [currentBgColor, setCurrentBgColor] = useState('#0A1236');
   const titleRef = useRef(null);
   const subtitleRef = useRef(null);
   const mobileContainerRef = useRef<HTMLElement | null>(null);
@@ -43,7 +43,7 @@ export default function IconicMoments() {
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            document.body.style.backgroundColor = '#1a2332';
+            document.body.style.backgroundColor = '#0A1236';
           }
         });
       },
@@ -116,7 +116,7 @@ export default function IconicMoments() {
     if (typeof window === 'undefined' || isMobile) return;
 
     // Set initial background
-    document.body.style.backgroundColor = '#1a2332';
+    document.body.style.backgroundColor = '#0A1236';
 
     const ctx = gsap.context(() => {
       // Set z-index for image stacking
@@ -129,8 +129,8 @@ export default function IconicMoments() {
 
       const imgs = gsap.utils.toArray<HTMLElement>('.img-wrapper img');
       
-      // All 4 colors - one for each section
-      const bgColors = ['#1a2332', '#2D3E50', '#2C5F52', '#4A5568'];
+      // All 4 colors - one for each section (navy first, then original first color replaces green)
+      const bgColors = ['#0A1236', '#2D3E50', '#1a2332', '#4A5568'];
 
       const mainTimeline = gsap.timeline({
         scrollTrigger: {
@@ -199,25 +199,29 @@ export default function IconicMoments() {
       title: 'Candlelight Session',
       description: 'An intimate evening where speakers share breakthrough moments, personal journeys, and transformative stories that shaped their public speaking mastery.',
       image: '/images/candlelight.jpg',
-      color: '#1a2332'
+      color: '#0A1236',
+      link: '/gallery?filter=candlelight'
     },
     {
       title: 'Cultural Day',
       description: 'Experience global perspectives through diverse storytelling traditions. Celebrate the universal language of powerful communication across cultures.',
       image: '/images/cultural.jpg',
-      color: '#2D3E50'
+      color: '#2D3E50',
+      link: '/gallery?filter=cultural'
     },
     {
-      title: 'Project Defense',
+      title: 'Project Defence',
       description: 'Showcase your mastery through compelling presentations. Demonstrate command of persuasive techniques and stage presence before distinguished panels.',
       image: '/images/project1.jpg',
-      color: '#2C5F52'
+      color: '#1a2332',
+      link: '/gallery?filter=defence'
     },
     {
       title: 'Graduation',
       description: 'Celebrate your transformation from hesitant speaker to confident communicator. Join our distinguished alumni network of influential voices.',
       image: '/images/grad.jpg',
-      color: '#4A5568'
+      color: '#4A5568',
+      link: '/gallery?filter=graduation'
     }
   ];
 
@@ -266,7 +270,7 @@ export default function IconicMoments() {
           .moment-image {
             width: calc(100% - 32px);
             margin: 0 auto 24px auto;
-            height: 240px;
+            height: 300px;
             border-radius: 12px;
             overflow: hidden;
             position: relative;
@@ -358,8 +362,8 @@ export default function IconicMoments() {
             <div className="moment-content">
               <h3>{moment.title}</h3>
               <p>{moment.description}</p>
-              <a href="#" className="moment-button">
-                <span>Learn More</span>
+              <a href={moment.link} className="moment-button">
+                <span>View Gallery</span>
                 <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
@@ -369,7 +373,7 @@ export default function IconicMoments() {
         ))}
 
         <div className="gallery-button">
-          <a href="#gallery">
+          <a href="/gallery">
             <span>View Full Gallery</span>
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -403,13 +407,6 @@ export default function IconicMoments() {
           height: 2vh;
         }
         
-        /* Reduce spacer on tablets */
-        @media (max-width: 1024px) {
-          .spacer {
-            height: 1vh;
-          }
-        }
-
         .arch {
           display: flex;
           gap: 60px;
@@ -418,12 +415,12 @@ export default function IconicMoments() {
           margin-inline: auto;
         }
         
-        /* Tablet adjustments */
+        /* Tablet adjustments - increase sizes to reduce white space */
         @media (max-width: 1024px) {
           .arch {
             gap: 30px;
-            max-width: 95%;
-            padding: 0 20px;
+            max-width: 98%;
+            padding: 0 16px;
           }
         }
 
@@ -435,7 +432,8 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__left {
-            min-width: 250px;
+            min-width: 340px;
+            flex: 1;
           }
         }
 
@@ -448,8 +446,8 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__left .arch__info {
-            max-width: 300px;
-            height: 80vh;
+            max-width: 420px;
+            height: 85vh;
           }
         }
 
@@ -464,7 +462,7 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__left .arch__info h2 {
-            font-size: 32px;
+            font-size: 48px;
           }
         }
 
@@ -478,8 +476,8 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__left .arch__info p {
-            font-size: 15px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            line-height: 1.7;
           }
         }
 
@@ -504,8 +502,8 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__left .arch__info a {
-            padding: 12px 20px;
-            font-size: 14px;
+            padding: 18px 28px;
+            font-size: 17px;
           }
         }
 
@@ -526,8 +524,9 @@ export default function IconicMoments() {
         
         @media (max-width: 1024px) {
           .arch__right {
-            height: 80vh;
-            max-width: 400px;
+            height: 85vh;
+            max-width: 480px;
+            flex: 1;
           }
         }
 
@@ -542,9 +541,10 @@ export default function IconicMoments() {
           overflow: hidden;
         }
         
+        /* Tablet: increase image height significantly */
         @media (max-width: 1024px) {
           .arch__right .img-wrapper {
-            height: 350px;
+            height: 550px;
           }
         }
         
@@ -552,13 +552,6 @@ export default function IconicMoments() {
           text-align: center;
           margin-top: 60px;
           padding-bottom: 60px;
-        }
-        
-        @media (max-width: 1024px) {
-          .gallery-button-desktop {
-            margin-top: 30px;
-            padding-bottom: 40px;
-          }
         }
         
         .gallery-button-desktop a {
@@ -583,24 +576,11 @@ export default function IconicMoments() {
           background: rgba(255, 255, 255, 0.25);
           transform: translateY(-2px);
         }
-        
-        /* Tablet title adjustments */
-        @media (max-width: 1024px) {
-          .iconic-title {
-            font-size: 40px !important;
-            margin-bottom: 8px !important;
-          }
-          
-          .iconic-subtitle {
-            font-size: 15px !important;
-            margin-bottom: 16px !important;
-          }
-        }
       `}</style>
 
       <section className="desktop-iconic-moments">
         <div className="container">
-          <h2 ref={titleRef} className="iconic-title" style={{ 
+          <h2 ref={titleRef} style={{ 
             fontFamily: 'Outfit', 
             fontSize: '56px', 
             fontWeight: 300, 
@@ -610,7 +590,7 @@ export default function IconicMoments() {
           }}>
             Iconic Moments at the Institute
           </h2>
-          <p ref={subtitleRef} className="iconic-subtitle" style={{ 
+          <p ref={subtitleRef} style={{ 
             textAlign: 'center', 
             color: 'rgba(255, 255, 255, 0.85)', 
             marginBottom: '24px', 
@@ -631,8 +611,8 @@ export default function IconicMoments() {
                 <div>
                   <h2>{moment.title}</h2>
                   <p>{moment.description}</p>
-                  <a href="#">
-                    <span>Learn More</span>
+                  <a href={moment.link}>
+                    <span>View Gallery</span>
                     <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
@@ -660,7 +640,7 @@ export default function IconicMoments() {
         <div className="spacer" />
         
         <div className="gallery-button-desktop">
-          <a href="#gallery">
+          <a href="/gallery">
             <span>View Full Gallery</span>
             <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />

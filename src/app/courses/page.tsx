@@ -116,7 +116,7 @@ export default function CoursesPage() {
             transition={{ duration: 0.6 }}
             className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
           >
-            What We Offer
+            Our Courses
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -124,7 +124,7 @@ export default function CoursesPage() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
           >
-            Our Courses
+            Transform Your Speaking Journey
           </motion.h1>
         </div>
       </section>

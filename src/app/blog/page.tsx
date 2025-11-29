@@ -90,9 +90,9 @@ function BlogContent() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="mb-20 relative"
+            className="mb-20 relative mx-[-8px] md:mx-0"
           >
-            <div className="relative h-[500px] rounded-3xl overflow-hidden">
+            <div className="relative h-[400px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentFeatured}
@@ -111,17 +111,17 @@ function BlogContent() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     
-                    <div className="absolute bottom-0 left-0 right-0 p-12">
-                      <span className="inline-block px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-sm mb-4">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
+                      <span className="inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs md:text-sm mb-3 md:mb-4">
                         Featured
                       </span>
-                      <h2 className="font-outfit text-4xl md:text-5xl font-light text-white mb-4 group-hover:text-gray-200 transition-colors">
+                      <h2 className="font-outfit text-2xl md:text-4xl lg:text-5xl font-light text-white mb-3 md:mb-4 group-hover:text-gray-200 transition-colors line-clamp-2">
                         {featuredPosts[currentFeatured].title}
                       </h2>
-                      <p className="text-lg text-white/90 mb-4 max-w-3xl">
+                      <p className="text-sm md:text-lg text-white/90 mb-3 md:mb-4 max-w-3xl line-clamp-2 md:line-clamp-none">
                         {featuredPosts[currentFeatured].excerpt}
                       </p>
-                      <div className="flex items-center gap-4 text-white/80 text-sm">
+                      <div className="flex items-center gap-2 md:gap-4 text-white/80 text-xs md:text-sm">
                         <span>{featuredPosts[currentFeatured].author}</span>
                         <span>•</span>
                         <span>{new Date(featuredPosts[currentFeatured].created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</span>
