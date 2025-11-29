@@ -105,6 +105,7 @@ export default function CoursesPage() {
             src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1920&q=90"
             alt="Courses"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />
@@ -152,6 +153,7 @@ export default function CoursesPage() {
                         src={module.image}
                         alt={module.title}
                         fill
+                        sizes="(max-width: 1024px) 100vw, 50vw"
                         className="object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A1236]/80 via-[#0A1236]/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500" />
@@ -237,6 +239,7 @@ export default function CoursesPage() {
             src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1920&q=80"
             alt="Join ADEIPS"
             fill
+            sizes="100vw"
             className="object-cover"
           />
           <div className="absolute inset-0 bg-[#0A1236]/95" />

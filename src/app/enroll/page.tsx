@@ -97,6 +97,7 @@ export default function EnrollPage() {
             src="/images/hero/hero-1.jpg"
             alt="Enroll"
             fill
+            sizes="100vw"
             className="object-cover"
             priority
           />

@@ -355,6 +355,7 @@ export default function IconicMoments() {
                 src={moment.image}
                 alt={moment.title}
                 fill
+                sizes="(max-width: 768px) 100vw, 50vw"
                 style={{ objectFit: 'cover' }}
                 priority={index === 0}
               />
@@ -572,6 +573,7 @@ export default function IconicMoments() {
                   src={moment.image}
                   alt={moment.title}
                   fill
+                  sizes="25vw"
                   style={{ objectFit: 'cover' }}
                   priority={index === 0}
                 />

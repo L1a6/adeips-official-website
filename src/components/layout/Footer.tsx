@@ -13,6 +13,7 @@ export default function Footer() {
                 src="/images/logo.png"
                 alt="ADEIPS Logo"
                 fill
+                sizes="144px"
                 className="object-contain object-left brightness-0 invert"
               />
             </div>

@@ -262,6 +262,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
             src={post.image_url}
             alt={post.title}
             fill
+            sizes="(max-width: 1200px) 100vw, 1200px"
             className="object-cover"
             priority
           />
@@ -304,6 +305,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ slug: strin
                       src={relatedPost.image_url}
                       alt={relatedPost.title}
                       fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
                       className="object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                   </div>

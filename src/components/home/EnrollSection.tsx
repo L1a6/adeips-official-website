@@ -55,6 +55,7 @@ export default function EnrollSection() {
           src="/images/enroll.jpg"
           alt="Join ADEIPS"
           fill
+          sizes="100vw"
           className="object-cover"
         />
       </div>

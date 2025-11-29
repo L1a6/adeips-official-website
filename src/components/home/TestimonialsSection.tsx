@@ -220,6 +220,7 @@ export default function TestimonialsSection() {
                 src={testimonial.image}
                 alt={testimonial.name}
                 fill
+                sizes="(max-width: 768px) 240px, 340px"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               
