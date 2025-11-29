@@ -111,10 +111,12 @@ function BlogContent() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                     
+                    {/* Featured badge - top right */}
+                    <span className="absolute top-4 right-4 md:top-6 md:right-6 inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs md:text-sm z-10">
+                      Featured
+                    </span>
+                    
                     <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-                      <span className="inline-block px-3 md:px-4 py-1.5 md:py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs md:text-sm mb-3 md:mb-4">
-                        Featured
-                      </span>
                       <h2 className="font-outfit text-2xl md:text-4xl lg:text-5xl font-light text-white mb-3 md:mb-4 group-hover:text-gray-200 transition-colors line-clamp-2">
                         {featuredPosts[currentFeatured].title}
                       </h2>

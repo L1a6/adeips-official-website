@@ -82,15 +82,15 @@ const testimonials = [
 export default function TestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const doubledTestimonials = [...testimonials, ...testimonials];
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
-      const scrollAmount = 380;
+      const isMobile = window.innerWidth < 768;
+      const scrollAmount = isMobile ? 200 : 380;
       const newScroll = scrollRef.current.scrollLeft + (direction === 'right' ? scrollAmount : -scrollAmount);
       scrollRef.current.scrollTo({ left: newScroll, behavior: 'smooth' });
       
@@ -100,25 +100,12 @@ export default function TestimonialsSection() {
     }
   };
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setTouchStart(e.targetTouches[0].clientX);
-    setIsPaused(true);
-  };
-
-  const handleTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 50) {
-      scroll('right');
+  const handleCardTap = (index: number) => {
+    if (activeCard === index) {
+      setActiveCard(null);
+    } else {
+      setActiveCard(index);
     }
-    if (touchStart - touchEnd < -50) {
-      scroll('left');
-    }
-    
-    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 2000);
   };
 
   useEffect(() => {
@@ -157,51 +144,71 @@ export default function TestimonialsSection() {
 
   return (
     <section className="section-spacing bg-[var(--bg-primary)] overflow-hidden">
-      <div className="container-custom mb-16">
-        <h2 className="font-outfit text-4xl md:text-5xl lg:text-6xl font-extralight text-[var(--adeips-navy)] dark:text-[var(--text-primary)] text-center mb-4 tracking-tight opacity-0 animate-fade-in-up">
+      <div className="container-custom mb-8 md:mb-16">
+        <h2 className="font-outfit text-3xl md:text-5xl lg:text-6xl font-extralight text-[var(--adeips-navy)] dark:text-[var(--text-primary)] text-center mb-3 md:mb-4 tracking-tight opacity-0 animate-fade-in-up">
           Voices of Transformation
         </h2>
-        <p className="text-center text-[var(--text-secondary)] text-lg opacity-0 animate-fade-in animate-delay-200">
+        <p className="text-center text-[var(--text-secondary)] text-base md:text-lg opacity-0 animate-fade-in animate-delay-200 px-4">
           Alumni who discovered their authentic voice at ADEIPS
         </p>
       </div>
 
       <div className="relative">
+        {/* Liquid Glass Navigation Arrows */}
         <button
           onClick={() => scroll('left')}
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white dark:bg-[var(--adeips-navy)] shadow-xl flex items-center justify-center text-[var(--adeips-navy)] dark:text-white hover:scale-110 transition-transform"
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+          style={{
+            background: 'rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          }}
           aria-label="Scroll left"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 md:w-5 md:h-5 text-[var(--adeips-navy)] dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
         </button>
 
         <button
           onClick={() => scroll('right')}
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full bg-white dark:bg-[var(--adeips-navy)] shadow-xl flex items-center justify-center text-[var(--adeips-navy)] dark:text-white hover:scale-110 transition-transform"
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-10 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center text-white transition-all duration-300 hover:scale-110"
+          style={{
+            background: 'rgba(255, 255, 255, 0.15)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            boxShadow: '0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
+          }}
           aria-label="Scroll right"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 md:w-5 md:h-5 text-[var(--adeips-navy)] dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
           </svg>
         </button>
 
         <div
           ref={scrollRef}
-          className="flex gap-6 overflow-x-scroll scrollbar-hide"
+          className="flex gap-3 md:gap-6 overflow-x-scroll scrollbar-hide px-4 md:px-8"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
+          onMouseLeave={() => {
+            setIsPaused(false);
+            setActiveCard(null);
+          }}
+          onTouchStart={() => setIsPaused(true)}
+          onTouchEnd={() => {
+            if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+            pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 3000);
+          }}
         >
-          <div className="w-8 flex-shrink-0" />
           {doubledTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="group relative w-[340px] h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-transform hover:-translate-y-2"
+              onClick={() => handleCardTap(index)}
+              className="group relative w-[180px] h-[240px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-xl md:rounded-2xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-2 active:scale-[0.98]"
             >
               <Image
                 src={testimonial.image}
@@ -210,25 +217,60 @@ export default function TestimonialsSection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-6">
-                <p className="text-white text-sm mb-4 leading-relaxed font-light">
-                  "{testimonial.quote}"
+              {/* Content overlay - shows on hover (desktop) or tap (mobile) */}
+              <div 
+                className={`absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/60 to-transparent flex flex-col justify-end p-3 md:p-6 transition-opacity duration-400 ${
+                  activeCard === index ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'
+                }`}
+              >
+                <p className="text-white text-xs md:text-sm mb-2 md:mb-4 leading-relaxed font-light line-clamp-4 md:line-clamp-none">
+                  &ldquo;{testimonial.quote}&rdquo;
                 </p>
+                <div>
+                  <h4 className="text-white font-semibold text-sm md:text-lg">{testimonial.name}</h4>
+                  <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
+                </div>
               </div>
 
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-[#0A1F44]/90 to-transparent">
-                <h4 className="text-white font-semibold text-lg">{testimonial.name}</h4>
-                <p className="text-white/80 text-sm">{testimonial.role}</p>
+              {/* Default state with name at bottom */}
+              <div 
+                className={`absolute bottom-0 left-0 right-0 p-3 md:p-6 bg-gradient-to-t from-[#0A1F44]/90 to-transparent transition-opacity duration-400 ${
+                  activeCard === index ? 'opacity-0' : 'md:group-hover:opacity-0'
+                }`}
+              >
+                <h4 className="text-white font-semibold text-sm md:text-lg">{testimonial.name}</h4>
+                <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
+              </div>
+
+              {/* Tap to reveal indicator on mobile */}
+              <div 
+                className={`md:hidden absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center transition-opacity duration-300 ${
+                  activeCard === index ? 'opacity-0' : 'opacity-70'
+                }`}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  backdropFilter: 'blur(8px)',
+                }}
+              >
+                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
               </div>
             </div>
           ))}
-          <div className="w-8 flex-shrink-0" />
         </div>
       </div>
 
       <style jsx>{`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
+        }
+        .line-clamp-4 {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
         }
       `}</style>
     </section>

@@ -414,27 +414,11 @@ export default function IconicMoments() {
           max-width: 1100px;
           margin-inline: auto;
         }
-        
-        /* Tablet adjustments - increase sizes to reduce white space */
-        @media (max-width: 1024px) {
-          .arch {
-            gap: 30px;
-            max-width: 98%;
-            padding: 0 16px;
-          }
-        }
 
         .arch__left {
           display: flex;
           flex-direction: column;
           min-width: 300px;
-        }
-        
-        @media (max-width: 1024px) {
-          .arch__left {
-            min-width: 340px;
-            flex: 1;
-          }
         }
 
         .arch__left .arch__info {
@@ -442,13 +426,6 @@ export default function IconicMoments() {
           height: 100vh;
           display: grid;
           place-items: center;
-        }
-        
-        @media (max-width: 1024px) {
-          .arch__left .arch__info {
-            max-width: 420px;
-            height: 85vh;
-          }
         }
 
         .arch__left .arch__info h2 {
@@ -459,12 +436,6 @@ export default function IconicMoments() {
           color: #FFFFFF;
           margin-bottom: 6px;
         }
-        
-        @media (max-width: 1024px) {
-          .arch__left .arch__info h2 {
-            font-size: 48px;
-          }
-        }
 
         .arch__left .arch__info p {
           color: rgba(255, 255, 255, 0.9);
@@ -472,13 +443,6 @@ export default function IconicMoments() {
           letter-spacing: -0.54px;
           margin-bottom: 28px;
           line-height: 1.6;
-        }
-        
-        @media (max-width: 1024px) {
-          .arch__left .arch__info p {
-            font-size: 20px;
-            line-height: 1.7;
-          }
         }
 
         .arch__left .arch__info a {
@@ -499,13 +463,6 @@ export default function IconicMoments() {
           transition: all 0.3s ease;
           font-weight: 600;
         }
-        
-        @media (max-width: 1024px) {
-          .arch__left .arch__info a {
-            padding: 18px 28px;
-            font-size: 17px;
-          }
-        }
 
         .arch__left .arch__info a:hover {
           background: rgba(255, 255, 255, 0.25);
@@ -521,14 +478,6 @@ export default function IconicMoments() {
           display: flex;
           flex-direction: column;
         }
-        
-        @media (max-width: 1024px) {
-          .arch__right {
-            height: 85vh;
-            max-width: 480px;
-            flex: 1;
-          }
-        }
 
         .arch__right .img-wrapper {
           position: absolute;
@@ -539,13 +488,7 @@ export default function IconicMoments() {
           width: 100%;
           border-radius: 16px;
           overflow: hidden;
-        }
-        
-        /* Tablet: increase image height significantly */
-        @media (max-width: 1024px) {
-          .arch__right .img-wrapper {
-            height: 550px;
-          }
+          will-change: clip-path;
         }
         
         .gallery-button-desktop {

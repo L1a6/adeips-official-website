@@ -87,7 +87,7 @@ export default function HeroSection() {
           </p>
 
           <h1 className="font-outfit text-4xl sm:text-5xl md:text-7xl lg:text-6xl xl:text-7xl font-extralight text-white mb-8 md:mb-12 tracking-tight leading-[1.15] animate-[fadeInUp_1.8s_ease_0.8s_both]">
-            Master The Art Of Persuasive Communication
+            Redefining Excellence In Public Speaking
           </h1>
 
           {/* Typing Effect */}

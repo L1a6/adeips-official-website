@@ -74,7 +74,7 @@ export default function EnrollSection() {
           <div className="opacity-0 animate-scale-in animate-delay-400">
             <a
               href="/enroll"
-              className="inline-block px-10 py-4 rounded-full text-sm font-medium bg-[var(--adeips-red)] text-white transition-all duration-400 hover:bg-[#B91C1C] hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30"
+              className="inline-block px-10 py-4 rounded-full text-sm font-medium bg-[#E62A2A] text-white transition-all duration-400 hover:bg-[#D12020] hover:-translate-y-0.5 shadow-lg hover:shadow-xl hover:shadow-red-500/30"
             >
               Apply Now
             </a>
