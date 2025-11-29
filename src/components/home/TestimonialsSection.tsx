@@ -2,76 +2,88 @@
 
 import { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const testimonials = [
   {
+    id: 1,
     image: '/images/testimonials/enroll-3.jpg',
     name: 'Edidiong Atainyang',
     role: 'BGS, 11th Cohort.',
     quote: 'ADEIPS transformed me from a nervous presenter into a confident keynote speaker. The techniques I learned here changed my entire career trajectory.',
   },
   {
+    id: 2,
     image: '/images/testimonials/enroll-2.jpg',
     name: 'Idy Xavier',
     role: 'Public Speaker',
     quote: 'From stage fright to TEDx stages. The facilitators truly understand the psychology of impactful communication.',
   },
   {
+    id: 3,
     image: '/images/testimonials/enroll-1.jpg',
     name: 'Uduakabasi Etuk',
     role: 'Computer Engineer and Public Speaker',
     quote: 'The most transformative 10 weeks of my professional life. Every session pushed me beyond what I thought possible.',
   },
-
   {
+    id: 4,
     image: '/images/testimonials/enroll-6.jpg',
     name: 'Regina Edem',
     role: 'Administrative Lead, ADEIPS',
     quote: 'I went from avoiding presentations to actively seeking speaking opportunities. The supportive community made all the difference.',
   },
   {
+    id: 5,
     image: '/images/testimonials/enroll-4.jpg',
     name: 'Mary Edoho',
     role: 'Startup Founder',
     quote: 'ADEIPS gave me the confidence to pitch to Fortune 500 companies. The persuasion techniques were game-changing.',
   },
   {
+    id: 6,
     image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&h=450&q=80',
     name: 'James Wilson',
     role: 'Award-Winning Orator',
     quote: 'The storytelling frameworks helped me win a national oratory competition. This institute is world-class.',
   },
   {
+    id: 7,
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=450&q=80',
     name: 'Linda Adeyemi',
     role: 'Marketing Director',
     quote: 'My presentations now command attention. The transformation in my confidence has been remarkable.',
   },
   {
+    id: 8,
     image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=450&q=80',
     name: 'Robert Nwankwo',
     role: 'Executive Coach',
     quote: 'ADEIPS equipped me with skills I now use to train other leaders. The investment paid for itself many times over.',
   },
   {
+    id: 9,
     image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=450&q=80',
     name: 'Grace Obi',
     role: 'Legal Counsel',
     quote: 'My courtroom presentations have never been more persuasive. The techniques are applicable across all professional contexts.',
   },
   {
+    id: 10,
     image: 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?w=400&h=450&q=80',
     name: 'Daniel Thompson',
     role: 'Sales Director',
     quote: 'Our team revenue increased by 40% after I applied what I learned. Communication is everything in sales.',
   },
   {
+    id: 11,
     image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&h=450&q=80',
     name: 'Angela Eze',
     role: 'University Lecturer',
     quote: 'My students are more engaged than ever. ADEIPS taught me how to truly connect with an audience.',
   },
   {
+    id: 12,
     image: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=400&h=450&q=80',
     name: 'Christopher Uche',
     role: 'Tech Entrepreneur',
@@ -82,7 +94,7 @@ const testimonials = [
 export default function TestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const doubledTestimonials = [...testimonials, ...testimonials];
@@ -90,21 +102,13 @@ export default function TestimonialsSection() {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const isMobile = window.innerWidth < 768;
-      const scrollAmount = isMobile ? 200 : 380;
+      const scrollAmount = isMobile ? 260 : 380;
       const newScroll = scrollRef.current.scrollLeft + (direction === 'right' ? scrollAmount : -scrollAmount);
       scrollRef.current.scrollTo({ left: newScroll, behavior: 'smooth' });
       
       setIsPaused(true);
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
       pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 2000);
-    }
-  };
-
-  const handleCardTap = (index: number) => {
-    if (activeCard === index) {
-      setActiveCard(null);
-    } else {
-      setActiveCard(index);
     }
   };
 
@@ -191,12 +195,12 @@ export default function TestimonialsSection() {
 
         <div
           ref={scrollRef}
-          className="flex gap-3 md:gap-6 overflow-x-scroll scrollbar-hide px-4 md:px-8"
+          className="flex gap-4 md:gap-6 overflow-x-scroll scrollbar-hide px-4 md:px-8"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => {
             setIsPaused(false);
-            setActiveCard(null);
+            setHoveredCard(null);
           }}
           onTouchStart={() => setIsPaused(true)}
           onTouchEnd={() => {
@@ -207,8 +211,10 @@ export default function TestimonialsSection() {
           {doubledTestimonials.map((testimonial, index) => (
             <div
               key={index}
-              onClick={() => handleCardTap(index)}
-              className="group relative w-[180px] h-[240px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-xl md:rounded-2xl overflow-hidden cursor-pointer transition-transform duration-300 hover:-translate-y-2 active:scale-[0.98]"
+              onMouseEnter={() => setHoveredCard(index)}
+              onMouseLeave={() => setHoveredCard(null)}
+              onTouchStart={() => setHoveredCard(index)}
+              className="group relative w-[240px] h-[320px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2"
             >
               <Image
                 src={testimonial.image}
@@ -217,45 +223,41 @@ export default function TestimonialsSection() {
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               
-              {/* Content overlay - shows on hover (desktop) or tap (mobile) */}
+              {/* Content overlay - shows on hover */}
               <div 
-                className={`absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/60 to-transparent flex flex-col justify-end p-3 md:p-6 transition-opacity duration-400 ${
-                  activeCard === index ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'
+                className={`absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/70 to-[#0A1F44]/20 flex flex-col justify-end p-4 md:p-6 transition-all duration-500 ${
+                  hoveredCard === index ? 'opacity-100' : 'opacity-0'
                 }`}
               >
-                <p className="text-white text-xs md:text-sm mb-2 md:mb-4 leading-relaxed font-light line-clamp-4 md:line-clamp-none">
+                <p className="text-white text-sm md:text-base mb-3 md:mb-4 leading-relaxed font-light line-clamp-3">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
-                <div>
-                  <h4 className="text-white font-semibold text-sm md:text-lg">{testimonial.name}</h4>
+                <div className="mb-3">
+                  <h4 className="text-white font-semibold text-base md:text-lg">{testimonial.name}</h4>
                   <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
                 </div>
+                
+                {/* Read More Link */}
+                <Link 
+                  href={`/testimonials#${testimonial.id}`}
+                  className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors group/link"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <span>Read Full Story</span>
+                  <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
               </div>
 
               {/* Default state with name at bottom */}
               <div 
-                className={`absolute bottom-0 left-0 right-0 p-3 md:p-6 bg-gradient-to-t from-[#0A1F44]/90 to-transparent transition-opacity duration-400 ${
-                  activeCard === index ? 'opacity-0' : 'md:group-hover:opacity-0'
+                className={`absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-[#0A1F44]/90 to-transparent transition-opacity duration-400 ${
+                  hoveredCard === index ? 'opacity-0' : 'opacity-100'
                 }`}
               >
-                <h4 className="text-white font-semibold text-sm md:text-lg">{testimonial.name}</h4>
+                <h4 className="text-white font-semibold text-base md:text-lg">{testimonial.name}</h4>
                 <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
-              </div>
-
-              {/* Tap to reveal indicator on mobile */}
-              <div 
-                className={`md:hidden absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center transition-opacity duration-300 ${
-                  activeCard === index ? 'opacity-0' : 'opacity-70'
-                }`}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  backdropFilter: 'blur(8px)',
-                }}
-              >
-                <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
               </div>
             </div>
           ))}
@@ -266,9 +268,9 @@ export default function TestimonialsSection() {
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
-        .line-clamp-4 {
+        .line-clamp-3 {
           display: -webkit-box;
-          -webkit-line-clamp: 4;
+          -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
           overflow: hidden;
         }

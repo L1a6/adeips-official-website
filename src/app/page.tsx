@@ -4,7 +4,7 @@ import IconicMoments from '@/components/home/IconicMoments';
 import TestimonialsSection from '@/components/home/TestimonialsSection';
 import EnrollSection from '@/components/home/EnrollSection';
 import FAQSection from '@/components/home/FAQSection';
-import ProgressiveScroll from '@/components/home/ProgressiveScroll';
+import ClosingSection from '@/components/home/ClosingSection';
 
 export default function Home() {
   return (
@@ -15,7 +15,7 @@ export default function Home() {
       <TestimonialsSection />
       <EnrollSection />
       <FAQSection />
-      <ProgressiveScroll />
+      <ClosingSection />
     </main>
   );
 }

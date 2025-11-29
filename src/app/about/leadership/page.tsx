@@ -7,7 +7,8 @@ import { leadershipTeam } from '@/data/leadership';
 export default function LeadershipPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-gray-50/50 to-white dark:from-[#0A1236] dark:via-[#0d1a40] dark:to-[#0A1236] pt-24">
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+      {/* Hero Section - Uniform with Gallery/Facilitators */}
+      <section className="relative h-[40vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-[#0A1236]/95 via-[#0A1236]/90 to-[#0A1236]/95 z-10"></div>
         <div className="absolute inset-0">
           <Image
@@ -18,39 +19,23 @@ export default function LeadershipPage() {
             priority
           />
         </div>
-        {/* Premium decorative elements */}
-        <div className="absolute inset-0 z-10 overflow-hidden">
-          <div className="absolute top-20 left-10 w-64 h-64 bg-[#E62A2A]/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
-        </div>
-        
         <div className="relative z-20 text-center px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-block mb-6"
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-sm tracking-[0.3em] uppercase text-white/90 mb-4"
           >
-            <div className="px-6 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20">
-              <span className="text-sm tracking-[0.3em] uppercase text-white/90">Our Leadership</span>
-            </div>
-          </motion.div>
+            Our Leadership
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-outfit text-5xl md:text-7xl font-extralight text-white tracking-tight mb-4"
+            className="font-outfit text-4xl md:text-6xl font-extralight text-white tracking-tight"
           >
             Guiding Excellence
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-lg text-white/70 max-w-xl mx-auto"
-          >
-            The visionaries shaping the future of public speaking excellence
-          </motion.p>
         </div>
       </section>
 
