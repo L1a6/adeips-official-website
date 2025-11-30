@@ -178,6 +178,18 @@ export default function Navbar() {
                 Gallery
               </Link>
             </li>
+            <li>
+              <Link
+                href="/testimonials"
+                className={`text-sm font-normal transition-colors relative after:absolute after:bottom-[-4px] after:left-0 after:w-0 after:h-[1px] after:bg-[#E62A2A] after:transition-all hover:after:w-full ${
+                  isActive('/testimonials')
+                    ? 'text-[#E62A2A]'
+                    : 'text-gray-800 dark:text-white hover:text-[#E62A2A]'
+                }`}
+              >
+                Testimonials
+              </Link>
+            </li>
             
             <li 
               className="relative"
@@ -321,6 +333,11 @@ export default function Navbar() {
             <li className="py-3">
               <Link href="/gallery" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
                 Gallery
+              </Link>
+            </li>
+            <li className="py-3">
+              <Link href="/testimonials" className="text-sm font-normal text-gray-800 dark:text-white" onClick={() => setIsOpen(false)}>
+                Testimonials
               </Link>
             </li>
             

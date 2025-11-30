@@ -304,7 +304,7 @@ export default function TestimonialsPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-sm tracking-[0.3em] uppercase text-[#E62A2A] mb-4"
+            className="text-sm tracking-[0.3em] uppercase text-[#0A1236] dark:text-white/90 mb-4 font-semibold"
           >
             Success Stories
           </motion.p>
@@ -341,9 +341,19 @@ export default function TestimonialsPage() {
                 onClick={() => openTestimonial(testimonial)}
                 className="group cursor-pointer"
               >
-                <div className="relative bg-white dark:bg-white/5 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-white/10">
+                <div className="relative rounded-[1.5rem] overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-700 hover:-translate-y-2 hover:scale-[1.02] bg-white dark:bg-white/5"
+                  style={{
+                    backdropFilter: 'blur(40px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                  }}
+                >
                   {/* Image */}
-                  <div className="relative h-72 overflow-hidden">
+                  <div className="relative h-72 overflow-hidden rounded-t-[1.5rem]"
+                    style={{
+                      boxShadow: 'inset 0 -2px 10px rgba(0, 0, 0, 0.1)',
+                    }}
+                  >
                     <Image
                       src={testimonial.image}
                       alt={testimonial.name}
@@ -351,11 +361,11 @@ export default function TestimonialsPage() {
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                     
                     {/* Cohort Badge */}
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/20 backdrop-blur-md text-white border border-white/20">
+                      <span className="px-4 py-2 rounded-full text-xs font-semibold bg-white/20 backdrop-blur-sm text-white border border-white/30">
                         {testimonial.cohort}
                       </span>
                     </div>
@@ -368,14 +378,14 @@ export default function TestimonialsPage() {
                   </div>
                   
                   {/* Content */}
-                  <div className="p-6">
-                    <p className="text-gray-600 dark:text-white/70 text-sm leading-relaxed line-clamp-3 mb-4">
+                  <div className="p-6 bg-white dark:bg-[#081225]">
+                    <p className="text-gray-600 dark:text-white text-sm leading-relaxed line-clamp-3 mb-4">
                       &ldquo;{testimonial.quote}&rdquo;
                     </p>
                     
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-[#E62A2A] font-medium">{testimonial.highlight}</span>
-                      <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-white/50 group-hover:text-[#E62A2A] transition-colors">
+                      <span className="text-xs font-semibold text-[#0A1236] dark:text-white">{testimonial.highlight}</span>
+                      <span className="flex items-center gap-1 text-sm text-gray-500 dark:text-white/70 group-hover:text-[#0A1236] dark:group-hover:text-white transition-colors font-medium">
                         Read Story
                         <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -401,10 +411,13 @@ export default function TestimonialsPage() {
           </p>
           <Link
             href="/enroll"
-            className="inline-flex items-center gap-2 px-10 py-4 rounded-full bg-white text-[#0A1236] font-medium hover:shadow-lg hover:shadow-white/20 hover:-translate-y-0.5 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-10 py-4 rounded-full text-white font-semibold transition-all duration-500 hover:scale-105 hover:shadow-2xl group bg-[#0A1236]"
+            style={{
+              boxShadow: '0 20px 60px rgba(10, 18, 54, 0.4)',
+            }}
           >
-            Begin Your Transformation
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="relative z-10">Begin Your Transformation</span>
+            <svg className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
@@ -425,12 +438,12 @@ export default function TestimonialsPage() {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: 'spring', damping: 25 }}
-            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl"
+            className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[1.5rem] bg-white dark:bg-[#0A1236]/95"
             style={{
-              background: 'rgba(255, 255, 255, 0.95)',
-              backdropFilter: 'blur(40px)',
-              WebkitBackdropFilter: 'blur(40px)',
-              boxShadow: '0 25px 100px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.5)',
+              backdropFilter: 'blur(60px) saturate(200%)',
+              WebkitBackdropFilter: 'blur(60px) saturate(200%)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 40px 120px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -467,11 +480,19 @@ export default function TestimonialsPage() {
                       src={selectedTestimonial.image}
                       alt={selectedTestimonial.name}
                       fill
+                      sizes="96px"
                       className="object-cover"
                     />
                   </div>
                   <div>
-                    <span className="inline-block px-3 py-1 rounded-full text-xs font-medium bg-[#E62A2A] text-white mb-2">
+                    <span className="inline-block px-4 py-1.5 rounded-full text-xs font-semibold mb-2 text-slate-800 dark:text-white"
+                      style={{
+                        background: 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(20px)',
+                        border: '1px solid rgba(255, 255, 255, 0.6)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 1)',
+                      }}
+                    >
                       {selectedTestimonial.cohort}
                     </span>
                     <h2 className="font-outfit text-3xl font-medium text-[#0A1236]">{selectedTestimonial.name}</h2>
@@ -484,35 +505,46 @@ export default function TestimonialsPage() {
             {/* Content */}
             <div className="p-8 md:p-12">
               {/* Highlight */}
-              <div className="mb-8 p-6 rounded-2xl bg-gradient-to-r from-[#E62A2A]/10 to-transparent border-l-4 border-[#E62A2A]">
-                <p className="text-lg font-medium text-[#0A1236]">{selectedTestimonial.highlight}</p>
+              <div className="mb-8 p-6 rounded-2xl border-l-4 bg-slate-50 dark:bg-[#0A1236]/50"
+                style={{
+                  backdropFilter: 'blur(20px)',
+                  borderLeftColor: '#0A1236',
+                }}
+              >
+                <p className="text-lg font-medium text-[#0A1236] dark:text-white">{selectedTestimonial.highlight}</p>
               </div>
 
               {/* Quote */}
-              <blockquote className="mb-8 text-xl text-gray-700 italic border-l-4 border-gray-200 pl-6">
+              <blockquote className="mb-8 text-xl text-gray-700 dark:text-white italic border-l-4 border-gray-200 dark:border-white/20 pl-6">
                 &ldquo;{selectedTestimonial.quote}&rdquo;
               </blockquote>
 
-              {/* Full Testimony */}
+              {/* Full Testimony - Shortened */}
               <div className="prose prose-lg max-w-none">
-                {selectedTestimonial.fullTestimony.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="text-gray-600 leading-relaxed mb-4">
-                    {paragraph}
-                  </p>
-                ))}
+                <p className="text-gray-600 dark:text-white leading-relaxed mb-4">
+                  {selectedTestimonial.fullTestimony.split('\n\n')[0].split(' ').slice(0, -1).join(' ')}...
+                </p>
               </div>
 
               {/* CTA */}
-              <div className="mt-12 pt-8 border-t border-gray-200 flex flex-wrap gap-4 justify-center">
+              <div className="mt-12 pt-8 border-t border-gray-200 dark:border-white/10 flex flex-wrap gap-4 justify-center">
                 <Link
-                  href="/enroll"
-                  className="px-8 py-3 rounded-full bg-[#E62A2A] text-white font-medium hover:bg-[#c41e1e] transition-colors"
+                  href={`/testimonials/${selectedTestimonial.id}`}
+                  className="px-8 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:scale-105 bg-[#0A1236]"
+                  style={{
+                    boxShadow: '0 10px 30px rgba(10, 18, 54, 0.3)',
+                  }}
                 >
-                  Start Your Journey
+                  View Full Story
                 </Link>
                 <button
                   onClick={closeModal}
-                  className="px-8 py-3 rounded-full border border-gray-200 text-gray-700 font-medium hover:bg-gray-50 transition-colors"
+                  className="px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 bg-white dark:bg-white/10 text-gray-700 dark:text-white"
+                  style={{
+                    backdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(0, 0, 0, 0.1)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
+                  }}
                 >
                   Back to Stories
                 </button>
