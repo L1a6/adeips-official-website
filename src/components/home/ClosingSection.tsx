@@ -71,7 +71,7 @@ export default function ClosingSection() {
       </div>
 
       {/* ===== MAIN CONTENT ===== */}
-      <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-20">
+      <div className="relative z-10 flex flex-col items-center justify-center px-4 py-12 md:py-16 lg:py-20">
         
         {/* Lottie Animation with Single Floating Phrase */}
         <div className="relative w-full max-w-4xl mx-auto flex flex-col items-center">
@@ -115,7 +115,7 @@ export default function ClosingSection() {
             </div>
 
             {/* Lottie Player - Reduced size for better performance */}
-            <div className="w-[280px] h-[280px] md:w-[380px] md:h-[380px] lg:w-[450px] lg:h-[450px]">
+            <div className="w-[220px] h-[220px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px]">
               <Lottie
                 lottieRef={lottieRef}
                 animationData={publicSpeakingAnimation}
@@ -132,13 +132,13 @@ export default function ClosingSection() {
 
         {/* ===== LIQUID GLASS CTA WITH STARS ===== */}
         <motion.div
-          className="relative mt-16 md:mt-20 w-full max-w-2xl mx-auto"
+          className="relative mt-8 md:mt-12 lg:mt-16 w-full max-w-2xl mx-auto"
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Glass container with starry background */}
-          <div className="relative p-10 md:p-14 rounded-[2rem] backdrop-blur-2xl bg-[#0A1236] border border-white/10 overflow-hidden shadow-2xl">
+          <div className="relative p-6 md:p-10 lg:p-14 rounded-[1.5rem] md:rounded-[2rem] backdrop-blur-2xl bg-[#0A1236] border border-white/10 overflow-hidden shadow-2xl">
             
             {/* Stars inside the CTA box - CSS animation for performance */}
             <div className="absolute inset-0 overflow-hidden rounded-[2rem]">

@@ -462,7 +462,7 @@ export default function TestimonialDetailPage() {
       </div>
 
       {/* Hero Section with Liquid Glass Effect */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-24 md:pt-28 lg:pt-32 pb-10 md:pb-14 lg:pb-20 px-4 md:px-6 overflow-hidden">
         {/* Animated Background Gradient - Sophisticated Colors */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-1/2 -right-1/4 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 blur-3xl animate-pulse" />
@@ -674,7 +674,7 @@ export default function TestimonialDetailPage() {
 
               {/* Key Achievement Badge */}
               <div 
-                className="inline-flex items-center gap-3 px-6 py-3.5 rounded-full transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-[#081225]"
+                className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-6 py-2.5 md:py-3.5 rounded-full transition-all duration-300 hover:scale-105 bg-white/90 dark:bg-[#081225]"
                 style={{
                   backdropFilter: 'blur(40px) saturate(180%)',
                   border: '1px solid rgba(10, 18, 54, 0.2)',
@@ -694,7 +694,7 @@ export default function TestimonialDetailPage() {
       </section>
 
       {/* Full Story Content */}
-      <section className="py-20 px-6">
+      <section className="py-10 md:py-16 lg:py-20 px-4 md:px-6">
         <div className="max-w-4xl mx-auto">
           {/* The Journey */}
           <motion.div
@@ -704,7 +704,7 @@ export default function TestimonialDetailPage() {
             viewport={{ once: true }}
             className="mb-16"
           >
-            <h2 className="font-outfit text-3xl md:text-4xl font-extralight text-slate-900 dark:text-white mb-8 tracking-tight">
+            <h2 className="font-outfit text-2xl md:text-3xl lg:text-4xl font-extralight text-slate-900 dark:text-white mb-4 md:mb-6 lg:mb-8 tracking-tight">
               The Journey
             </h2>
             
