@@ -331,7 +331,7 @@ export default function AdminGalleryPage() {
                   fill
                   className="object-cover"
                 />
-                {/* Overlay with actions */}
+                {/* Overlay with info */}
                 <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-4">
                   <p className="text-white text-sm font-medium text-center line-clamp-2">
                     {image.title}
@@ -339,16 +339,10 @@ export default function AdminGalleryPage() {
                   <span className="text-xs text-white/80 bg-white/20 px-2 py-1 rounded-full">
                     {getCategoryLabel(image.category)}
                   </span>
-                  <button
-                    onClick={() => handleDelete(image.id)}
-                    className="mt-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors text-sm"
-                  >
-                    Delete
-                  </button>
                 </div>
               </div>
-              {/* Mobile info (always visible) */}
-              <div className="p-3 md:hidden">
+              {/* Image info */}
+              <div className="p-3">
                 <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
                   {image.title}
                 </p>
