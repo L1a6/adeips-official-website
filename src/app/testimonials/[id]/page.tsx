@@ -353,21 +353,21 @@ export default function TestimonialDetailPage() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
+    const fetchTestimonial = async () => {
+      try {
+        const response = await fetch('/api/admin/testimonials');
+        const data = await response.json();
+        const found = data.find((t: Testimonial) => t.id === id);
+        setTestimonial(found || null);
+      } catch (error) {
+        console.error('Error fetching testimonial:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchTestimonial();
   }, [id]);
-
-  const fetchTestimonial = async () => {
-    try {
-      const response = await fetch('/api/admin/testimonials');
-      const data = await response.json();
-      const found = data.find((t: Testimonial) => t.id === id);
-      setTestimonial(found || null);
-    } catch (error) {
-      console.error('Error fetching testimonial:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleShare = async () => {
     const url = window.location.href;
