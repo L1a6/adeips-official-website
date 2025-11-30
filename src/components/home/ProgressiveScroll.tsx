@@ -13,9 +13,10 @@ const SCROLL_WORDS = [
   'lead.',
 ];
 
+const FINAL_MOTTO_TEXT = "...and we'll help you master persuasive communication";
+
 export default function ProgressiveScroll() {
   const [typedText, setTypedText] = useState('');
-  const finalMottoText = "...and we'll help you master persuasive communication";
 
   useEffect(() => {
     const finalSection = document.querySelector('.final-section-motto');
@@ -30,8 +31,8 @@ export default function ProgressiveScroll() {
             setTimeout(() => {
               let currentIndex = 0;
               const typingInterval = setInterval(() => {
-                if (currentIndex <= finalMottoText.length) {
-                  setTypedText(finalMottoText.slice(0, currentIndex));
+                if (currentIndex <= FINAL_MOTTO_TEXT.length) {
+                  setTypedText(FINAL_MOTTO_TEXT.slice(0, currentIndex));
                   currentIndex++;
                 } else {
                   clearInterval(typingInterval);
@@ -46,7 +47,7 @@ export default function ProgressiveScroll() {
 
     observer.observe(finalSection);
     return () => observer.disconnect();
-  }, [finalMottoText]);
+  }, []);
 
   return (
     <>
@@ -302,7 +303,7 @@ export default function ProgressiveScroll() {
             <section className="final-motto-content fluid">
               <p className="final-motto-paragraph">
                 {typedText}
-                {typedText.length > 0 && typedText.length < finalMottoText.length && (
+                {typedText.length > 0 && typedText.length < FINAL_MOTTO_TEXT.length && (
                   <span className="typing-cursor"></span>
                 )}
               </p>
