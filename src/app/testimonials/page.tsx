@@ -24,20 +24,20 @@ export default function TestimonialsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await fetch('/api/admin/testimonials');
+        const data = await response.json();
+        setTestimonials(data);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     fetchTestimonials();
   }, []);
-
-  const fetchTestimonials = async () => {
-    try {
-      const response = await fetch('/api/admin/testimonials');
-      const data = await response.json();
-      setTestimonials(data);
-    } catch (error) {
-      console.error('Error fetching testimonials:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   if (loading) {
     return (
