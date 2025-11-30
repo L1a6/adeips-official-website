@@ -150,19 +150,11 @@ export default function Footer() {
               href="#" 
               className="group relative inline-flex items-center"
             >
-              {/* Sharp modern LYNX logo */}
-              <span className="relative flex items-center gap-[2px]">
-                <span className="text-[11px] font-black tracking-[0.25em] text-white/90 transition-all duration-500 group-hover:text-white group-hover:tracking-[0.35em]" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
-                  <span className="inline-block transform skew-x-[-6deg]">L</span>
-                  <span className="inline-block text-[9px] transform skew-x-[-6deg] relative -top-[1px]">Y</span>
-                  <span className="inline-block transform skew-x-[-6deg]">N</span>
-                  <span className="inline-block transform skew-x-[-6deg]">X</span>
-                </span>
+              <span className="text-[11px] tracking-[0.2em] text-white/70 transition-all duration-300 group-hover:text-white group-hover:tracking-[0.25em]" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
+                LYNX
               </span>
-              {/* Underline accent */}
-              <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-gradient-to-r from-cyan-400 to-violet-500 group-hover:w-full transition-all duration-500"></span>
-              {/* Glow effect on hover */}
-              <span className="absolute inset-0 bg-gradient-to-r from-cyan-400/10 via-violet-500/10 to-transparent blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded"></span>
+              {/* Subtle underline on hover */}
+              <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-white/50 group-hover:w-full transition-all duration-300"></span>
             </a>
           </div>
         </div>

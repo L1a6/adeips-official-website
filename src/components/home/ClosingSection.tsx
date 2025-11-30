@@ -88,26 +88,22 @@ export default function ClosingSection() {
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPhrase}
-                  className="absolute"
-                  style={{ 
-                    right: '-10%', 
-                    top: '25%',
-                  }}
-                  initial={{ opacity: 0, x: -20, scale: 0.9 }}
+                  className="absolute right-[5%] md:right-[-10%] top-[20%] md:top-[25%]"
+                  initial={{ opacity: 0, x: -10, scale: 0.9 }}
                   animate={{ 
                     opacity: 1,
-                    x: 20,
+                    x: 0,
                     scale: 1,
                   }}
                   exit={{ 
                     opacity: 0, 
-                    x: 60, 
-                    y: -20,
+                    x: 30, 
+                    y: -10,
                     scale: 0.9 
                   }}
                   transition={{ duration: 0.8, ease: 'easeOut' }}
                 >
-                  <span className="text-xs md:text-sm font-light text-gray-500 dark:text-white/60 tracking-[0.15em] uppercase whitespace-nowrap">
+                  <span className="text-[10px] md:text-sm font-light text-gray-500 dark:text-white/60 tracking-[0.1em] md:tracking-[0.15em] uppercase whitespace-nowrap">
                     {spokenPhrases[currentPhrase]}
                   </span>
                 </motion.div>
