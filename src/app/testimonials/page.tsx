@@ -5,7 +5,52 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const testimonials = [
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  cohort: string;
+  image: string;
+  quote: string;
+  full_testimony: string;
+  highlight: string;
+  key_takeaways?: string[];
+}
+
+export default function TestimonialsPage() {
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedTestimonial, setSelectedTestimonial] = useState<Testimonial | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    try {
+      const response = await fetch('/api/admin/testimonials');
+      const data = await response.json();
+      setTestimonials(data);
+    } catch (error) {
+      console.error('Error fetching testimonials:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-white">Loading testimonials...</p>
+        </div>
+      </main>
+    );
+  }
+
+const oldTestimonials = [
   {
     id: 1,
     image: '/images/testimonials/enroll-3.jpg',
@@ -258,10 +303,6 @@ For fellow tech founders: your technical skills got you here, but communication 
   },
 ];
 
-export default function TestimonialsPage() {
-  const [selectedTestimonial, setSelectedTestimonial] = useState<typeof testimonials[0] | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   // Check for hash on mount and when hash changes
   useEffect(() => {
     const handleHash = () => {
@@ -279,7 +320,7 @@ export default function TestimonialsPage() {
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, []);
+  }, [testimonials]);
 
   const closeModal = () => {
     setIsModalOpen(false);

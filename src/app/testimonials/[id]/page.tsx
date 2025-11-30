@@ -6,7 +6,19 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
-const testimonials = [
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  cohort: string;
+  image: string;
+  quote: string;
+  full_testimony: string;
+  highlight: string;
+  key_takeaways?: string[];
+}
+
+const oldTestimonials = [
   {
     id: 1,
     image: '/images/testimonials/enroll-3.jpg',
@@ -334,9 +346,72 @@ For fellow tech founders: your technical skills got you here, but communication 
 export default function TestimonialDetailPage() {
   const params = useParams();
   const id = parseInt(params.id as string);
-  const testimonial = testimonials.find(t => t.id === id);
+  const [testimonial, setTestimonial] = useState<Testimonial | null>(null);
+  const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [showShareMenu, setShowShareMenu] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    fetchTestimonial();
+  }, [id]);
+
+  const fetchTestimonial = async () => {
+    try {
+      const response = await fetch('/api/admin/testimonials');
+      const data = await response.json();
+      const found = data.find((t: Testimonial) => t.id === id);
+      setTestimonial(found || null);
+    } catch (error) {
+      console.error('Error fetching testimonial:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleShare = async () => {
+    const url = window.location.href;
+    const title = `${testimonial?.name}'s Success Story - ADEIPS`;
+    const text = testimonial?.quote || '';
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title,
+          text,
+          url,
+        });
+      } catch (err) {
+        if ((err as Error).name !== 'AbortError') {
+          setShowShareMenu(true);
+        }
+      }
+    } else {
+      setShowShareMenu(true);
+    }
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+    setShowShareMenu(false);
+  };
+
+  const shareToSocial = (platform: string) => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(`${testimonial?.name}'s Success Story - ADEIPS`);
+    
+    const urls: Record<string, string> = {
+      twitter: `https://twitter.com/intent/tweet?url=${url}&text=${text}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`,
+      whatsapp: `https://wa.me/?text=${text}%20${url}`,
+    };
+    
+    window.open(urls[platform], '_blank', 'width=600,height=400');
+    setShowShareMenu(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -350,12 +425,23 @@ export default function TestimonialDetailPage() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-white dark:bg-[#0A1236] flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white mx-auto"></div>
+          <p className="mt-4 text-gray-600 dark:text-white">Loading testimonial...</p>
+        </div>
+      </main>
+    );
+  }
+
   if (!testimonial) {
     notFound();
   }
 
-  // Get next testimonial for recommendation
-  const nextTestimonial = testimonials.find(t => t.id === (id % testimonials.length) + 1);
+  // Get next testimonial for recommendation (use old testimonials array)
+  const nextTestimonial = oldTestimonials.find(t => t.id === (id % oldTestimonials.length) + 1);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-[#0A0F1E] dark:via-[#0D1428] dark:to-[#0A0F1E]">
@@ -408,40 +494,109 @@ export default function TestimonialDetailPage() {
               <span className="text-slate-700 dark:text-white">All Stories</span>
             </Link>
 
-            <button
-              onClick={() => {
-                const url = window.location.href;
-                navigator.clipboard.writeText(url);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-500 hover:shadow-2xl group bg-white/85 dark:bg-[#081225]"
-              style={{
-                backdropFilter: 'blur(40px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(40px) saturate(180%)',
-                border: '1px solid rgba(255, 255, 255, 0.5)',
-                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
-              }}
-            >
-              {copied ? (
-                <>
-                  <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-green-600 dark:text-green-400">Link Copied!</span>
-                </>
-              ) : (
-                <>
-                  <svg className="w-4 h-4 text-slate-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-                  </svg>
-                  <span className="text-slate-700 dark:text-white">Share Story</span>
-                </>
+            <div className="relative">
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-500 hover:shadow-2xl group bg-white/85 dark:bg-[#081225]"
+                style={{
+                  backdropFilter: 'blur(40px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.5)',
+                  boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+                }}
+              >
+                <svg className="w-4 h-4 text-slate-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+                <span className="text-slate-700 dark:text-white">Share Story</span>
+              </button>
+
+              {/* Share Menu Dropdown */}
+              {showShareMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="absolute right-0 mt-2 w-56 rounded-2xl bg-white dark:bg-[#081225] shadow-2xl border border-white/20 overflow-hidden z-50"
+                  style={{
+                    backdropFilter: 'blur(40px) saturate(180%)',
+                  }}
+                >
+                  <div className="p-2">
+                    <button
+                      onClick={copyLink}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-left"
+                    >
+                      {copied ? (
+                        <>
+                          <svg className="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                          <span className="text-sm font-medium text-green-600 dark:text-green-400">Link Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <svg className="w-5 h-5 text-slate-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                          </svg>
+                          <span className="text-sm font-medium text-slate-700 dark:text-white">Copy Link</span>
+                        </>
+                      )}
+                    </button>
+                    
+                    <button
+                      onClick={() => shareToSocial('whatsapp')}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-left"
+                    >
+                      <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                      </svg>
+                      <span className="text-sm font-medium text-slate-700 dark:text-white">WhatsApp</span>
+                    </button>
+
+                    <button
+                      onClick={() => shareToSocial('twitter')}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-left"
+                    >
+                      <svg className="w-5 h-5 text-sky-500" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                      </svg>
+                      <span className="text-sm font-medium text-slate-700 dark:text-white">Twitter</span>
+                    </button>
+
+                    <button
+                      onClick={() => shareToSocial('facebook')}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-left"
+                    >
+                      <svg className="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                      </svg>
+                      <span className="text-sm font-medium text-slate-700 dark:text-white">Facebook</span>
+                    </button>
+
+                    <button
+                      onClick={() => shareToSocial('linkedin')}
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-gray-100 dark:hover:bg-white/10 transition-colors text-left"
+                    >
+                      <svg className="w-5 h-5 text-blue-700" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
+                      <span className="text-sm font-medium text-slate-700 dark:text-white">LinkedIn</span>
+                    </button>
+                  </div>
+                </motion.div>
               )}
-            </button>
+            </div>
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Click outside to close share menu */}
+          {showShareMenu && (
+            <div 
+              className="fixed inset-0 z-40" 
+              onClick={() => setShowShareMenu(false)}
+            />
+          )}
+
+          <div className="grid md:grid-cols-2 gap-12 items-center">{/* Tablet layout now matches desktop */}
             {/* Left: Image with Liquid Glass Frame */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
@@ -457,7 +612,7 @@ export default function TestimonialDetailPage() {
                   WebkitBackdropFilter: 'blur(60px) saturate(200%)',
                   border: '1px solid rgba(255, 255, 255, 0.3)',
                   boxShadow: '0 40px 120px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.4) inset, 0 2px 4px rgba(255, 255, 255, 0.3) inset',
-                  padding: '0.5rem',
+                  padding: '0.25rem',
                 }}
               >
                 <div className="relative aspect-[3/4] rounded-[1rem] overflow-hidden shadow-2xl">
@@ -562,7 +717,7 @@ export default function TestimonialDetailPage() {
                 boxShadow: '0 40px 120px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255, 255, 255, 0.1) inset, 0 2px 8px rgba(255, 255, 255, 0.1) inset',
               }}
             >
-              {testimonial.fullTestimony.split('\n\n').map((paragraph, index) => (
+              {testimonial.full_testimony.split('\n\n').map((paragraph: string, index: number) => (
                 <motion.p
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
@@ -590,7 +745,7 @@ export default function TestimonialDetailPage() {
             </h2>
             
             <div className="grid md:grid-cols-2 gap-5">
-              {testimonial.keyTakeaways.map((takeaway, index) => (
+              {testimonial.key_takeaways?.map((takeaway: string, index: number) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
