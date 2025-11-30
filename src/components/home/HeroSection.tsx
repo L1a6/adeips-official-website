@@ -70,6 +70,7 @@ export default function HeroSection() {
               src={slide}
               alt={`Hero slide ${index + 1}`}
               fill
+              quality={95}
               sizes="100vw"
               className="object-cover scale-110"
               priority={index === 0}

@@ -83,28 +83,28 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#home" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                <a href="/" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
                   Home
                 </a>
               </li>
               <li>
-                <a href="#courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
                   Programs
                 </a>
               </li>
               <li>
-                <a href="#about" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                <a href="/about" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
                   About Us
                 </a>
               </li>
               <li>
-                <a href="#blog" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                <a href="/blog" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
                   Blog
                 </a>
               </li>
               <li>
-                <a href="#contact" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Contact
+                <a href="/enroll" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Enroll Now
                 </a>
               </li>
             </ul>
@@ -114,28 +114,28 @@ export default function Footer() {
             <h4 className="text-lg font-semibold mb-6">Programs</h4>
             <ul className="space-y-3">
               <li>
-                <a href="#" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Executive Speaking
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Opening & Closing For Impact
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Corporate Training
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Executive Presence
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Youth Leadership
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Linguistic Precision
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Private Coaching
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Memory Optimisation
                 </a>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
-                  Workshops
+                <a href="/courses" className="text-white/70 hover:text-[var(--adeips-red)] transition-colors text-sm font-light">
+                  Vocal Engineering
                 </a>
               </li>
             </ul>

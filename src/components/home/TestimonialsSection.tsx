@@ -220,6 +220,8 @@ export default function TestimonialsSection() {
                 src={testimonial.image}
                 alt={testimonial.name}
                 fill
+                quality={95}
+                priority={index < 4}
                 sizes="(max-width: 768px) 240px, 340px"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -240,9 +242,11 @@ export default function TestimonialsSection() {
                 
                 {/* Read More Link */}
                 <Link 
-                  href={`/testimonials#${testimonial.id}`}
+                  href="/testimonials"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors group/link"
-                  onClick={(e) => e.stopPropagation()}
                 >
                   <span>Read Full Story</span>
                   <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
