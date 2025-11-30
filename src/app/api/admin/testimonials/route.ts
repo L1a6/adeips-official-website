@@ -11,7 +11,7 @@ export async function GET() {
     const { data, error } = await supabase
       .from('testimonials')
       .select('*')
-      .order('created_at', { ascending: false });
+      .order('id', { ascending: true }); // Oldest first (by ID)
 
     if (error) throw error;
 
