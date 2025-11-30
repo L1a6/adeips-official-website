@@ -209,12 +209,13 @@ export default function TestimonialsSection() {
           }}
         >
           {doubledTestimonials.map((testimonial, index) => (
-            <div
+            <Link
               key={index}
+              href={`/testimonials/${testimonial.id}`}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
               onTouchStart={() => setHoveredCard(index)}
-              className="group relative w-[240px] h-[320px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2"
+              className="group relative w-[240px] h-[320px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 block"
             >
               <Image
                 src={testimonial.image}
@@ -229,7 +230,7 @@ export default function TestimonialsSection() {
               {/* Content overlay - shows on hover */}
               <div 
                 className={`absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/70 to-[#0A1F44]/20 flex flex-col justify-end p-4 md:p-6 transition-all duration-500 ${
-                  hoveredCard === index ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                  hoveredCard === index ? 'opacity-100' : 'opacity-0'
                 }`}
               >
                 <p className="text-white text-sm md:text-base mb-3 md:mb-4 leading-relaxed font-light line-clamp-3">
@@ -240,16 +241,13 @@ export default function TestimonialsSection() {
                   <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
                 </div>
                 
-                {/* Read More Link */}
-                <Link 
-                  href={`/testimonials/${testimonial.id}`}
-                  className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors group/link"
-                >
+                {/* Read More Indicator */}
+                <div className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium">
                   <span>Read Full Story</span>
-                  <svg className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </Link>
+                </div>
               </div>
 
               {/* Default state with name at bottom */}
@@ -261,7 +259,7 @@ export default function TestimonialsSection() {
                 <h4 className="text-white font-semibold text-base md:text-lg">{testimonial.name}</h4>
                 <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
