@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Testimonial {
   id: number;
@@ -39,6 +39,25 @@ export default function TestimonialsPage() {
     fetchTestimonials();
   }, []);
 
+  // Check for hash on mount and when hash changes
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      if (hash && testimonials.length > 0) {
+        const id = parseInt(hash);
+        const testimonial = testimonials.find((t: Testimonial) => t.id === id);
+        if (testimonial) {
+          setSelectedTestimonial(testimonial);
+          setIsModalOpen(true);
+        }
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, [testimonials]);
+
   if (loading) {
     return (
       <main className="min-h-screen bg-white dark:bg-[#0A1236] pt-24 flex items-center justify-center">
@@ -49,25 +68,6 @@ export default function TestimonialsPage() {
       </main>
     );
   }
-
-  // Check for hash on mount and when hash changes
-  const handleHash = useCallback(() => {
-    const hash = window.location.hash.replace('#', '');
-    if (hash) {
-      const id = parseInt(hash);
-      const testimonial = testimonials.find((t: Testimonial) => t.id === id);
-      if (testimonial) {
-        setSelectedTestimonial(testimonial);
-        setIsModalOpen(true);
-      }
-    }
-  }, [testimonials]);
-
-  useEffect(() => {
-    handleHash();
-    window.addEventListener('hashchange', handleHash);
-    return () => window.removeEventListener('hashchange', handleHash);
-  }, [handleHash]);
 
   const closeModal = () => {
     setIsModalOpen(false);
