@@ -336,6 +336,7 @@ export default function TestimonialDetailPage() {
   const id = parseInt(params.id as string);
   const testimonial = testimonials.find(t => t.id === id);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -384,12 +385,12 @@ export default function TestimonialDetailPage() {
         </div>
 
         <div className="relative z-10 max-w-6xl mx-auto">
-          {/* Back Button */}
+          {/* Back Button and Share Button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-8"
+            className="mb-8 flex items-center justify-between"
           >
             <Link
               href="/testimonials"
@@ -406,6 +407,38 @@ export default function TestimonialDetailPage() {
               </svg>
               <span className="text-slate-700 dark:text-white">All Stories</span>
             </Link>
+
+            <button
+              onClick={() => {
+                const url = window.location.href;
+                navigator.clipboard.writeText(url);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium transition-all duration-500 hover:shadow-2xl group bg-white/85 dark:bg-[#081225]"
+              style={{
+                backdropFilter: 'blur(40px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+                border: '1px solid rgba(255, 255, 255, 0.5)',
+                boxShadow: '0 20px 60px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9)',
+              }}
+            >
+              {copied ? (
+                <>
+                  <svg className="w-4 h-4 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span className="text-green-600 dark:text-green-400">Link Copied!</span>
+                </>
+              ) : (
+                <>
+                  <svg className="w-4 h-4 text-slate-700 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                  </svg>
+                  <span className="text-slate-700 dark:text-white">Share Story</span>
+                </>
+              )}
+            </button>
           </motion.div>
 
           <div className="grid lg:grid-cols-2 gap-12 items-center">
