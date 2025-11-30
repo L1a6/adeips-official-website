@@ -18,7 +18,7 @@ interface Testimonial {
 
 export default function TestimonialsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const isPausedRef = useRef(false);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -67,9 +67,11 @@ export default function TestimonialsSection() {
       const newScroll = scrollRef.current.scrollLeft + (direction === 'right' ? scrollAmount : -scrollAmount);
       scrollRef.current.scrollTo({ left: newScroll, behavior: 'smooth' });
       
-      setIsPaused(true);
+      isPausedRef.current = true;
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-      pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 2000);
+      pauseTimeoutRef.current = setTimeout(() => {
+        isPausedRef.current = false;
+      }, 2000);
     }
   };
 
@@ -81,7 +83,7 @@ export default function TestimonialsSection() {
     let lastTime = Date.now();
 
     const animate = () => {
-      if (!isPaused && scrollContainer) {
+      if (!isPausedRef.current && scrollContainer) {
         const currentTime = Date.now();
         const delta = currentTime - lastTime;
         
@@ -105,7 +107,7 @@ export default function TestimonialsSection() {
       cancelAnimationFrame(animationId);
       if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     };
-  }, [isPaused]);
+  }, []);
 
   return (
     <section className="section-spacing bg-[var(--bg-primary)] overflow-hidden">
@@ -158,15 +160,21 @@ export default function TestimonialsSection() {
           ref={scrollRef}
           className="flex gap-4 md:gap-6 overflow-x-scroll scrollbar-hide px-4 md:px-8"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-          onMouseEnter={() => setIsPaused(true)}
+          onMouseEnter={() => {
+            isPausedRef.current = true;
+          }}
           onMouseLeave={() => {
-            setIsPaused(false);
+            isPausedRef.current = false;
             setHoveredCard(null);
           }}
-          onTouchStart={() => setIsPaused(true)}
+          onTouchStart={() => {
+            isPausedRef.current = true;
+          }}
           onTouchEnd={() => {
             if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
-            pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 3000);
+            pauseTimeoutRef.current = setTimeout(() => {
+              isPausedRef.current = false;
+            }, 3000);
           }}
         >
           {doubledTestimonials.map((testimonial, index) => (
