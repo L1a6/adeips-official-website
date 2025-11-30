@@ -1,21 +1,17 @@
 'use client';
 
-import { Suspense, useState, useEffect } from 'react';
+import { Suspense, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
-const galleryImages = [
-  { id: 1, src: '/images/gallery/1.jpg', category: 'candlelight', title: 'Candlelight Ceremony' },
-  { id: 2, src: '/images/gallery/2.jpg', category: 'cultural', title: 'Cultural Day Celebration' },
-  { id: 3, src: '/images/gallery/3.jpg', category: 'defence', title: 'Project Defence Session' },
-  { id: 4, src: '/images/gallery/4.jpg', category: 'defence', title: 'Student Project Defence' },
-  { id: 5, src: '/images/gallery/5.jpg', category: 'graduation', title: 'Graduation Ceremony 2024' },
-  { id: 6, src: '/images/gallery/6.jpg', category: 'field', title: 'Field Trip Experience' },
-  { id: 7, src: '/images/gallery/7.jpg', category: 'dinner', title: 'Gala Dinner Event' },
-  { id: 8, src: '/images/gallery/8.jpg', category: 'candlelight', title: 'Candlelight Session' },
-  { id: 9, src: '/images/gallery/9.jpg', category: 'cultural', title: 'Cultural Day Performances' },
-];
+interface GalleryImage {
+  id: number;
+  src: string;
+  category: string;
+  title: string;
+  created_at?: string;
+}
 
 const categories = [
   { value: 'all', label: 'All' },
@@ -32,7 +28,29 @@ function GalleryContent() {
   const filterParam = searchParams.get('filter');
   
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedImage, setSelectedImage] = useState<typeof galleryImages[0] | null>(null);
+  const [selectedImage, setSelectedImage] = useState<GalleryImage | null>(null);
+  const [images, setImages] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchImages = useCallback(async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/gallery');
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        setImages(data);
+      }
+    } catch (error) {
+      console.error('Error fetching gallery images:', error);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  // Fetch images on mount
+  useEffect(() => {
+    fetchImages();
+  }, [fetchImages]);
 
   // Set category from URL parameter on mount
   useEffect(() => {
@@ -42,8 +60,18 @@ function GalleryContent() {
   }, [filterParam]);
 
   const filteredImages = selectedCategory === 'all' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory);
+    ? images 
+    : images.filter(img => img.category === selectedCategory);
+
+  if (loading) {
+    return (
+      <section className="max-w-7xl mx-auto px-6 py-20">
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0A1236] dark:border-white"></div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <>
