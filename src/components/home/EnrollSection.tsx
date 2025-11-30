@@ -19,20 +19,20 @@ export default function EnrollSection() {
   const [settings, setSettings] = useState<SiteSettings | null>(null);
 
   useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch('/api/settings');
+        const data = await res.json();
+        if (data.settings) {
+          setSettings(data.settings);
+        }
+      } catch (error) {
+        console.error('Error fetching settings:', error);
+      }
+    };
+
     fetchSettings();
   }, []);
-
-  const fetchSettings = async () => {
-    try {
-      const res = await fetch('/api/settings');
-      const data = await res.json();
-      if (data.settings) {
-        setSettings(data.settings);
-      }
-    } catch (error) {
-      console.error('Error fetching settings:', error);
-    }
-  };
 
   const getCohortTitle = () => {
     if (settings?.current_cohort) {
