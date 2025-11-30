@@ -243,7 +243,10 @@ export default function TestimonialsSection() {
                 {/* Read More Link */}
                 <Link 
                   href={`/testimonials/${testimonial.id}`}
-                  className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors w-fit"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                  className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors w-fit relative z-50"
                 >
                   <span>Read More</span>
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
