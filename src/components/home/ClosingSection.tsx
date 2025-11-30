@@ -114,8 +114,8 @@ export default function ClosingSection() {
               </AnimatePresence>
             </div>
 
-            {/* Lottie Player - Reduced size for better performance */}
-            <div className="w-[220px] h-[220px] md:w-[320px] md:h-[320px] lg:w-[380px] lg:h-[380px]">
+            {/* Lottie Player */}
+            <div className="w-[320px] h-[320px] md:w-[480px] md:h-[480px] lg:w-[560px] lg:h-[560px]">
               <Lottie
                 lottieRef={lottieRef}
                 animationData={publicSpeakingAnimation}
