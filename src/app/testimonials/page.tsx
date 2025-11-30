@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface Testimonial {
   id: number;
@@ -51,23 +51,23 @@ export default function TestimonialsPage() {
   }
 
   // Check for hash on mount and when hash changes
-  useEffect(() => {
-    const handleHash = () => {
-      const hash = window.location.hash.replace('#', '');
-      if (hash) {
-        const id = parseInt(hash);
-        const testimonial = testimonials.find(t => t.id === id);
-        if (testimonial) {
-          setSelectedTestimonial(testimonial);
-          setIsModalOpen(true);
-        }
+  const handleHash = useCallback(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash) {
+      const id = parseInt(hash);
+      const testimonial = testimonials.find((t: Testimonial) => t.id === id);
+      if (testimonial) {
+        setSelectedTestimonial(testimonial);
+        setIsModalOpen(true);
       }
-    };
+    }
+  }, [testimonials]);
 
+  useEffect(() => {
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, [testimonials]);
+  }, [handleHash]);
 
   const closeModal = () => {
     setIsModalOpen(false);
