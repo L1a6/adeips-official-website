@@ -17,7 +17,6 @@ export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentWord, setCurrentWord] = useState(0);
   const [displayedWord, setDisplayedWord] = useState('');
-  const [isTyping, setIsTyping] = useState(true);
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -29,24 +28,28 @@ export default function HeroSection() {
   useEffect(() => {
     const word = words[currentWord];
     let charIndex = 0;
+    let typingInterval: NodeJS.Timeout;
+    let eraseTimeout: NodeJS.Timeout;
 
-    if (isTyping) {
-      const typingInterval = setInterval(() => {
-        if (charIndex <= word.length) {
-          setDisplayedWord(word.slice(0, charIndex));
-          charIndex++;
-        } else {
-          setIsTyping(false);
-          setTimeout(() => {
-            setCurrentWord((prev) => (prev + 1) % words.length);
-            setIsTyping(true);
-          }, 2000);
-          clearInterval(typingInterval);
-        }
-      }, 100);
-      return () => clearInterval(typingInterval);
-    }
-  }, [currentWord, isTyping]);
+    // Typing phase
+    typingInterval = setInterval(() => {
+      if (charIndex <= word.length) {
+        setDisplayedWord(word.slice(0, charIndex));
+        charIndex++;
+      } else {
+        clearInterval(typingInterval);
+        // After typing completes, wait then move to next word
+        eraseTimeout = setTimeout(() => {
+          setCurrentWord((prev) => (prev + 1) % words.length);
+        }, 2000);
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearTimeout(eraseTimeout);
+    };
+  }, [currentWord]);
 
   const scrollToNext = () => {
     window.scrollTo({
