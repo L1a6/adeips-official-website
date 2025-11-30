@@ -229,7 +229,7 @@ export default function TestimonialsSection() {
               {/* Content overlay - shows on hover */}
               <div 
                 className={`absolute inset-0 bg-gradient-to-t from-[#0A1F44]/95 via-[#0A1F44]/70 to-[#0A1F44]/20 flex flex-col justify-end p-4 md:p-6 transition-all duration-500 ${
-                  hoveredCard === index ? 'opacity-100' : 'opacity-0'
+                  hoveredCard === index ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
               >
                 <p className="text-white text-sm md:text-base mb-3 md:mb-4 leading-relaxed font-light line-clamp-3">
