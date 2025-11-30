@@ -209,13 +209,12 @@ export default function TestimonialsSection() {
           }}
         >
           {doubledTestimonials.map((testimonial, index) => (
-            <Link
+            <div
               key={index}
-              href={`/testimonials/${testimonial.id}`}
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
               onTouchStart={() => setHoveredCard(index)}
-              className="group relative w-[240px] h-[320px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2 block"
+              className="group relative w-[240px] h-[320px] md:w-[340px] md:h-[440px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer transition-all duration-500 hover:-translate-y-2"
             >
               <Image
                 src={testimonial.image}
@@ -241,13 +240,16 @@ export default function TestimonialsSection() {
                   <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
                 </div>
                 
-                {/* Read More Indicator */}
-                <div className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium">
-                  <span>Read Full Story</span>
+                {/* Read More Link */}
+                <Link 
+                  href={`/testimonials/${testimonial.id}`}
+                  className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors w-fit"
+                >
+                  <span>Read More</span>
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
-                </div>
+                </Link>
               </div>
 
               {/* Default state with name at bottom */}
@@ -259,7 +261,7 @@ export default function TestimonialsSection() {
                 <h4 className="text-white font-semibold text-base md:text-lg">{testimonial.name}</h4>
                 <p className="text-white/80 text-xs md:text-sm">{testimonial.role}</p>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </div>
