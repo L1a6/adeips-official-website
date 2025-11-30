@@ -243,9 +243,6 @@ export default function TestimonialsSection() {
                 {/* Read More Link */}
                 <Link 
                   href="/testimonials"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
                   className="inline-flex items-center gap-2 text-white/90 text-xs md:text-sm font-medium hover:text-white transition-colors group/link"
                 >
                   <span>Read Full Story</span>
