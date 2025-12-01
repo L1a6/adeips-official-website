@@ -33,7 +33,7 @@ export default function Footer() {
                 </svg>
               </a>
               <span
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-default opacity-50"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-default hover:bg-[var(--adeips-red)] transition-all hover:-translate-y-1"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@ export default function Footer() {
                 </svg>
               </span>
               <span
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-default opacity-50"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center cursor-default hover:bg-[var(--adeips-red)] transition-all hover:-translate-y-1"
                 aria-label="LinkedIn"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -146,16 +146,9 @@ export default function Footer() {
           </p>
           <div className="flex items-center justify-center gap-2">
             <span className="text-white/40 text-[10px] font-light tracking-wider">Powered by</span>
-            <a 
-              href="#" 
-              className="group relative inline-flex items-center"
-            >
-              <span className="text-[11px] tracking-[0.2em] text-white/70 transition-all duration-300 group-hover:text-white group-hover:tracking-[0.25em]" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
-                LYNX
-              </span>
-              {/* Subtle underline on hover */}
-              <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-white/50 group-hover:w-full transition-all duration-300"></span>
-            </a>
+            <span className="text-[11px] tracking-[0.2em] text-white/70" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
+              LYNX
+            </span>
           </div>
         </div>
       </div>
