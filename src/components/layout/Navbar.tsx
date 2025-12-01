@@ -44,10 +44,8 @@ export default function Navbar() {
 
   const isActive = (path: string) => pathname === path;
 
-  // Determine logo source - use light mode logo as default for SSR
-  const logoSrc = mounted 
-    ? (theme === 'dark' ? '/images/logo1.jpg' : '/images/logo.png')
-    : '/images/logo.png';
+  // Determine logo source - using same logo for both modes until dark mode logo is ready
+  const logoSrc = '/images/logo.png';
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-[10000] transition-all duration-500 ${hideNav ? '-translate-y-full' : 'translate-y-0'}`}>
