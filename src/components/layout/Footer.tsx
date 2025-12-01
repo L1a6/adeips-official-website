@@ -146,8 +146,9 @@ export default function Footer() {
           </p>
           <div className="flex items-center justify-center gap-2">
             <span className="text-white/40 text-[10px] font-light tracking-wider">Powered by</span>
-            <span className="text-[11px] tracking-[0.2em] text-white/70" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
+            <span className="text-[11px] tracking-[0.2em] text-white/70 cursor-default relative group" style={{ fontFamily: "'SF Pro Display', 'Inter', system-ui, sans-serif" }}>
               LYNX
+              <span className="absolute bottom-0 left-0 w-0 h-[1px] bg-white/70 transition-all duration-300 group-hover:w-full"></span>
             </span>
           </div>
         </div>
