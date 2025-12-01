@@ -47,7 +47,7 @@ function BlogContent() {
     }
   };
 
-  // Auto-slideshow for featured posts (every 5 seconds)
+  // Auto-slideshow for featured posts
   const featuredPosts = posts.filter(post => post.featured);
   
   useEffect(() => {

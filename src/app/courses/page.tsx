@@ -50,7 +50,7 @@ const courseModules = [
     id: 6,
     title: 'Applied Psychophysiology of Confidence and Stage Anxiety Dissolution',
     description: 'A scientific, stepwise methodology for deconstructing performance anxiety using behavioral conditioning, cognitive reframing, and somatic control.',
-    image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1552058544-f2b08422138a?w=800&q=80',
     category: 'Psychology',
     duration: 'Core Module',
   },

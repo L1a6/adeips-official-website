@@ -1,55 +1,72 @@
-# ADEIPS Official Website - Complete Project Documentation
+# ADEIPS Official Website
+## Complete Project Documentation
 
 ---
 
-## Table of Contents
+`[INSERT HERO BANNER IMAGE - Recommended size: 1200x400px]`
 
-1. [Project Overview](#1-project-overview)
-2. [Tech Stack & Technologies](#2-tech-stack--technologies)
-3. [Project Architecture](#3-project-architecture)
-4. [Features Overview](#4-features-overview)
-5. [Page-by-Page Breakdown](#5-page-by-page-breakdown)
-6. [Admin Dashboard Guide](#6-admin-dashboard-guide)
-7. [Database Schema](#7-database-schema)
-8. [API Routes Reference](#8-api-routes-reference)
-9. [Deployment & Hosting](#9-deployment--hosting)
-10. [Development Challenges](#10-development-challenges)
-11. [Cost Breakdown](#11-cost-breakdown)
-12. [Maintenance Guide](#12-maintenance-guide)
-13. [Future Enhancements](#13-future-enhancements)
+---
+
+> **Document Version:** 1.0  
+> **Last Updated:** November 2025  
+> **Classification:** Client Deliverable
+
+---
+
+# Table of Contents
+
+| Section | Title |
+|:-------:|:------|
+| 01 | [Project Overview](#1-project-overview) |
+| 02 | [Tech Stack & Technologies](#2-tech-stack-and-technologies) |
+| 03 | [Project Architecture](#3-project-architecture) |
+| 04 | [Features Overview](#4-features-overview) |
+| 05 | [Page-by-Page Breakdown](#5-page-by-page-breakdown) |
+| 06 | [Admin Dashboard Guide](#6-admin-dashboard-guide) |
+| 07 | [Database Schema](#7-database-schema) |
+| 08 | [API Routes Reference](#8-api-routes-reference) |
+| 09 | [Deployment & Hosting](#9-deployment-and-hosting) |
+| 10 | [Development Challenges](#10-development-challenges) |
+| 11 | [Cost Breakdown](#11-cost-breakdown) |
+| 12 | [Maintenance Guide](#12-maintenance-guide) |
+| 13 | [Future Enhancements](#13-future-enhancements) |
 
 ---
 
 # 1. Project Overview
 
-## About the Project
+> [!NOTE]
+> **ADEIPS (AkanDavid Executive Institute of Public Speaking)** is a premium public speaking training institute based in Uyo, Nigeria.
 
-**ADEIPS (AkanDavid Executive Institute of Public Speaking)** is a premium public speaking training institute based in Uyo, Nigeria.
-
-### Project Purpose
+## Project Purpose
 
 This website serves as the official digital footprint of the institute, establishing a professional online presence that reflects the organization's commitment to excellence in public speaking education. The platform enables prospective students to discover programs, current students to stay connected, and the institution to maintain a lasting digital legacy.
 
-### Key Features
+## Key Deliverables
 
-- A modern, responsive marketing website
-- Student enrollment system with email notifications
-- Admin dashboard for content management
-- Blog system for thought leadership
-- Testimonials management
-- Gallery management
+| Deliverable | Status |
+|-------------|:------:|
+| Modern, responsive marketing website | Completed |
+| Student enrollment system with email notifications | Completed |
+| Admin dashboard for content management | Completed |
+| Blog system for thought leadership | Completed |
+| Testimonials management | Completed |
+| Gallery management | Completed |
 
-## Live Website
+## Project Links
 
-**Preview URL:** [https://adeips-official-website.vercel.app/](https://adeips-official-website.vercel.app/)
-
-**Repository:** [https://github.com/L1a6/adeips-official-website.gite](https://github.com/L1a6/adeips-official-website.git)
+> [!TIP]
+> **Live Preview:** https://adeips-official-website.vercel.app/
+> 
+> **Repository:** https://github.com/L1a6/adeips-official-website.git
 
 ## Development Timeline
 
-- **Start Date:** November 2025
-- **Completion Date:** November 2025
-- **Total Development Time:** ~2 weeks
+| Milestone | Date |
+|-----------|------|
+| Project Start | November 2025 |
+| Project Completion | November 2025 |
+| Total Duration | ~2 weeks |
 
 ---
 
@@ -58,17 +75,18 @@ This website serves as the official digital footprint of the institute, establis
 ## Core Technologies
 
 | Category | Technology | Version | Purpose |
-|----------|------------|---------|---------|
-| **Framework** | Next.js | 16.0.3 | React framework with App Router |
-| **Language** | TypeScript | 5.x | Type-safe JavaScript |
-| **Styling** | Tailwind CSS | 4.x | Utility-first CSS framework |
-| **Database** | PostgreSQL | 15.x | Relational database (via Supabase) |
-| **Backend** | Supabase | Latest | Database + Storage + Auth |
-| **Animation** | Framer Motion | 11.x | React animation library |
-| **Animation** | Lottie | - | JSON-based animations |
-| **Email** | Nodemailer | 6.x | Email sending service |
-| **Theming** | next-themes | 0.x | Dark/Light mode support |
-| **Preview Hosting** | Vercel | - | Serverless deployment |
+|:---------|:-----------|:-------:|:--------|
+| Framework | **Next.js** | 16.0.3 | React framework with App Router |
+| Language | **TypeScript** | 5.x | Type-safe JavaScript |
+| Styling | **Tailwind CSS** | 4.x | Utility-first CSS framework |
+| Database | **PostgreSQL** | 15.x | Relational database (via Supabase) |
+| Backend | **Supabase** | Latest | Database + Storage + Auth |
+| Animation | **Framer Motion** | 11.x | React animation library |
+| Animation | **GSAP** | 3.x | Advanced scroll animations (ScrollTrigger) |
+| Animation | **Lottie** | - | JSON-based vector animations |
+| Email | **Nodemailer** | 6.x | Email sending service |
+| Theming | **next-themes** | 0.x | Dark/Light mode support |
+| Hosting | **Vercel** | - | Serverless deployment |
 
 ## Key Dependencies
 
@@ -80,6 +98,7 @@ This website serves as the official digital footprint of the institute, establis
   "tailwindcss": "^4.x",
   "@supabase/supabase-js": "^2.x",
   "framer-motion": "^11.x",
+  "gsap": "^3.x",
   "lottie-react": "^2.x",
   "nodemailer": "^6.x",
   "next-themes": "^0.x",
@@ -89,202 +108,459 @@ This website serves as the official digital footprint of the institute, establis
 
 ## Design System
 
-- **Primary Color:** Navy Blue `#0A1236`
-- **Accent Color:** Red `#E62A2A`
-- **Font (Headings):** Outfit
-- **Font (Body):** Default system fonts
-- **Theme:** Light/Dark mode support (default: Light)
+| Element | Value | Preview |
+|---------|-------|---------|
+| Primary Color | `#0A1236` | Navy Blue |
+| Accent Color | `#E62A2A` | Red |
+| Heading Font | Outfit | - |
+| Body Font | System Default | - |
+| Theme | Light/Dark | Default: Light |
 
 ---
 
-# 3. Summarized Project Architecture
+# 3. Project Architecture
 
 ## Folder Structure
 
 ```
 adeips-official-website/
+│
 ├── public/
-│   ├── animations/          # Lottie JSON files
-│   ├── images/
-│   │   ├── facilitators/    # Team member photos
-│   │   ├── gallery/         # Gallery images
-│   │   ├── hero/           # Hero section backgrounds
-│   │   ├── leadership/     # Leadership photos
-│   │   ├── testimonials/   # Testimonial photos
-│   │   └── uploads/        # User-uploaded content
-│   └── logo.png
+│   ├── animations/           Lottie JSON files
+│   └── images/
+│       ├── facilitators/     Team member photos
+│       ├── gallery/          Gallery images
+│       ├── hero/             Hero section backgrounds
+│       ├── leadership/       Leadership photos
+│       ├── testimonials/     Testimonial photos
+│       └── uploads/          User-uploaded content
 │
 ├── src/
-│   ├── app/                 # Next.js App Router pages
-│   │   ├── page.tsx        # Home page
-│   │   ├── layout.tsx      # Root layout
-│   │   ├── globals.css     # Global styles
-│   │   ├── about/          # About pages
-│   │   ├── admin/          # Admin dashboard
-│   │   ├── api/            # API routes
-│   │   ├── blog/           # Blog pages
-│   │   ├── courses/        # Courses page
-│   │   ├── enroll/         # Enrollment page
-│   │   ├── gallery/        # Gallery page
-│   │   └── testimonials/   # Testimonials pages
+│   ├── app/                  Next.js App Router pages
+│   │   ├── about/            About pages
+│   │   ├── admin/            Admin dashboard
+│   │   ├── api/              API routes
+│   │   ├── blog/             Blog pages
+│   │   ├── courses/          Courses page
+│   │   ├── enroll/           Enrollment page
+│   │   ├── gallery/          Gallery page
+│   │   └── testimonials/     Testimonials pages
 │   │
 │   ├── components/
-│   │   ├── emails/         # Email templates
-│   │   ├── home/           # Home page components
-│   │   ├── layout/         # Layout components (Navbar, Footer)
-│   │   ├── shared/         # Reusable components
-│   │   └── ui/             # UI primitives
+│   │   ├── emails/           Email templates
+│   │   ├── home/             Home page components
+│   │   ├── layout/           Navbar, Footer
+│   │   ├── shared/           Reusable components
+│   │   └── ui/               UI primitives
 │   │
-│   ├── data/               # Static data files
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility functions
-│   └── types/              # TypeScript types
+│   ├── data/                 Static data files
+│   ├── hooks/                Custom React hooks
+│   ├── lib/                  Utility functions
+│   └── types/                TypeScript types
 │
 ├── supabase/
-│   ├── migrations/         # Database migrations
-│   └── seed.sql            # Seed data
+│   ├── migrations/           Database migrations
+│   └── seed.sql              Seed data
 │
-└── docs/                   # Documentation
+└── docs/                     Documentation
 ```
 
-## Data Flow
+## Data Flow Architecture
 
-```
-[User] → [Next.js Frontend] → [API Routes] → [Supabase Database]
-                                    ↓
-                              [Supabase Storage]
-                                    ↓
-                              [Email Service]
-```
+> [!NOTE]
+> The application follows a modern serverless architecture with clear separation of concerns.
+
+### How Data Moves Through the System
+
+---
+
+**Step 1: User Interaction**
+> User visits the website and interacts with pages
+
+| Layer | Technology | Role |
+|:------|:-----------|:-----|
+| Browser | Chrome, Safari, etc. | Renders the UI |
+| Frontend | Next.js + React | Handles user interactions |
+
+---
+
+**Step 2: API Communication**
+> Frontend sends requests to backend API routes
+
+| Request Type | Example | Purpose |
+|:-------------|:--------|:--------|
+| GET | `/api/blog` | Fetch blog posts |
+| POST | `/api/enroll` | Submit enrollment form |
+| PUT | `/api/admin/blog` | Update a blog post |
+| DELETE | `/api/admin/gallery` | Remove an image |
+
+---
+
+**Step 3: Data Processing**
+> API routes process requests and interact with services
+
+| Service | Purpose | Example |
+|:--------|:--------|:--------|
+| Supabase Database | Store and retrieve data | Save new enrollment |
+| Supabase Storage | Handle file uploads | Store gallery images |
+| Nodemailer | Send emails | Welcome email to student |
+
+---
+
+**Step 4: Response**
+> Processed data returns to user
+
+| Response | Action |
+|:---------|:-------|
+| Success | Display confirmation, update UI |
+| Error | Show error message, prompt retry |
+
+---
+
+### Data Flow Summary
+
+| # | From | To | What Happens |
+|:-:|:-----|:---|:-------------|
+| 1 | User | Frontend | Browses pages, fills forms |
+| 2 | Frontend | API Routes | Sends HTTP requests |
+| 3 | API | Database | Reads/writes records |
+| 4 | API | Storage | Uploads/downloads files |
+| 5 | API | Email Service | Triggers notifications |
+| 6 | API | Frontend | Returns JSON response |
+| 7 | Frontend | User | Updates the display |
 
 ---
 
 # 4. Features Overview
 
-## Public Features
+## Public-Facing Features
 
-| Feature | Description |
-|---------|-------------|
-| **Home Page** | Hero section, course highlights, testimonials, FAQ |
-| **About Pages** | Organization info, leadership, facilitators |
-| **Courses Page** | Detailed course information with icons |
-| **Enrollment** | Multi-step enrollment form with validation |
-| **Blog** | Dynamic blog with categories and full articles |
-| **Testimonials** | Student success stories with full testimonies |
-| **Gallery** | Photo gallery with category filtering |
-| **Dark Mode** | Light/Dark theme toggle |
+| Feature | Description | Status |
+|:--------|:------------|:------:|
+| Home Page | Hero section, course highlights, testimonials, FAQ | Active |
+| About Pages | Organization info, leadership, facilitators | Active |
+| Courses Page | Detailed course information with icons | Active |
+| Enrollment | Multi-step enrollment form with validation | Active |
+| Blog | Dynamic blog with categories and full articles | Active |
+| Testimonials | Student success stories with full testimonies | Active |
+| Gallery | Photo gallery with category filtering | Active |
+| Dark Mode | Light/Dark theme toggle | Active |
 
-## Admin Features
+## Admin Dashboard Features
 
-| Feature | Description |
-|---------|-------------|
-| **Dashboard** | Overview with key statistics |
-| **Enrollments** | View and manage student enrollments |
-| **Blog Management** | Create, edit, delete blog posts |
-| **Testimonials** | Manage student testimonials |
-| **Gallery** | Upload and manage gallery images |
-| **Settings** | Site configuration options |
+| Feature | Description | Access Level |
+|:--------|:------------|:------------:|
+| Dashboard | Overview with key statistics | Admin |
+| Enrollments | View and manage student enrollments | Admin |
+| Blog Management | Create, edit, delete blog posts | Admin |
+| Testimonials | Manage student testimonials | Admin |
+| Gallery | Upload and manage gallery images | Admin |
+| Settings | Site configuration options | Admin |
 
 ---
 
 # 5. Page-by-Page Breakdown
 
-## Home Page (`/`)
+---
 
-**Screenshot placeholder:** `[INSERT HOME PAGE SCREENSHOT]`
+## 5.1 Home Page (Landing Page)
 
-### Sections:
-1. **Hero Section** - Full-screen hero with animated text and Lottie animation
-2. **Transform Section** - Value proposition with statistics
-3. **Progressive Scroll** - Course preview with scroll animations
-4. **Testimonials Section** - Rotating testimonial cards
-5. **FAQ Section** - Expandable FAQ accordion
-6. **Enroll Section** - Call-to-action for enrollment
-7. **Closing Section** - Final CTA
+> **Route:** `/`
 
-### Key Features:
-- Lottie animation integration
-- Framer Motion scroll animations
-- Dynamic testimonials from database
-- Responsive design
+`[INSERT HOME PAGE SCREENSHOT]`
+
+### Page Sections Overview
+
+| # | Section | Component File |
+|:-:|:--------|:---------------|
+| 1 | Hero Section | `HeroSection.tsx` |
+| 2 | Transform Section | `TransformSection.tsx` |
+| 3 | Iconic Moments | `IconicMoments.tsx` |
+| 4 | Testimonials Section | `TestimonialsSection.tsx` |
+| 5 | FAQ Section | `FAQSection.tsx` |
+| 6 | Enroll Section | `EnrollSection.tsx` |
+| 7 | Closing Section | `ClosingSection.tsx` |
+| 8 | Footer | `Footer.tsx` |
 
 ---
 
-## About Page (`/about`)
+### Section 1: Hero Section
 
-**Screenshot placeholder:** `[INSERT ABOUT PAGE SCREENSHOT]`
+> **Component:** `src/components/home/HeroSection.tsx`
 
-### Content:
+`[INSERT HERO SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Layout | Full-screen hero with gradient overlay |
+| Background | High-quality background image with dark overlay |
+| Headline | Animated text with typewriter effect |
+| Subheadline | Supporting text describing the institute |
+| CTA Buttons | "Enroll Now" and "Explore Programs" buttons |
+| Animation | Framer Motion fade-in and slide-up effects |
+| Responsive | Adapts to mobile, tablet, and desktop screens |
+
+**Technical Implementation:**
+- Uses Framer Motion for entrance animations
+- Gradient overlay for text readability
+- Responsive typography scaling
+- Smooth scroll to next section
+
+---
+
+### Section 2: Transform Section
+
+> **Component:** `src/components/home/TransformSection.tsx`
+
+`[INSERT TRANSFORM SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Purpose | Value proposition and statistics showcase |
+| Layout | Split layout with content and visuals |
+| Statistics | Key numbers highlighting institute achievements |
+| Animation | Scroll-triggered fade and slide animations |
+| Content | Compelling copy about transformation journey |
+
+**Key Elements:**
+- Years of experience counter
+- Number of graduates
+- Success rate statistics
+- Cohorts completed
+
+---
+
+### Section 3: Iconic Moments (GSAP Gallery)
+
+> **Component:** `src/components/home/IconicMoments.tsx`
+
+`[INSERT ICONIC MOMENTS SCREENSHOT]`
+
+> [!NOTE]
+> This section uses **GSAP (GreenSock Animation Platform)** for advanced scroll-triggered animations.
+
+| Feature | Description |
+|:--------|:------------|
+| Layout | Horizontal scrolling gallery |
+| Animation Library | GSAP with ScrollTrigger plugin |
+| Scroll Effect | Horizontal scroll on vertical page scroll |
+| Images | Gallery of institute moments and events |
+| Performance | GPU-accelerated animations for smooth performance |
+
+**GSAP Implementation Details:**
+
+```typescript
+// Horizontal scroll effect triggered by vertical scrolling
+gsap.to(container, {
+  x: -scrollWidth,
+  ease: "none",
+  scrollTrigger: {
+    trigger: section,
+    start: "top top",
+    end: () => `+=${scrollWidth}`,
+    scrub: 1,
+    pin: true,
+    anticipatePin: 1
+  }
+});
+```
+
+**Key Animation Features:**
+- **ScrollTrigger:** Pins the section while user scrolls vertically
+- **Scrub Animation:** Smooth interpolation between scroll position and animation progress
+- **Horizontal Movement:** Images move horizontally as user scrolls down
+- **Pin Effect:** Section stays fixed while animation plays out
+- **Performance:** Uses `will-change` and GPU acceleration
+
+---
+
+### Section 4: Testimonials Section
+
+> **Component:** `src/components/home/TestimonialsSection.tsx`
+
+`[INSERT TESTIMONIALS SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Data Source | Dynamic from Supabase database |
+| Layout | Rotating carousel of testimonial cards |
+| Content | Student photo, name, cohort, quote |
+| Animation | Fade transitions between testimonials |
+| Interactivity | Auto-rotate with manual navigation |
+
+---
+
+### Section 5: FAQ Section
+
+> **Component:** `src/components/home/FAQSection.tsx`
+
+`[INSERT FAQ SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Layout | Accordion-style expandable questions |
+| Animation | Smooth expand/collapse transitions |
+| Content | Common questions about programs and enrollment |
+| Accessibility | Keyboard navigation support |
+
+---
+
+### Section 6: Enroll Section
+
+> **Component:** `src/components/home/EnrollSection.tsx`
+
+`[INSERT ENROLL SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Purpose | Call-to-action for enrollment |
+| Content | Compelling copy encouraging enrollment |
+| CTA Button | Link to enrollment form page |
+| Design | Eye-catching design with brand colors |
+
+---
+
+### Section 7: Closing Section
+
+> **Component:** `src/components/home/ClosingSection.tsx`
+
+`[INSERT CLOSING SECTION SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Animation | Lottie animation of speaking character |
+| Background | Starry night effect with CSS animations |
+| Floating Text | Inspirational phrases floating near character |
+| CTA Box | Glass-morphism card with final call-to-action |
+| Buttons | "Begin Your Journey" and "Explore Programs" |
+
+**Technical Features:**
+- **Lottie Animation:** JSON-based vector animation
+- **CSS Twinkle Effect:** Stars with CSS keyframe animations
+- **Shimmer Button:** Animated gradient sweep on CTA button
+- **Responsive Sizing:** Animation scales for different devices
+
+---
+
+### Section 8: Footer
+
+> **Component:** `src/components/layout/Footer.tsx`
+
+`[INSERT FOOTER SCREENSHOT]`
+
+| Feature | Description |
+|:--------|:------------|
+| Layout | 4-column grid on desktop, stacked on mobile |
+| Logo | ADEIPS logo with inverted colors |
+| Description | Brief about the institute |
+| Quick Links | Navigation to main pages |
+| Programs | Links to course offerings |
+| Contact | Email, phone, and location |
+| Social Icons | Facebook, Instagram, LinkedIn |
+| Branding | "Powered by LYNX" credit |
+
+**Footer Columns:**
+
+| Column | Content |
+|:-------|:--------|
+| 1 | Logo, description, social media icons |
+| 2 | Quick Links (Home, Programs, About, Blog, Enroll) |
+| 3 | Programs list (top 5 courses) |
+| 4 | Contact information |
+
+---
+
+## 5.2 About Page
+
+> **Route:** `/about`
+
+`[INSERT ABOUT PAGE SCREENSHOT]`
+
+### Content Sections
 - Organization history
 - Mission and vision
 - Core values
-- Link to leadership and facilitators pages
+- Navigation to leadership and facilitators pages
 
 ---
 
-## Leadership Page (`/about/leadership`)
+## 5.3 Leadership Page
 
-**Screenshot placeholder:** `[INSERT LEADERSHIP PAGE SCREENSHOT]`
+> **Route:** `/about/leadership`
 
-### Content:
-- Founder profile 
+`[INSERT LEADERSHIP PAGE SCREENSHOT]`
+
+### Content Elements
+- Founder profile with detailed biography
 - Leadership team cards
 - Social media links
-- Profile images
+- Professional profile images
 
 ---
 
-## Facilitators Page (`/about/facilitators`)
+## 5.4 Facilitators Page
 
-**Screenshot placeholder:** `[INSERT FACILITATORS PAGE SCREENSHOT]`
+> **Route:** `/about/facilitators`
 
-### Content:
-- Grid of facilitator cards
-- Name, title, specialization
+`[INSERT FACILITATORS PAGE SCREENSHOT]`
+
+### Content Elements
+- Grid layout of facilitator cards
+- Name, title, and specialization
 - Profile photos
 - Hover animations
 
 ---
 
-## Courses Page (`/courses`)
+## 5.5 Courses Page
 
-**Screenshot placeholder:** `[INSERT COURSES PAGE SCREENSHOT]`
+> **Route:** `/courses`
 
-### Courses Listed:
-1. Opening & Closing For Impact
-2. Executive Presence & Stage Mastery
-3. Linguistic Precision & Vocabulary
-4. Memory Optimisation
-5. Emotional Intelligence
-6. Humour Integration
-7. Research & Data Presentation
-8. Vocal Engineering
-9. Handling Q&A Sessions
-10. Personal Branding
+`[INSERT COURSES PAGE SCREENSHOT]`
 
-### Features:
+### Course Catalog
+
+| # | Course Name |
+|:-:|:------------|
+| 1 | Opening & Closing For Impact |
+| 2 | Executive Presence & Stage Mastery |
+| 3 | Linguistic Precision & Vocabulary |
+| 4 | Memory Optimisation |
+| 5 | Emotional Intelligence |
+| 6 | Humour Integration |
+| 7 | Research & Data Presentation |
+| 8 | Vocal Engineering |
+| 9 | Handling Q&A Sessions |
+| 10 | Personal Branding |
+
+### Features
 - Custom Lucide icons for each course
 - Expandable course details
 - Enrollment CTAs
 
 ---
 
-## Enrollment Page (`/enroll`)
+## 5.6 Enrollment Page
 
-**Screenshot placeholder:** `[INSERT ENROLLMENT PAGE SCREENSHOT]`
+> **Route:** `/enroll`
 
-### Form Fields:
-- Full Name
-- Email Address
-- Phone Number
-- Country
-- Occupation
-- Course Selection
-- How did you hear about us?
-- Personal statement/motivation
+`[INSERT ENROLLMENT PAGE SCREENSHOT]`
 
-### Features:
-- Form validation
+### Form Fields
+
+| Field | Type | Required |
+|:------|:-----|:--------:|
+| Full Name | Text | Yes |
+| Email Address | Email | Yes |
+| Phone Number | Tel | Yes |
+| Country | Select | Yes |
+| Occupation | Text | Yes |
+| Course Selection | Select | Yes |
+| Referral Source | Select | No |
+| Personal Statement | Textarea | No |
+
+### Form Features
+- Real-time validation
 - Success/error feedback
 - Email notification to admin
 - Welcome email to student
@@ -292,11 +568,13 @@ adeips-official-website/
 
 ---
 
-## Blog Page (`/blog`)
+## 5.7 Blog Page
 
-**Screenshot placeholder:** `[INSERT BLOG PAGE SCREENSHOT]`
+> **Route:** `/blog`
 
-### Features:
+`[INSERT BLOG PAGE SCREENSHOT]`
+
+### Features
 - Blog post cards with featured images
 - Category filtering
 - Search functionality
@@ -305,61 +583,72 @@ adeips-official-website/
 
 ---
 
-## Blog Post Page (`/blog/[slug]`)
+## 5.8 Blog Post Page
 
-**Screenshot placeholder:** `[INSERT BLOG POST SCREENSHOT]`
+> **Route:** `/blog/[slug]`
 
-### Features:
-- Full article content
-- Author info
+`[INSERT BLOG POST SCREENSHOT]`
+
+### Features
+- Full article content with rich formatting
+- Author information
 - Publication date
 - Category tags
-- Related posts
-- Social sharing
+- Related posts suggestions
+- Social sharing buttons
 
 ---
 
-## Testimonials Page (`/testimonials`)
+## 5.9 Testimonials Page
 
-**Screenshot placeholder:** `[INSERT TESTIMONIALS PAGE SCREENSHOT]`
+> **Route:** `/testimonials`
 
-### Features:
-- Grid of testimonial cards
+`[INSERT TESTIMONIALS PAGE SCREENSHOT]`
+
+### Features
+- Grid layout of testimonial cards
 - Student photos
-- Short quotes
-- Click to view full testimony
+- Short preview quotes
+- Click-through to full testimony
 
 ---
 
-## Testimonial Detail Page (`/testimonials/[id]`)
+## 5.10 Testimonial Detail Page
 
-**Screenshot placeholder:** `[INSERT TESTIMONIAL DETAIL SCREENSHOT]`
+> **Route:** `/testimonials/[id]`
 
-### Content:
+`[INSERT TESTIMONIAL DETAIL SCREENSHOT]`
+
+### Content Elements
 - Full testimony text
 - Student photo
-- Name, role, cohort
-- Key takeaways
-- Highlight quote
+- Name, role, and cohort
+- Key takeaways list
+- Highlighted quote
 
 ---
 
-## Gallery Page (`/gallery`)
+## 5.11 Gallery Page
 
-**Screenshot placeholder:** `[INSERT GALLERY PAGE SCREENSHOT]`
+> **Route:** `/gallery`
 
-### Categories:
-- All
-- Candlelight
-- Cultural
-- Defence
-- Field
-- Graduation
-- Dinner
+`[INSERT GALLERY PAGE SCREENSHOT]`
 
-### Features:
+### Categories
+
+| Category | Description |
+|:---------|:------------|
+| All | View all images |
+| Candlelight | Candlelight ceremony photos |
+| Cultural | Cultural day events |
+| Defence | Project defence sessions |
+| Field | Field trip activities |
+| Graduation | Graduation ceremonies |
+| Dinner | Dinner events |
+
+### Features
 - Category filter buttons
-- Masonry-style grid
+- Masonry-style grid layout
 - Lightbox modal for full view
 - Dynamic content from database
 
@@ -367,353 +656,445 @@ adeips-official-website/
 
 # 6. Admin Dashboard Guide
 
-## Accessing the Admin Panel
+> [!IMPORTANT]
+> The admin dashboard is a password-protected area for managing website content. Access credentials should be kept secure at all times.
 
-**URL:** `/admin`
+---
 
-**Login Page:** `/admin/login`
+## 6.1 Accessing the Admin Panel
 
-**Screenshot placeholder:** `[INSERT ADMIN LOGIN SCREENSHOT]`
+> **Login URL:** `/admin/login`
+> 
+> **Dashboard URL:** `/admin`
 
-### Authentication:
+`[INSERT ADMIN LOGIN SCREENSHOT]`
+
+### Authentication
 - Password-based authentication
-- Secure storage
+- Session management via secure cookies
+- Auto-logout after inactivity
 
 ---
 
-## Dashboard Home (`/admin`)
+## 6.2 Dashboard Home
 
-**Screenshot placeholder:** `[INSERT ADMIN DASHBOARD SCREENSHOT]`
+> **Route:** `/admin`
 
-### Statistics Displayed:
-- Total enrollments
-- Blog posts count
-- Testimonials count
-- Recent activity
+`[INSERT ADMIN DASHBOARD SCREENSHOT]`
+
+### Statistics Overview
+
+| Metric | Description |
+|:-------|:------------|
+| Total Enrollments | Count of all student enrollment submissions |
+| Blog Posts | Number of published and draft articles |
+| Testimonials | Active student testimonials count |
+| Recent Activity | Latest actions and submissions |
 
 ---
 
-## Enrollments Management (`/admin/enrollments`)
+## 6.3 Enrollments Management
 
-**Screenshot placeholder:** `[INSERT ENROLLMENTS MANAGEMENT SCREENSHOT]`
+> **Route:** `/admin/enrollments`
 
-### Features:
+`[INSERT ENROLLMENTS MANAGEMENT SCREENSHOT]`
+
+### Available Features
 - Table view of all enrollments
 - Student details (name, email, phone, country)
-- Course selected
-- Enrollment date
+- Course selection display
+- Enrollment date and time
 - Status management
-- Export options
+- Export functionality
 
-### How to Use:
-1. Navigate to Enrollments from sidebar
-2. View all enrollment submissions
-3. Click on a row to see full details
-4. Use filters to search specific enrollments
+### How to View Enrollments
+
+| Step | Action |
+|:----:|:-------|
+| 1 | Navigate to "Enrollments" from sidebar |
+| 2 | View all enrollment submissions in table |
+| 3 | Click on any row to see full details |
+| 4 | Use search/filter to find specific enrollments |
 
 ---
 
-## Blog Management (`/admin/blog`)
+## 6.4 Blog Management
 
-**Screenshot placeholder:** `[INSERT BLOG MANAGEMENT SCREENSHOT]`
+> **Route:** `/admin/blog`
 
-### Features:
-- List of all blog posts
+`[INSERT BLOG MANAGEMENT SCREENSHOT]`
+
+### Available Features
+- List view of all blog posts
 - Create new post button
-- Edit/Delete actions
-- Draft/Published status
+- Edit and Delete actions
+- Draft/Published status indicator
 
-### Creating a New Post:
+### Creating a New Blog Post
 
-**Screenshot placeholder:** `[INSERT NEW BLOG POST FORM]`
+`[INSERT NEW BLOG POST FORM]`
 
-1. Click "New Post" button
-2. Fill in:
-   - Title
-   - Slug (URL-friendly)
-   - Content (rich text)
-   - Featured image (upload)
-   - Category
-   - Author name
-3. Click "Publish" or "Save as Draft"
+| Step | Action |
+|:----:|:-------|
+| 1 | Click "New Post" button |
+| 2 | Enter post title |
+| 3 | Set URL slug (auto-generated or custom) |
+| 4 | Write content in rich text editor |
+| 5 | Upload featured image |
+| 6 | Select category |
+| 7 | Enter author name |
+| 8 | Click "Publish" or "Save as Draft" |
 
-### Editing a Post:
-1. Click "Edit" on any post
-2. Modify content
-3. Click "Update"
+### Editing a Post
+
+| Step | Action |
+|:----:|:-------|
+| 1 | Click "Edit" on any post in the list |
+| 2 | Modify content as needed |
+| 3 | Click "Update" to save changes |
 
 ---
 
-## Testimonials Management (`/admin/testimonials`)
+## 6.5 Testimonials Management
 
-**Screenshot placeholder:** `[INSERT TESTIMONIALS MANAGEMENT SCREENSHOT]`
+> **Route:** `/admin/testimonials`
 
-### Features:
-- Grid view of testimonials
-- Add new testimonial
+`[INSERT TESTIMONIALS MANAGEMENT SCREENSHOT]`
+
+### Available Features
+- Grid view of all testimonials
+- Add new testimonial button
 - Edit existing testimonials
 - Delete with confirmation
 
-### Adding a Testimonial:
+### Adding a New Testimonial
 
-**Screenshot placeholder:** `[INSERT NEW TESTIMONIAL FORM]`
+`[INSERT NEW TESTIMONIAL FORM]`
 
-1. Click "Add Testimonial"
-2. Fill in:
-   - Full Name
-   - Role/Position
-   - Cohort (e.g., "11th Cohort")
-   - Profile Image (upload)
-   - Short Quote
-   - Highlight Text
-   - Full Testimony
-   - Key Takeaways (add multiple)
-3. Click "Create Testimonial"
+| Field | Description |
+|:------|:------------|
+| Full Name | Student's full name |
+| Role/Position | Current role or position |
+| Cohort | e.g., "11th Cohort" |
+| Profile Image | Upload student photo |
+| Short Quote | Brief testimonial excerpt |
+| Highlight Text | Featured quote for display |
+| Full Testimony | Complete testimonial text |
+| Key Takeaways | Bullet points of main insights |
 
 ---
 
-## Gallery Management (`/admin/gallery`)
+## 6.6 Gallery Management
 
-**Screenshot placeholder:** `[INSERT GALLERY MANAGEMENT SCREENSHOT]`
+> **Route:** `/admin/gallery`
 
-### Features:
+`[INSERT GALLERY MANAGEMENT SCREENSHOT]`
+
+### Available Features
 - Grid view of all images
-- Category filter buttons with counts
-- Add new image
-- Delete images
+- Category filter with counts
+- Add new image functionality
+- Delete images with confirmation
 
-### Adding an Image:
+### Adding a New Image
 
-**Screenshot placeholder:** `[INSERT ADD GALLERY IMAGE FORM]`
+`[INSERT ADD GALLERY IMAGE FORM]`
 
-1. Click "Add Image"
-2. Enter Image Title
-3. Select Category from dropdown:
-   - Candlelight
-   - Cultural
-   - Defence
-   - Field
-   - Graduation
-   - Dinner
-4. Upload image file
-5. Click "Add Image"
+| Step | Action |
+|:----:|:-------|
+| 1 | Click "Add Image" button |
+| 2 | Enter image title |
+| 3 | Select category from dropdown |
+| 4 | Upload image file |
+| 5 | Click "Add Image" to save |
 
-### Deleting an Image:
-1. Find the image in the grid
-2. Click "Delete" in the image info section
-3. Confirm deletion
+### Available Categories
+- Candlelight
+- Cultural
+- Defence
+- Field
+- Graduation
+- Dinner
+
+### Deleting an Image
+
+| Step | Action |
+|:----:|:-------|
+| 1 | Locate the image in the grid |
+| 2 | Click "Delete" in the image info section |
+| 3 | Confirm deletion in the popup |
 
 ---
 
-## Settings (`/admin/settings`)
+## 6.7 Settings
 
-**Screenshot placeholder:** `[INSERT SETTINGS PAGE SCREENSHOT]`
+> **Route:** `/admin/settings`
 
-### Available Settings:
+`[INSERT SETTINGS PAGE SCREENSHOT]`
+
+### Configurable Options
 - Site title
 - Contact email
 - Phone number
 - Social media links
-- Other configuration
+- Other site-wide settings
 
 ---
 
 # 7. Database Schema
 
-## Tables
+> [!NOTE]
+> All tables are hosted on Supabase PostgreSQL. Timestamps are in UTC.
 
-### `enrollments`
-| Column | Type | Description |
-|--------|------|-------------|
-| id | SERIAL | Primary key |
-| full_name | TEXT | Student's full name |
-| email | TEXT | Email address |
-| phone | TEXT | Phone number |
-| country | TEXT | Country of residence |
-| occupation | TEXT | Current occupation |
-| course | TEXT | Selected course |
-| referral_source | TEXT | How they heard about ADEIPS |
-| statement | TEXT | Personal statement |
-| status | TEXT | Enrollment status |
-| created_at | TIMESTAMP | Submission date |
+---
 
-### `blog_posts`
-| Column | Type | Description |
-|--------|------|-------------|
-| id | SERIAL | Primary key |
-| title | TEXT | Post title |
-| slug | TEXT | URL slug |
-| content | TEXT | Post content |
-| excerpt | TEXT | Short excerpt |
-| featured_image | TEXT | Image URL |
-| category | TEXT | Post category |
-| author | TEXT | Author name |
-| status | TEXT | draft/published |
-| created_at | TIMESTAMP | Creation date |
-| updated_at | TIMESTAMP | Last updated |
+## Table: `enrollments`
 
-### `testimonials`
-| Column | Type | Description |
-|--------|------|-------------|
-| id | SERIAL | Primary key |
-| name | TEXT | Student name |
-| role | TEXT | Role/position |
-| cohort | TEXT | Cohort number |
-| image | TEXT | Photo URL |
-| quote | TEXT | Short quote |
-| full_testimony | TEXT | Full story |
-| highlight | TEXT | Highlight text |
-| key_takeaways | JSONB | Array of takeaways |
-| created_at | TIMESTAMP | Creation date |
-| updated_at | TIMESTAMP | Last updated |
+| Column | Type | Nullable | Description |
+|:-------|:-----|:--------:|:------------|
+| `id` | SERIAL | No | Primary key |
+| `full_name` | TEXT | No | Student's full name |
+| `email` | TEXT | No | Email address |
+| `phone` | TEXT | No | Phone number |
+| `country` | TEXT | No | Country of residence |
+| `occupation` | TEXT | Yes | Current occupation |
+| `course` | TEXT | No | Selected course |
+| `referral_source` | TEXT | Yes | How they heard about ADEIPS |
+| `statement` | TEXT | Yes | Personal statement |
+| `status` | TEXT | No | Enrollment status |
+| `created_at` | TIMESTAMP | No | Submission date |
 
-### `gallery_images`
-| Column | Type | Description |
-|--------|------|-------------|
-| id | SERIAL | Primary key |
-| src | TEXT | Image URL |
-| title | TEXT | Image title |
-| category | TEXT | Category name |
-| created_at | TIMESTAMP | Upload date |
-| updated_at | TIMESTAMP | Last updated |
+---
+
+## Table: `blog_posts`
+
+| Column | Type | Nullable | Description |
+|:-------|:-----|:--------:|:------------|
+| `id` | SERIAL | No | Primary key |
+| `title` | TEXT | No | Post title |
+| `slug` | TEXT | No | URL-friendly slug |
+| `content` | TEXT | No | Post content (HTML/Markdown) |
+| `excerpt` | TEXT | Yes | Short excerpt for previews |
+| `featured_image` | TEXT | Yes | Image URL |
+| `category` | TEXT | No | Post category |
+| `author` | TEXT | No | Author name |
+| `status` | TEXT | No | draft / published |
+| `created_at` | TIMESTAMP | No | Creation date |
+| `updated_at` | TIMESTAMP | No | Last modification date |
+
+---
+
+## Table: `testimonials`
+
+| Column | Type | Nullable | Description |
+|:-------|:-----|:--------:|:------------|
+| `id` | SERIAL | No | Primary key |
+| `name` | TEXT | No | Student name |
+| `role` | TEXT | Yes | Role/position |
+| `cohort` | TEXT | No | Cohort identifier |
+| `image` | TEXT | Yes | Photo URL |
+| `quote` | TEXT | No | Short quote for cards |
+| `full_testimony` | TEXT | No | Complete testimony |
+| `highlight` | TEXT | Yes | Featured highlight text |
+| `key_takeaways` | JSONB | Yes | Array of takeaway points |
+| `created_at` | TIMESTAMP | No | Creation date |
+| `updated_at` | TIMESTAMP | No | Last modification date |
+
+---
+
+## Table: `gallery_images`
+
+| Column | Type | Nullable | Description |
+|:-------|:-----|:--------:|:------------|
+| `id` | SERIAL | No | Primary key |
+| `src` | TEXT | No | Image URL |
+| `title` | TEXT | No | Image title |
+| `category` | TEXT | No | Category name |
+| `created_at` | TIMESTAMP | No | Upload date |
+| `updated_at` | TIMESTAMP | No | Last modification date |
 
 ---
 
 # 8. API Routes Reference
 
-## Public API Routes
+> [!NOTE]
+> All API routes are built using Next.js App Router API handlers. Admin routes require authentication.
+
+---
+
+## Public Endpoints
+
+| Endpoint | Method | Description | Auth |
+|:---------|:------:|:------------|:----:|
+| `/api/blog` | GET | Get all published blog posts | No |
+| `/api/blog/[id]` | GET | Get single blog post by ID | No |
+| `/api/gallery` | GET | Get all gallery images | No |
+| `/api/enroll` | POST | Submit enrollment form | No |
+
+---
+
+## Admin Endpoints
+
+> [!WARNING]
+> These endpoints require admin authentication. Unauthorized access will return 401.
 
 | Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/blog` | GET | Get all published blog posts |
-| `/api/blog/[id]` | GET | Get single blog post |
-| `/api/gallery` | GET | Get gallery images |
-| `/api/enroll` | POST | Submit enrollment form |
-
-## Admin API Routes
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
+|:---------|:------:|:------------|
 | `/api/admin/verify` | POST | Verify admin password |
-| `/api/admin/blog` | GET | Get all blog posts |
-| `/api/admin/blog` | POST | Create blog post |
-| `/api/admin/blog` | PUT | Update blog post |
+| `/api/admin/blog` | GET | Get all blog posts (including drafts) |
+| `/api/admin/blog` | POST | Create new blog post |
+| `/api/admin/blog` | PUT | Update existing blog post |
 | `/api/admin/blog` | DELETE | Delete blog post |
 | `/api/admin/enrollments` | GET | Get all enrollments |
 | `/api/admin/testimonials` | GET | Get all testimonials |
-| `/api/admin/testimonials` | POST | Create testimonial |
-| `/api/admin/testimonials` | PUT | Update testimonial |
+| `/api/admin/testimonials` | POST | Create new testimonial |
+| `/api/admin/testimonials` | PUT | Update existing testimonial |
 | `/api/admin/testimonials` | DELETE | Delete testimonial |
 | `/api/admin/gallery` | GET | Get all gallery images |
-| `/api/admin/gallery` | POST | Add gallery image |
+| `/api/admin/gallery` | POST | Add new gallery image |
 | `/api/admin/gallery` | DELETE | Delete gallery image |
 
 ---
 
 # 9. Deployment and Hosting
 
+---
+
 ## Vercel Deployment
 
-### Setup Steps:
-1. Connect GitHub repository to Vercel
-2. Configure environment variables
-3. Deploy
+### Setup Process
 
-### Environment Variables Required:
+| Step | Action |
+|:----:|:-------|
+| 1 | Connect GitHub repository to Vercel |
+| 2 | Configure environment variables |
+| 3 | Deploy automatically on push |
+
+---
+
+## Environment Variables
+
+> [!CAUTION]
+> Never commit these values to version control. Store them securely in Vercel dashboard.
 
 ```env
-# Supabase
+# ═══════════════════════════════════════════════
+# SUPABASE CONFIGURATION
+# ═══════════════════════════════════════════════
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
-# Email (Nodemailer)
+# ═══════════════════════════════════════════════
+# EMAIL CONFIGURATION (Nodemailer)
+# ═══════════════════════════════════════════════
 EMAIL_HOST=smtp.gmail.com
 EMAIL_PORT=587
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_app_password
 EMAIL_FROM=noreply@adeips.org
 
-# Admin
+# ═══════════════════════════════════════════════
+# ADMIN AUTHENTICATION
+# ═══════════════════════════════════════════════
 ADMIN_PASSWORD=your_secure_password
 
-# NextAuth (if used)
+# ═══════════════════════════════════════════════
+# NEXTAUTH (if applicable)
+# ═══════════════════════════════════════════════
 NEXTAUTH_SECRET=your_secret
 NEXTAUTH_URL=https://adeips.org
 ```
 
-### Domain Configuration:
-1. Add custom domain in Vercel
-2. Configure DNS records
-3. Enable HTTPS (automatic)
+---
+
+## Domain Configuration
+
+| Step | Action |
+|:----:|:-------|
+| 1 | Add custom domain in Vercel Dashboard |
+| 2 | Configure DNS records with your registrar |
+| 3 | HTTPS enabled automatically by Vercel |
 
 ---
 
 # 10. Development Challenges
 
-## Some sChallenges Faced and Solutions
+> [!NOTE]
+> The following technical challenges were encountered and resolved during development.
 
-### 1. React Error #310 (Hooks Order)
+---
 
-**Problem:** Application crashed with "Rendered more hooks than during the previous render"
+## Challenge 1: React Error #310 (Hooks Order)
 
-**Cause:** `useEffect` hooks were placed after early return statements, causing different hook counts between renders.
+| Aspect | Details |
+|:-------|:--------|
+| **Problem** | Application crashed with "Rendered more hooks than during the previous render" |
+| **Root Cause** | `useEffect` hooks placed after early return statements |
+| **Impact** | Application crash on certain page loads |
 
-**Solution:** Moved all `useEffect` hooks before any conditional returns.
+### Solution
 
 ```tsx
-// Wrong
+// INCORRECT - Hooks after conditional return
 if (loading) return <Loader />;
 useEffect(() => { ... }, []);
 
-// Correct
+// CORRECT - Hooks before any conditional returns
 useEffect(() => { ... }, []);
 if (loading) return <Loader />;
 ```
 
 ---
 
-### 2. Hydration Errors
+## Challenge 2: Hydration Errors
 
-**Problem:** React hydration mismatch errors causing content flickering and console warnings.
+| Aspect | Details |
+|:-------|:--------|
+| **Problem** | React hydration mismatch causing content flickering |
+| **Root Cause** | Server HTML differed from client render |
+| **Impact** | Console warnings and UI flickering |
 
-**Cause:** Server-rendered HTML differed from client-side rendered content due to dynamic values like random numbers, dates, or browser-specific APIs.
-
-**Solution:**
+### Solutions Applied
 - Used `useState` with `useEffect` for client-only values
 - Implemented `suppressHydrationWarning` where appropriate
 - Used fixed values for animations instead of random generation
-- Wrapped browser-specific code in `typeof window !== 'undefined'` checks
+- Wrapped browser APIs in `typeof window !== 'undefined'` checks
 
 ---
 
-### 3. Next.js 16 and Tailwind CSS v4 Incompatibility
+## Challenge 3: Next.js 16 and Tailwind CSS v4 Incompatibility
 
-**Problem:** Breaking changes between Next.js 16 and Tailwind CSS v4 caused styling inconsistencies and build errors.
+| Aspect | Details |
+|:-------|:--------|
+| **Problem** | Breaking changes between Next.js 16 and Tailwind CSS v4 |
+| **Root Cause** | New configuration syntax and deprecated utilities |
+| **Impact** | Styling inconsistencies and build errors |
 
-**Cause:** Tailwind CSS v4 introduced a new configuration syntax and deprecated certain utilities that were incompatible with Next.js 16's app router.
-
-**Solution:**
-- Updated Tailwind configuration to v3 syntax
-- Replaced deprecated utility classes with new equivalents
-- Configured PostCSS correctly for the new Tailwind version
-- Used CSS variables for theme colors instead of Tailwind's built-in dark mode
-
----
-
-### 4. TypeScript Errors
-
-**Problem:** Type mismatches between API responses and component props.
-
-**Solution:** Created proper TypeScript interfaces in `/src/types/` and ensured consistency.
+### Solutions Applied
+- Updated Tailwind configuration to compatible syntax
+- Replaced deprecated utility classes
+- Configured PostCSS correctly
+- Used CSS variables for theme colors
 
 ---
 
-### 5. Mobile Responsiveness
+## Challenge 4: TypeScript Type Mismatches
 
-**Problem:** Excessive whitespace on mobile devices.
+| Aspect | Details |
+|:-------|:--------|
+| **Problem** | Type mismatches between API responses and component props |
+| **Solution** | Created proper TypeScript interfaces in `/src/types/` |
 
-**Solution:** Used responsive Tailwind classes with mobile-first approach:
+---
+
+## Challenge 5: Mobile Responsiveness
+
+| Aspect | Details |
+|:-------|:--------|
+| **Problem** | Excessive whitespace on mobile devices |
+| **Solution** | Mobile-first Tailwind classes |
+
 ```tsx
 className="pt-24 md:pt-28 lg:pt-32"
 ```
@@ -722,74 +1103,94 @@ className="pt-24 md:pt-28 lg:pt-32"
 
 # 11. Cost Breakdown
 
-## Development Costs
+---
 
-| Item | Cost | Notes |
-|------|------|-------|
-| **Domain** | N6,000/year | .org domain registration |
-| **Hosting (Vercel Preview)** | N0 | Preview deployment URL |
-| **Database and Storage (Supabase Pro)** | N37,500 | PostgreSQL database hosting with up to 8GB database storage and 100GB file storage |
-| **Email Service** | N0 | Gmail SMTP integration |
+## Infrastructure Costs
 
-## Labor Cost
-
-The following breakdown represents the professional development work invested in this project over approximately 80-100 hours:
-
-| Category | Amount | Notes |
-|----------|--------|-------|
-| Frontend Development and UX Implementation | N232,000 | Building responsive pages, animations, components, and user experience flows |
-| Backend/API Development | N120,000 | RESTful API routes, database integration, authentication logic |
-| Admin Dashboard CRUD | N75,000 | Full content management system with create, read, update, delete functionality |
-| UI/UX Design | N0 | Design work included in frontend development |
-| Testing and Bug Fixes | N0 | Quality assurance included in development process |
-| Documentation | N0 | Technical documentation included in project scope |
-| **Total Labor** | **N427,000** | |
-
-**Note on Labor Costs:** These figures reflect standard professional development rates for a project of this scope and complexity. The labor cost accounts for expertise in modern web technologies including Next.js 16, TypeScript, Tailwind CSS v4, and Supabase integration. Rates may vary based on developer experience level and market conditions.
-
-## Total Project Cost Summary
-
-| Category | Amount |
-|----------|--------|
-| Domain (1 Year) | N6,000 |
-| Database and Storage (Supabase Pro - 1 Year) | N37,500 |
-| Development Labor | N427,000 |
-| **Grand Total** | **N470,500** |
-
-**Important Notes:**
-- All prices are in Nigerian Naira (N) 
-- Supabase Pro Plan includes both database (up to 8GB) and file storage (up to 100GB)
-- Ongoing hosting costs apply annually after the first year
-- Additional features or modifications beyond the current scope would incur additional labor costs
-- Exchange rate fluctuations may affect pricing for international services
+| Item | Annual Cost | Notes |
+|:-----|:-----------:|:------|
+| Domain (.org) | N6,000 | Annual domain registration |
+| Hosting (Vercel Preview) | N0 | Preview deployment URL |
+| Database & Storage (Supabase Pro) | N37,500 | 8GB database + 100GB file storage |
+| Email Service | N0 | Gmail SMTP integration |
+| **Infrastructure Total** | **N43,500** | |
 
 ---
 
-# 12. Maintenance Guide
+## Development Investment
 
-## Regular Maintenance Tasks
+> [!NOTE]
+> The following represents professional development work over approximately 80-100 hours.
 
-### Weekly:
-- [ ] Check enrollment submissions
-- [ ] Review and moderate new content
-- [ ] Monitor error logs in Vercel
+| Category | Amount | Scope |
+|:---------|-------:|:------|
+| Frontend Development & UX | N232,000 | Responsive pages, animations, components, user flows |
+| Backend/API Development | N120,000 | RESTful APIs, database integration, auth logic |
+| Admin Dashboard CRUD | N75,000 | Full CMS with create, read, update, delete |
+| UI/UX Design | N0 | Included in frontend development |
+| Testing & QA | N0 | Included in development process |
+| Documentation | N0 | Included in project scope |
+| **Development Total** | **N427,000** | |
 
-### Monthly:
+---
+
+## Total Project Investment
+
+| Category | Amount |
+|:---------|-------:|
+| Domain (1 Year) | N6,000 |
+| Database & Storage (1 Year) | N37,500 |
+| Development Labor | N427,000 |
+| | |
+| **Grand Total** | **N470,500** |
+
+---
+
+> [!IMPORTANT]
+> **Cost Notes:**
+> - All prices in Nigerian Naira (N)
+> - Supabase Pro includes database (8GB) and file storage (100GB)
+> - Annual renewal required for domain and hosting
+> - Additional features beyond current scope incur additional costs
+> - Exchange rates may affect international service pricing
+
+---
+
+# 12. Maintenance Guide For Developers
+
+---
+
+## Scheduled Maintenance Tasks
+
+### Weekly Checklist
+
+- [ ] Review new enrollment submissions
+- [ ] Moderate user-generated content
+- [ ] Check Vercel error logs
+- [ ] Respond to contact inquiries
+
+### Monthly Checklist For Developers
+
 - [ ] Update npm dependencies
 - [ ] Review Supabase storage usage
-- [ ] Backup database
-- [ ] Check analytics reports
+- [ ] Perform database backup
+- [ ] Analyze traffic and analytics
+- [ ] Test all contact forms
 
-### Quarterly:
-- [ ] Review and update content
-- [ ] Security audit
-- [ ] Performance optimization
-- [ ] Update images and media
+### Quarterly Checklist
 
-## Updating Dependencies
+- [ ] Content audit and refresh
+- [ ] Security vulnerability scan
+- [ ] Performance optimization review
+- [ ] Update images and media assets
+- [ ] Review and update documentation
+
+---
+
+## Dependency Management
 
 ```bash
-# Check for updates
+# Check for outdated packages
 npm outdated
 
 # Update all dependencies
@@ -797,66 +1198,81 @@ npm update
 
 # Update specific package
 npm install package-name@latest
+
+# Security audit
+npm audit
+
+# Fix vulnerabilities
+npm audit fix
 ```
+
+---
 
 ## Security Best Practices
 
-1. Keep admin password secure and rotate regularly
-2. Never commit `.env` files to git
-3. Regularly update dependencies
-4. Monitor for suspicious activity
-5. Enable 2FA on Vercel and Supabase
+| Priority | Practice |
+|:--------:|:---------|
+| Critical | Rotate admin password every 90 days |
+| Critical | Never commit `.env` files to git |
+| High | Keep all dependencies updated |
+| High | Enable 2FA on Vercel and Supabase |
+| Medium | Monitor for suspicious login attempts |
+| Medium | Regular database backups |
+| Low | Review access logs monthly |
 
 ---
 
 # 13. Future Enhancements
 
-## Potential Future Features
+## Recommended Feature Roadmap
 
-| Feature | Priority | Complexity |
-|---------|----------|------------|
-| Student portal/login | High | Medium |
-| Course videos integration | High | High |
-| Online payment integration | High | Medium |
-| Certificate generation | Medium | Medium |
-| Alumni network page | Medium | Low |
-| Event calendar | Medium | Medium |
-| Live chat support | Low | Medium |
-| Multi-language support | Low | High |
-| Mobile app | Low | High |
-
----
-
-## Notion Tips
-
-1. Use `/toc` to insert auto-generated Table of Contents
-2. Use `/callout` for important notes
-3. Use `/toggle` for expandable sections
-4. Use `/image` to add screenshots
-5. Use `/divider` between major sections
+| Feature | Priority | Complexity | Estimated Effort |
+|:--------|:--------:|:----------:|:----------------:|
+| Student Portal/Login | High | Medium | 2-3 weeks |
+| Course Videos Integration | High | High | 3-4 weeks |
+| Online Payment Integration | High | Medium | 2-3 weeks |
+| Certificate Generation | Medium | Medium | 1-2 weeks |
+| Alumni Network Page | Medium | Low | 1 week |
+| Event Calendar | Medium | Medium | 2 weeks |
+| Live Chat Support | Low | Medium | 2 weeks |
+| Multi-language Support | Low | High | 4+ weeks |
+| Mobile App | Low | High | 8+ weeks |
 
 ---
 
-# Credits
+# Appendix
+
+# Document Credits
+
+---
 
 <div align="center">
 
-### Powered by
+## Powered by
 
-# 𝗟𝗬𝗡𝗫
+# LYNX
 
 *Precision-Engineered Digital Solutions*
+
+---
+
+| | |
+|:--|:--|
+| **Project** | ADEIPS Official Website |
+| **Client** | AkanDavid Executive Institute of Public Speaking |
+| **Development Team** | Lynx Digital Labs |
+| **Tagline** | Web & App Development Services |
+| **Lead Developer** | Larry David |
+| **Completion** | November 2025 |
 
 </div>
 
 ---
 
-**Project:** ADEIPS Official Website  
-**Client:** AkanDavid Executive Institute of Public Speaking  
-**Lead Developer:** Larry David  
-**Company:** Lynx Software Development  
-**Completion Date:** November 2025
+> *This documentation is maintained as part of the project repository and should be updated whenever significant changes are made to the codebase or features.*
 
 ---
 
-*This documentation is maintained as part of the project repository and should be updated whenever significant changes are made to the codebase or features.*
+**Document Version:** 1.0  
+**Last Updated:** November 2025  
+**Classification:** Client Deliverable

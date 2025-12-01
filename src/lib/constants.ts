@@ -8,17 +8,17 @@ export const NAV_LINKS = [
 ];
 
 export const CONTACT_INFO = {
-  EMAIL: 'info@adeips.com',
-  PHONE: '+234 803 123 4567',
-  WHATSAPP: '+234 803 123 4567',
-  ADDRESS: 'Lagos, Nigeria',
+  EMAIL: 'adinstituteofpublicspeaking@gmail.com',
+  PHONE: '+234 813 717 3927',
+  WHATSAPP: '+234 813 717 3927',
+  ADDRESS: 'Uyo, Nigeria',
 };
 
 export const SOCIAL_LINKS = {
-  Facebook: 'https://facebook.com/adeips',
-  Instagram: 'https://instagram.com/adeips',
-  LinkedIn: 'https://linkedin.com/company/adeips',
-  Twitter: 'https://twitter.com/adeips',
+  Facebook: 'https://www.facebook.com/share/1AZpCkVNQT/',
+  Instagram: '',
+  LinkedIn: '',
+  Twitter: '',
 };
 
 export const OFFERINGS = [

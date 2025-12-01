@@ -122,7 +122,7 @@ export default function WelcomeEmail({
                 We're here to help! Feel free to reach out:
               </Text>
               <Text style={contactText}>
-                Email: <Link href="mailto:alexandertedris@gmail.com" style={link}>alexandertedris@gmail.com</Link><br />
+                Email: <Link href="mailto:adinstituteofpublicspeaking@gmail.com" style={link}>adinstituteofpublicspeaking@gmail.com</Link><br />
                 Web: <Link href={siteUrl} style={link}>ADEIPS Website</Link>
               </Text>
             </Section>
