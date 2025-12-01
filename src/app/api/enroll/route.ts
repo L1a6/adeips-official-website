@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
                   <div>${new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' })}</div>
                 </div>
                 
-                <a href="${process.env.NEXT_PUBLIC_SITE_URL}/admin/enrollments" class="button">
+                <a href="${process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost') ? 'https://adeips-official-website.vercel.app' : (process.env.NEXT_PUBLIC_SITE_URL || 'https://adeips-official-website.vercel.app')}/admin/enrollments" class="button">
                   View in Admin Dashboard →
                 </a>
               </div>

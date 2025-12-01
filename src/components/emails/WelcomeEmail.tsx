@@ -25,7 +25,10 @@ export default function WelcomeEmail({
   phone, 
   message 
 }: WelcomeEmailProps) {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://adeips-official-website-e8nu70fzu.vercel.app';
+  // Use production URL by default, fallback to env variable for local development
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.includes('localhost') 
+    ? 'https://adeips-official-website.vercel.app'
+    : (process.env.NEXT_PUBLIC_SITE_URL || 'https://adeips-official-website.vercel.app');
   
   return (
     <Html>
@@ -149,10 +152,6 @@ export default function WelcomeEmail({
     </Html>
   );
 }
-
-// ============================================
-// STYLES - PREMIUM & MODERN
-// ============================================
 
 const main = {
   backgroundColor: '#f6f6f6',
