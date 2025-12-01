@@ -128,7 +128,7 @@ export default function Footer() {
               </li>
               <li>
                 <span className="text-white/70 text-sm font-light">
-                  Port Harcourt, Nigeria
+                  Uyo, Nigeria
                 </span>
               </li>
               <li>

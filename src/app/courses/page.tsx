@@ -42,7 +42,7 @@ const courseModules = [
     id: 5,
     title: 'Structural Transition Mechanics and Rhetorical Flow Design',
     description: 'Techniques for engineering seamless narrative progression, conceptual linkage, and logical coherence in extended presentations.',
-    image: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=800&q=80',
+    image: 'https://images.unsplash.com/photo-1560439514-4e9645039924?w=800&q=80',
     category: 'Structure',
     duration: 'Full Program',
   },
