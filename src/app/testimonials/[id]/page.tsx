@@ -347,6 +347,7 @@ export default function TestimonialDetailPage() {
   const params = useParams();
   const id = parseInt(params.id as string);
   const [testimonial, setTestimonial] = useState<Testimonial | null>(null);
+  const [allTestimonials, setAllTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [showShareMenu, setShowShareMenu] = useState(false);
@@ -357,6 +358,7 @@ export default function TestimonialDetailPage() {
       try {
         const response = await fetch('/api/admin/testimonials');
         const data = await response.json();
+        setAllTestimonials(data);
         const found = data.find((t: Testimonial) => t.id === id);
         setTestimonial(found || null);
       } catch (error) {
@@ -440,8 +442,12 @@ export default function TestimonialDetailPage() {
     notFound();
   }
 
-  // Get next testimonial for recommendation (use old testimonials array)
-  const nextTestimonial = oldTestimonials.find(t => t.id === (id % oldTestimonials.length) + 1);
+  // Get next testimonial for recommendation
+  // Find current index and get next one, or loop back to first if at the end
+  const currentIndex = allTestimonials.findIndex(t => t.id === id);
+  const nextTestimonial = currentIndex >= 0 && currentIndex < allTestimonials.length - 1
+    ? allTestimonials[currentIndex + 1]
+    : allTestimonials[0]; // Loop back to first testimonial if we're at the last one
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-[#0A0F1E] dark:via-[#0D1428] dark:to-[#0A0F1E]">
