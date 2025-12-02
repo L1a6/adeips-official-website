@@ -10,7 +10,7 @@ const faqs = [
   },
   {
     question: 'How long is the program?',
-    answer: 'Our flagship program runs for 12 weeks with intensive weekend sessions. We also offer accelerated 6-week programs and ongoing workshops for continued development.',
+    answer: 'Our flagship program runs for 10 weeks with intensive weekend sessions. We also offer accelerated programs and ongoing workshops for continued development.',
   },
   {
     question: 'Is certification provided?',
@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: 'What is the investment required?',
-    answer: 'Our 12-week program represents a career-transforming investment. Contact us for detailed pricing and flexible payment plans designed for working professionals.',
+    answer: 'Our 10-week program represents a career-transforming investment. Contact us for detailed pricing and flexible payment plans designed for working professionals.',
   },
   {
     question: 'Are there scholarship opportunities?',
